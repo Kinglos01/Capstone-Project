@@ -40,7 +40,6 @@ public class CapstoneApplication extends Application {
         stage.initStyle(StageStyle.UNDECORATED);
 
         stage.show();
-
     }
 
     /**
@@ -62,6 +61,20 @@ public class CapstoneApplication extends Application {
         Button launcher = new Button();
         launcher.setPrefWidth(300); launcher.setPrefHeight(100); launcher.setLayoutX(850); launcher.setLayoutY(550);
         root.getChildren().add(launcher);
+        launcher.setOnAction(e -> {
+            Stage landingStage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("landing-view.fxml"));
+            try {
+                Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
+                landingStage.setScene(scene);
+                landingStage.setResizable(true);
+
+                stage.close();
+                landingStage.show();
+            } catch(IOException _) {
+
+            }
+        });
 
         /*------------------------------------------System Tray Replacement Buttons------------------------------------------*/
 
@@ -140,7 +153,7 @@ public class CapstoneApplication extends Application {
         loginButton.setPrefWidth(200); loginButton.setPrefHeight(75); loginButton.setLayoutX(25); loginButton.setLayoutY(285);
         loginRoot.getChildren().add(loginButton);
         loginButton.setOnAction(e -> {
-
+            stage.close();
         });
 
         Button registerButton = new Button();
@@ -152,7 +165,7 @@ public class CapstoneApplication extends Application {
             try {
                 registerRoot.getChildren().add(fxmlLoader.load());
 
-                registerSetup(loginRoot, stage);
+                registerSetup(registerRoot, stage);
 
                 Scene scene = new Scene(registerRoot, 500, 575);
                 stage.setScene(scene);
@@ -171,7 +184,7 @@ public class CapstoneApplication extends Application {
      * @param root The AnchorPane for the register screen.
      * @param stage The stage the resister scene is set in.
      * @author Nathaniel Rivera
-     * @since 3/12/2025
+     * @since 3/13/2025
      */
     public static void registerSetup(AnchorPane root, Stage stage) {
         TextField usernameField = new TextField();
@@ -193,5 +206,22 @@ public class CapstoneApplication extends Application {
         TextField emailField = new TextField();
         emailField.setPrefWidth(400); emailField.setPrefHeight(30); emailField.setLayoutX(50); emailField.setLayoutY(400);
         root.getChildren().add(emailField);
+
+        Button register = new Button();
+        register.setPrefWidth(200); register.setPrefHeight(75); register.setLayoutX(150); register.setLayoutY(490);
+        root.getChildren().add(register);
+        register.setOnAction(e -> {
+            String username = usernameField.getText();
+            String password = passwordField.getText();
+            String firstName = firstNameField.getText();
+            String lastName = lastNameField.getText();
+            String email = emailField.getText();
+
+            if(username.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()) {
+                System.out.println("One or more fields do not have inputs");
+            } else {
+                stage.close();
+            }
+        });
     }
 }
