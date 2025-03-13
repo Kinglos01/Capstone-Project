@@ -16,6 +16,14 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class CapstoneApplication extends Application {
+
+    /**
+     * The initial start method for the program. Launches ands calls the setup for the splash screen.
+     * @param stage The stage in which the splash screen is held
+     * @throws IOException Throws an exception
+     * @author Nathaniel Rivera
+     * @since 3/12/2025
+     */
     @Override
     public void start(Stage stage) throws IOException {
 
@@ -35,6 +43,9 @@ public class CapstoneApplication extends Application {
 
     }
 
+    /**
+     * Main method of the program. Launches.
+     */
     public static void main(String[] args) {
         launch();
     }
@@ -128,9 +139,59 @@ public class CapstoneApplication extends Application {
         Button loginButton = new Button();
         loginButton.setPrefWidth(200); loginButton.setPrefHeight(75); loginButton.setLayoutX(25); loginButton.setLayoutY(285);
         loginRoot.getChildren().add(loginButton);
+        loginButton.setOnAction(e -> {
+
+        });
 
         Button registerButton = new Button();
         registerButton.setPrefWidth(200); registerButton.setPrefHeight(75); registerButton.setLayoutX(275); registerButton.setLayoutY(285);
         loginRoot.getChildren().add(registerButton);
+        registerButton.setOnAction(e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("register-view.fxml"));
+            AnchorPane registerRoot = new AnchorPane();
+            try {
+                registerRoot.getChildren().add(fxmlLoader.load());
+
+                registerSetup(loginRoot, stage);
+
+                Scene scene = new Scene(registerRoot, 500, 575);
+                stage.setScene(scene);
+                stage.setResizable(false);
+
+                stage.show();
+            }  catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+    }
+
+    /**
+     * Sets up the interactable parts of the Login page.
+     * These elements include the input fields for username, password, firstName, lastName and email, and the button to register.
+     * @param root The AnchorPane for the register screen.
+     * @param stage The stage the resister scene is set in.
+     * @author Nathaniel Rivera
+     * @since 3/12/2025
+     */
+    public static void registerSetup(AnchorPane root, Stage stage) {
+        TextField usernameField = new TextField();
+        usernameField.setPrefWidth(400); usernameField.setPrefHeight(30); usernameField.setLayoutX(50); usernameField.setLayoutY(100);
+        root.getChildren().add(usernameField);
+
+        TextField passwordField = new TextField();
+        passwordField.setPrefWidth(400); passwordField.setPrefHeight(30); passwordField.setLayoutX(50); passwordField.setLayoutY(200);
+        root.getChildren().add(passwordField);
+
+        TextField firstNameField = new TextField();
+        firstNameField.setPrefWidth(190); firstNameField.setPrefHeight(30); firstNameField.setLayoutX(50); firstNameField.setLayoutY(300);
+        root.getChildren().add(firstNameField);
+
+        TextField lastNameField = new TextField();
+        lastNameField.setPrefWidth(190); lastNameField.setPrefHeight(30); lastNameField.setLayoutX(260); lastNameField.setLayoutY(300);
+        root.getChildren().add(lastNameField);
+
+        TextField emailField = new TextField();
+        emailField.setPrefWidth(400); emailField.setPrefHeight(30); emailField.setLayoutX(50); emailField.setLayoutY(400);
+        root.getChildren().add(emailField);
     }
 }
