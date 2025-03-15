@@ -7,9 +7,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -61,6 +64,7 @@ public class CapstoneApplication extends Application {
     public static void splashSetup(AnchorPane root, Stage stage) {
         Button launcher = new Button();
         launcher.setPrefWidth(300); launcher.setPrefHeight(100); launcher.setLayoutX(850); launcher.setLayoutY(550);
+        launcher.setText("Launch");
         root.getChildren().add(launcher);
         launcher.setOnAction(e -> {
             Stage landingStage = new Stage();
@@ -80,10 +84,8 @@ public class CapstoneApplication extends Application {
         /*------------------------------------------System Tray Replacement Buttons------------------------------------------*/
 
         Button close = new Button();
-        //Image closeImage = new Image("");
-        //ImageView closeView = new ImageView(closeImage);
         close.setPrefWidth(25); close.setPrefHeight(25); close.setLayoutX(1160); close.setLayoutY(15);
-        //close.setGraphic(closeView);
+        close.setOpacity(0);
         root.getChildren().add(close);
 
         close.setOnAction(new EventHandler<ActionEvent>() {
@@ -95,6 +97,7 @@ public class CapstoneApplication extends Application {
 
         Button minimize = new Button();
         minimize.setPrefWidth(25); minimize.setPrefHeight(25); minimize.setLayoutX(1120); minimize.setLayoutY(15);
+        minimize.setOpacity(0);
         root.getChildren().add(minimize);
 
         minimize.setOnAction(new EventHandler<ActionEvent>() {
@@ -106,6 +109,7 @@ public class CapstoneApplication extends Application {
 
         Button login = new Button();
         login.setPrefWidth(25); login.setPrefHeight(25); login.setLayoutX(1080); login.setLayoutY(15);
+        login.setOpacity(0);
         root.getChildren().add(login);
 
         /*------------------------------------------Login Handler------------------------------------------*/
