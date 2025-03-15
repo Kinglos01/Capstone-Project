@@ -1,17 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Rectangle height="700.0" stroke="#616161" strokeType="INSIDE" width="55.0" />
-      <Label layoutX="-55.0" layoutY="570.0" style="-fx-rotate: 90;" text="autoCommerce" textFill="WHITE">
+      <Rectangle height="700.0" stroke="#616161" strokeType="INSIDE" width="86.0" />
+      <Label layoutX="-83.0" layoutY="545.0" style="-fx-rotate: 90;" text="autoCommerce" textFill="WHITE">
          <font>
-            <Font name="Berlin Sans FB" size="25.0" />
+            <Font name="Berlin Sans FB" size="37.0" />
          </font>
       </Label>
+      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="1160.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/close_symbol.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="1120.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/min_symbol.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="1082.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/profile_symbol.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="107.0" fitWidth="107.0" layoutX="-10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/white_icon.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
