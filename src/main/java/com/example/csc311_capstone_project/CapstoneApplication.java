@@ -120,10 +120,11 @@ public class CapstoneApplication extends Application {
                     loginRoot.getChildren().add(fxmlLoader.load());
                     loginSetup(loginRoot, loginStage);
 
-                    Scene scene = new Scene(loginRoot, 500, 375);
+                    Scene scene = new Scene(loginRoot, 500, 450);
                     loginStage.setScene(scene);
                     scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("loginscreen.css")).toExternalForm());
                     loginStage.setResizable(false);
+                    //loginStage.initStyle(StageStyle.TRANSPARENT);
 
                     loginStage.show();
                 } catch (IOException e) {
@@ -143,22 +144,22 @@ public class CapstoneApplication extends Application {
      */
     public static void loginSetup(AnchorPane loginRoot, Stage stage) {
         TextField usernameField = new TextField();
-        usernameField.setPrefWidth(400); usernameField.setPrefHeight(30); usernameField.setLayoutX(50); usernameField.setLayoutY(100);
+        usernameField.setPrefWidth(400); usernameField.setPrefHeight(30); usernameField.setLayoutX(50); usernameField.setLayoutY(140);
         loginRoot.getChildren().add(usernameField);
 
         TextField passwordField = new TextField();
-        passwordField.setPrefWidth(400); passwordField.setPrefHeight(30); passwordField.setLayoutX(50); passwordField.setLayoutY(200);
+        passwordField.setPrefWidth(400); passwordField.setPrefHeight(30); passwordField.setLayoutX(50); passwordField.setLayoutY(240);
         loginRoot.getChildren().add(passwordField);
 
         Button loginButton = new Button();
-        loginButton.setPrefWidth(200); loginButton.setPrefHeight(75); loginButton.setLayoutX(25); loginButton.setLayoutY(285);
+        loginButton.setPrefWidth(200); loginButton.setPrefHeight(75); loginButton.setLayoutX(25); loginButton.setLayoutY(360);
         loginRoot.getChildren().add(loginButton);
         loginButton.setOnAction(e -> {
             stage.close();
         });
 
         Button registerButton = new Button();
-        registerButton.setPrefWidth(200); registerButton.setPrefHeight(75); registerButton.setLayoutX(275); registerButton.setLayoutY(285);
+        registerButton.setPrefWidth(200); registerButton.setPrefHeight(75); registerButton.setLayoutX(275); registerButton.setLayoutY(360);
         loginRoot.getChildren().add(registerButton);
         registerButton.setOnAction(e -> {
             FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("register-view.fxml"));
