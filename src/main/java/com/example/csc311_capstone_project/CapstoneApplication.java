@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -88,12 +89,7 @@ public class CapstoneApplication extends Application {
         close.setOpacity(0);
         root.getChildren().add(close);
 
-        close.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                stage.close();
-            }
-        });
+        close.setOnAction(e-> { stage.close(); });
 
         Button minimize = new Button();
         minimize.setPrefWidth(25); minimize.setPrefHeight(25); minimize.setLayoutX(1120); minimize.setLayoutY(15);
@@ -124,11 +120,11 @@ public class CapstoneApplication extends Application {
                     loginRoot.getChildren().add(fxmlLoader.load());
                     loginSetup(loginRoot, loginStage);
 
-                    Scene scene = new Scene(loginRoot, 500, 450);
+                    Scene scene = new Scene(loginRoot, 650, 380);
                     loginStage.setScene(scene);
                     scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("loginscreen.css")).toExternalForm());
                     loginStage.setResizable(false);
-                    //loginStage.initStyle(StageStyle.TRANSPARENT);
+                    loginStage.initStyle(StageStyle.UNDECORATED);
 
                     loginStage.show();
                 } catch (IOException e) {
@@ -148,40 +144,57 @@ public class CapstoneApplication extends Application {
      */
     public static void loginSetup(AnchorPane loginRoot, Stage stage) {
         TextField usernameField = new TextField();
-        usernameField.setPrefWidth(400); usernameField.setPrefHeight(30); usernameField.setLayoutX(50); usernameField.setLayoutY(140);
+        usernameField.setPrefWidth(300); usernameField.setPrefHeight(40); usernameField.setLayoutX(322); usernameField.setLayoutY(80);
+        usernameField.setPromptText("USERNAME");
         loginRoot.getChildren().add(usernameField);
 
+        TextField emailField = new TextField();
+        emailField.setPrefWidth(300); emailField.setPrefHeight(40); emailField.setLayoutX(322); emailField.setLayoutY(140);
+        emailField.setPromptText("EMAIL");
+        loginRoot.getChildren().add(emailField);
+
         TextField passwordField = new TextField();
-        passwordField.setPrefWidth(400); passwordField.setPrefHeight(30); passwordField.setLayoutX(50); passwordField.setLayoutY(240);
+        passwordField.setPrefWidth(300); passwordField.setPrefHeight(40); passwordField.setLayoutX(322); passwordField.setLayoutY(200);
+        passwordField.setPromptText("PASSWORD");
         loginRoot.getChildren().add(passwordField);
 
+        Button close = new Button();
+        close.setPrefWidth(25); close.setPrefHeight(25); close.setLayoutX(630); close.setLayoutY(10);
+        close.setOpacity(0);
+        loginRoot.getChildren().add(close);
+        close.setOnAction(e -> {
+            stage.close();
+        });
+
         Button loginButton = new Button();
-        loginButton.setPrefWidth(200); loginButton.setPrefHeight(75); loginButton.setLayoutX(25); loginButton.setLayoutY(360);
+        loginButton.setPrefWidth(300); loginButton.setPrefHeight(40); loginButton.setLayoutX(322); loginButton.setLayoutY(260);
+        loginButton.setText("Login");
         loginRoot.getChildren().add(loginButton);
         loginButton.setOnAction(e -> {
             stage.close();
         });
 
-        Button registerButton = new Button();
-        registerButton.setPrefWidth(200); registerButton.setPrefHeight(75); registerButton.setLayoutX(275); registerButton.setLayoutY(360);
+        Label registerButton = new Label();
+        registerButton.setLayoutX(502); registerButton.setLayoutY(324);
         loginRoot.getChildren().add(registerButton);
-        registerButton.setOnAction(e -> {
-            FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("register-view.fxml"));
-            AnchorPane registerRoot = new AnchorPane();
-            try {
-                registerRoot.getChildren().add(fxmlLoader.load());
+        registerButton.setText("Register here.");
+        registerButton.setOnMouseClicked(e -> {
+                    FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("register-view.fxml"));
+                    AnchorPane registerRoot = new AnchorPane();
+                    try {
+                        registerRoot.getChildren().add(fxmlLoader.load());
 
-                registerSetup(registerRoot, stage);
+                        registerSetup(registerRoot, stage);
 
-                Scene scene = new Scene(registerRoot, 500, 575);
-                stage.setScene(scene);
-                stage.setResizable(false);
+                        Scene scene = new Scene(registerRoot, 500, 575);
+                        stage.setScene(scene);
+                        stage.setResizable(false);
 
-                stage.show();
-            }  catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
+                        stage.show();
+                    }  catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
     }
 
     /**

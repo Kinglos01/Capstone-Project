@@ -1,38 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="500.0" stylesheets="@loginscreen.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="340.0" layoutX="25.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="450.0">
-         <fill>
-            <LinearGradient endX="0.8484848484848485" endY="0.67803032560782" startY="0.04166663686434424">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="1.0" green="0.881049394607544" blue="0.8481481671333313" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.9578947424888611" green="0.3547758162021637" blue="0.3547758162021637" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </fill></Rectangle>
-      <Label id="usernameLabel" layoutX="219.0" layoutY="100.0" stylesheets="@loginscreen.css" text="USERNAME" />
-      <Label id="passwordLabel" layoutX="218.0" layoutY="200.0" stylesheets="@loginscreen.css" text="PASSWORD" />
-      <Label id="loginTitle" layoutX="158.0" layoutY="14.0" prefHeight="70.0" prefWidth="183.0" stylesheets="@loginscreen.css" text="LOGIN" textFill="#ffe7e7">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="380.0" stroke="BLACK" strokeType="INSIDE" width="650.0" />
+      <Label id="welcomeText" layoutX="63.0" layoutY="166.0" stylesheets="@loginscreen.css" text="Welcome!">
          <font>
-            <Font name="Bodoni MT" size="56.0" />
+            <Font name="Berlin Sans FB" size="43.0" />
          </font>
       </Label>
+      <Label id="signText" layoutX="448.0" layoutY="25.0" stylesheets="@loginscreen.css" text="Sign in ">
+         <font>
+            <Font name="Berlin Sans FB" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="338.0" layoutY="324.0" stylesheets="@loginscreen.css" text="Don't have an account?">
+         <font>
+            <Font name="Berlin Sans FB" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="502.0" layoutY="324.0" text="Register here.">
+         <font>
+            <Font name="Berlin Sans FB" size="16.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="630.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/close_symbol.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

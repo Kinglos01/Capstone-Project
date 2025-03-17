@@ -2,11 +2,14 @@
     -fx-background-color: #f5e56e;
     -fx-font-family: "Webdings";
     -fx-font-color: #0d0814;
-    -fx-font-size: 45px;
 }
 
 .button:hover {
     -fx-background-color: #0d0814;
     -fx-font-color: #f5e56e;
     -fx-font-weight: bold;
+}
+
+#launcher {
+    -fx-font-size: 45px;
 }
