@@ -8,12 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -179,14 +174,15 @@ public class CapstoneApplication extends Application {
         loginRoot.getChildren().add(registerButton);
         registerButton.setText("Register here.");
         registerButton.setOnMouseClicked(e -> {
+                    stage.close();
                     FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("register-view.fxml"));
                     AnchorPane registerRoot = new AnchorPane();
                     try {
                         registerRoot.getChildren().add(fxmlLoader.load());
 
                         registerSetup(registerRoot, stage);
-
-                        Scene scene = new Scene(registerRoot, 500, 575);
+                        Scene scene = new Scene(registerRoot, 650, 380);
+                        scene.getStylesheets().add(Objects.requireNonNull(CapstoneApplication.class.getResource("registerscreen.css")).toExternalForm());
                         stage.setScene(scene);
                         stage.setResizable(false);
 
@@ -207,39 +203,100 @@ public class CapstoneApplication extends Application {
      */
     public static void registerSetup(AnchorPane root, Stage stage) {
         TextField usernameField = new TextField();
-        usernameField.setPrefWidth(400); usernameField.setPrefHeight(30); usernameField.setLayoutX(50); usernameField.setLayoutY(100);
+        usernameField.setPrefWidth(300);
+        usernameField.setPrefHeight(40);
+        usernameField.setLayoutX(322);
+        usernameField.setLayoutY(70);
+        usernameField.setPromptText("USERNAME");
         root.getChildren().add(usernameField);
 
+        TextField emailField = new TextField();
+        emailField.setPrefWidth(300);
+        emailField.setPrefHeight(40);
+        emailField.setLayoutX(322);
+        emailField.setLayoutY(130);
+        emailField.setPromptText("EMAIL");
+        root.getChildren().add(emailField);
+
         TextField passwordField = new TextField();
-        passwordField.setPrefWidth(400); passwordField.setPrefHeight(30); passwordField.setLayoutX(50); passwordField.setLayoutY(200);
+        passwordField.setPrefWidth(300);
+        passwordField.setPrefHeight(40);
+        passwordField.setLayoutX(322);
+        passwordField.setLayoutY(190);
+        passwordField.setPromptText("PASSWORD");
         root.getChildren().add(passwordField);
 
         TextField firstNameField = new TextField();
-        firstNameField.setPrefWidth(190); firstNameField.setPrefHeight(30); firstNameField.setLayoutX(50); firstNameField.setLayoutY(300);
+        firstNameField.setPrefWidth(140);
+        firstNameField.setPrefHeight(40);
+        firstNameField.setLayoutX(322);
+        firstNameField.setLayoutY(250);
+        firstNameField.setPromptText("f. Name");
         root.getChildren().add(firstNameField);
 
         TextField lastNameField = new TextField();
-        lastNameField.setPrefWidth(190); lastNameField.setPrefHeight(30); lastNameField.setLayoutX(260); lastNameField.setLayoutY(300);
+        lastNameField.setPrefWidth(140);
+        lastNameField.setPrefHeight(40);
+        lastNameField.setLayoutX(482);
+        lastNameField.setLayoutY(250);
+        lastNameField.setPromptText("l. Name");
         root.getChildren().add(lastNameField);
 
-        TextField emailField = new TextField();
-        emailField.setPrefWidth(400); emailField.setPrefHeight(30); emailField.setLayoutX(50); emailField.setLayoutY(400);
-        root.getChildren().add(emailField);
+        Button close = new Button();
+        close.setPrefWidth(25);
+        close.setPrefHeight(25);
+        close.setLayoutX(630);
+        close.setLayoutY(10);
+        close.setOpacity(0);
+        root.getChildren().add(close);
+        close.setOnAction(e -> {
+            stage.close();
+        });
 
-        Button register = new Button();
-        register.setPrefWidth(200); register.setPrefHeight(75); register.setLayoutX(150); register.setLayoutY(490);
-        root.getChildren().add(register);
-        register.setOnAction(e -> {
+        Button registerButton = new Button();
+        registerButton.setPrefWidth(300);
+        registerButton.setPrefHeight(40);
+        registerButton.setLayoutX(322);
+        registerButton.setLayoutY(310);
+        registerButton.setText("Register");
+        root.getChildren().add(registerButton);
+        registerButton.setOnAction(e -> {
             String username = usernameField.getText();
-            String password = passwordField.getText();
+            String password = firstNameField.getText();
             String firstName = firstNameField.getText();
             String lastName = lastNameField.getText();
             String email = emailField.getText();
 
-            if(username.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()) {
+            if (username.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()) {
                 System.out.println("One or more fields do not have inputs");
             } else {
                 stage.close();
+            }
+        });
+
+        Label loginButton = new Label();
+        loginButton.setLayoutX(539);
+        loginButton.setLayoutY(356);
+        root.getChildren().add(loginButton);
+        loginButton.setText("Log in.");
+        loginButton.setOnMouseClicked(e-> {
+            stage.close();
+            FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("login-view.fxml"));
+            try {
+                Stage loginStage = new Stage();
+                AnchorPane loginRoot = new AnchorPane();
+                loginRoot.getChildren().add(fxmlLoader.load());
+                loginSetup(loginRoot, loginStage);
+
+                Scene scene = new Scene(loginRoot, 650, 380);
+                loginStage.setScene(scene);
+                scene.getStylesheets().add(Objects.requireNonNull(CapstoneApplication.class.getResource("loginscreen.css")).toExternalForm());
+                loginStage.setResizable(false);
+                loginStage.initStyle(StageStyle.UNDECORATED);
+
+                loginStage.show();
+            } catch (IOException er) {
+                throw new RuntimeException(er);
             }
         });
     }

@@ -1,17 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="575.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="450.0" layoutX="25.0" layoutY="35.0" stroke="BLACK" strokeType="INSIDE" width="450.0" />
-      <Label layoutX="219.0" layoutY="60.0" text="USERNAME" />
-      <Label layoutX="218.0" layoutY="160.0" text="PASSWORD" />
-      <Label layoutX="112.0" layoutY="260.0" text="FIRST NAME" />
-      <Label layoutX="324.0" layoutY="260.0" text="LAST NAME" />
-      <Label layoutX="233.0" layoutY="360.0" text="EMAIL" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="380.0" stroke="BLACK" strokeType="INSIDE" width="650.0" />
+      <Label id="registerText" layoutX="26.0" layoutY="23.0" stylesheets="@registerscreen.css" text="Register Now!">
+         <font>
+            <Font name="Berlin Sans FB" size="43.0" />
+         </font>
+      </Label>
+      <Label id="signText" layoutX="409.0" layoutY="25.0" stylesheets="@loginscreen.css" text="Create an Account">
+         <font>
+            <Font name="Berlin Sans FB" size="16.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="630.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/close_symbol.png" />
+         </image>
+      </ImageView>
+      <Label id="signText" layoutX="359.0" layoutY="356.0" stylesheets="@loginscreen.css" text="Already have an account?">
+         <font>
+            <Font name="Berlin Sans FB" size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
