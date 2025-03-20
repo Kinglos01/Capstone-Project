@@ -11,7 +11,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
