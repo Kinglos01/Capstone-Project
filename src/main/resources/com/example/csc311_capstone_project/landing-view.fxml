@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="800.0" prefWidth="200.0" style="-fx-background-color: red; -fx-border-color: black;" />
+      <VBox prefHeight="800.0" prefWidth="1000.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0" />
+            <HBox prefHeight="850.0" prefWidth="1000.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="142.8" style="-fx-border-color: black;" />
+                  <VBox prefHeight="200.0" prefWidth="142.8" style="-fx-border-color: black;" />
+                  <VBox prefHeight="200.0" prefWidth="142.8" style="-fx-border-color: black;" />
+                  <VBox prefHeight="200.0" prefWidth="0.0" style="-fx-border-color: black;" />
+                  <VBox prefHeight="200.0" prefWidth="149.0" style="-fx-border-color: black;" />
+                  <VBox prefHeight="200.0" prefWidth="142.8" style="-fx-border-color: black;" />
+                  <VBox prefHeight="200.0" prefWidth="142.8" style="-fx-border-color: black;" />
+                  <VBox prefHeight="200.0" prefWidth="142.8" style="-fx-border-color: black;" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</HBox>

@@ -11,11 +11,20 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * CapstoneApplication is the main handler for the Application.
+ * It controls the startup of the program as well as the setup for
+ * the login, register and landing pages.
+ * @since 3/12/25
+ * @author Nathaniel Rivera
+ */
 public class CapstoneApplication extends Application {
+
+    public static ArrayList<User> userbase = new ArrayList<>();
 
     /**
      * The initial start method for the program. Launches ands calls the setup for the splash screen.
@@ -174,23 +183,23 @@ public class CapstoneApplication extends Application {
         loginRoot.getChildren().add(registerButton);
         registerButton.setText("Register here.");
         registerButton.setOnMouseClicked(e -> {
-                    stage.close();
-                    FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("register-view.fxml"));
-                    AnchorPane registerRoot = new AnchorPane();
-                    try {
-                        registerRoot.getChildren().add(fxmlLoader.load());
+            stage.close();
+            FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("register-view.fxml"));
+            AnchorPane registerRoot = new AnchorPane();
+            try {
+                registerRoot.getChildren().add(fxmlLoader.load());
 
-                        registerSetup(registerRoot, stage);
-                        Scene scene = new Scene(registerRoot, 650, 380);
-                        scene.getStylesheets().add(Objects.requireNonNull(CapstoneApplication.class.getResource("registerscreen.css")).toExternalForm());
-                        stage.setScene(scene);
-                        stage.setResizable(false);
+                registerSetup(registerRoot, stage);
+                Scene scene = new Scene(registerRoot, 650, 380);
+                scene.getStylesheets().add(Objects.requireNonNull(CapstoneApplication.class.getResource("registerscreen.css")).toExternalForm());
+                stage.setScene(scene);
+                stage.setResizable(false);
 
-                        stage.show();
-                    }  catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                });
+                stage.show();
+            }  catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
     }
 
     /**
@@ -201,9 +210,6 @@ public class CapstoneApplication extends Application {
      * @author Nathaniel Rivera
      * @since 3/13/2025
      */
-
-   public static User person = new User();
-
     public static void registerSetup(AnchorPane root, Stage stage) {
         TextField usernameField = new TextField();
         usernameField.setPrefWidth(300);
@@ -275,11 +281,7 @@ public class CapstoneApplication extends Application {
             if (username.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()) {
                 System.out.println("One or more fields do not have inputs");
             } else {
-                person.setUsername(username);
-                person.setPassword(password);
-                person.setFirstName(firstName);
-                person.setLastName(lastName);
-                person.setEmail(email);
+                userbase.add(new User(firstName, lastName, username, email, password));
                 stage.close();
             }
         });
