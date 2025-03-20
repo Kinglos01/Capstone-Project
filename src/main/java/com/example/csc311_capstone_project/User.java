@@ -1,6 +1,6 @@
 package com.example.csc311_capstone_project;
 
-public class user {
+public class User {
 
     private String firstName;
     private String lastName;
