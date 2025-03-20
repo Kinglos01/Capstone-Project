@@ -201,6 +201,9 @@ public class CapstoneApplication extends Application {
      * @author Nathaniel Rivera
      * @since 3/13/2025
      */
+
+   public static User person = new User();
+
     public static void registerSetup(AnchorPane root, Stage stage) {
         TextField usernameField = new TextField();
         usernameField.setPrefWidth(300);
@@ -267,9 +270,16 @@ public class CapstoneApplication extends Application {
             String lastName = lastNameField.getText();
             String email = emailField.getText();
 
+
+
             if (username.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()) {
                 System.out.println("One or more fields do not have inputs");
             } else {
+                person.setUsername(username);
+                person.setPassword(password);
+                person.setFirstName(firstName);
+                person.setLastName(lastName);
+                person.setEmail(email);
                 stage.close();
             }
         });
