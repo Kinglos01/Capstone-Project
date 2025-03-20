@@ -275,13 +275,11 @@ public class CapstoneApplication extends Application {
             if (username.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()) {
                 System.out.println("One or more fields do not have inputs");
             } else {
-
                 person.setUsername(username);
                 person.setPassword(password);
                 person.setFirstName(firstName);
                 person.setLastName(lastName);
                 person.setEmail(email);
-
                 stage.close();
             }
         });

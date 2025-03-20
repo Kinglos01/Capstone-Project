@@ -1,5 +1,13 @@
 package com.example.csc311_capstone_project;
 
+/**\
+ * This class is being created to collect the user information from the sign in  page
+ * this will allow us to collect the information and organize it in a useful means
+ * this class was connected at the else statement towards the bottom of the registerSetup() method
+ * @date 03/20
+ * @author Carlos Berio
+ */
+
 public class User {
 
     private String firstName;
