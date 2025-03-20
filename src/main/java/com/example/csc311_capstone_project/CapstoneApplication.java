@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -201,6 +202,9 @@ public class CapstoneApplication extends Application {
      * @author Nathaniel Rivera
      * @since 3/13/2025
      */
+
+   public static user person = new user();
+
     public static void registerSetup(AnchorPane root, Stage stage) {
         TextField usernameField = new TextField();
         usernameField.setPrefWidth(300);
@@ -266,6 +270,12 @@ public class CapstoneApplication extends Application {
             String firstName = firstNameField.getText();
             String lastName = lastNameField.getText();
             String email = emailField.getText();
+
+            person.setUsername(username);
+            person.setPassword(password);
+            person.setFirstName(firstName);
+            person.setLastName(lastName);
+            person.setEmail(email);
 
             if (username.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()) {
                 System.out.println("One or more fields do not have inputs");
