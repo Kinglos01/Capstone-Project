@@ -6,5 +6,4 @@ public class Invoice {
     public String delivery_address;
     public Status status;
 
-
 }
