@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csc311_capstone_project.InvoiceViewController">
+   <children>
+      <VBox layoutX="14.0" layoutY="14.0" prefHeight="98.0" prefWidth="77.0" spacing="5.0">
+         <children>
+            <Label id="invoice_id" text="invoice_id" />
+            <Label id="account_id" text="account_id" />
+            <Label id="delivery_address" text="d_address" />
+            <Label id="status" layoutX="10.0" layoutY="55.0" text="status" />
+         </children>
+      </VBox>
+      <VBox id="items_view" layoutX="114.0" layoutY="12.0" prefHeight="375.0" prefWidth="458.0">
+         <children>
+            <HBox prefHeight="30.0" prefWidth="458.0">
+               <children>
+                  <HBox prefHeight="24.0" prefWidth="259.0" spacing="20.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="item_id" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="item_name" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="24.0" prefWidth="274.0" spacing="40.0">
+                     <children>
+                        <Label prefHeight="18.0" prefWidth="50.0" text="quantity" />
+                        <Label text="ppi" />
+                        <Label text="total" />
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
