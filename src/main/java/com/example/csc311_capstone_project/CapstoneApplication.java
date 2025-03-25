@@ -97,7 +97,7 @@ public class CapstoneApplication extends Application {
 
         Button minimize = new Button();
         minimize.setPrefWidth(25); minimize.setPrefHeight(25); minimize.setLayoutX(1120); minimize.setLayoutY(15);
-        minimize.setOpacity(0);
+        minimize.setOpacity(0); 
         root.getChildren().add(minimize);
 
         minimize.setOnAction(new EventHandler<ActionEvent>() {
@@ -175,7 +175,23 @@ public class CapstoneApplication extends Application {
         loginButton.setText("Login");
         loginRoot.getChildren().add(loginButton);
         loginButton.setOnAction(e -> {
-            stage.close();
+            boolean canLogin = false;
+            String username = usernameField.getText();
+            String email = emailField.getText();
+            String password = passwordField.getText();
+
+            for(User user : userbase) {
+                if(user.getUsername().equals(username) && user.getPassword().equals(password) && user.getEmail().equals(email)) {
+                    canLogin = true;
+                    break;
+                }
+            }
+
+            if(canLogin) {
+                stage.close();
+            } else {
+                System.out.println("Username or password incorrect");
+            }
         });
 
         Label registerButton = new Label();
@@ -270,6 +286,7 @@ public class CapstoneApplication extends Application {
         registerButton.setText("Register");
         root.getChildren().add(registerButton);
         registerButton.setOnAction(e -> {
+            boolean canCreate = true;
             String username = usernameField.getText();
             String password = firstNameField.getText();
             String firstName = firstNameField.getText();
@@ -279,8 +296,18 @@ public class CapstoneApplication extends Application {
 
 
             if (username.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()) {
-                System.out.println("One or more fields do not have inputs");
-            } else {
+                System.out.println("Error: One or more fields do not have inputs");
+                canCreate = false;
+            }
+
+            for (User user : userbase) {
+                if (user.getEmail().equals(email) || user.getUsername().equals(username)) {
+                    System.out.println("Error: This username or email is already in use");
+                    canCreate = false;
+                }
+            }
+
+            if(canCreate) {
                 userbase.add(new User(firstName, lastName, username, email, password));
                 stage.close();
             }
