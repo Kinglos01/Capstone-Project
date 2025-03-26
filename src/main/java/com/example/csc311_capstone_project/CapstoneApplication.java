@@ -72,12 +72,16 @@ public class CapstoneApplication extends Application {
         launcher.setText("Launch");
         root.getChildren().add(launcher);
         launcher.setOnAction(e -> {
-            Stage landingStage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("landing-view.fxml"));
             try {
-                Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
+                Stage landingStage = new Stage();
+                AnchorPane landingRoot = new AnchorPane();
+                landingRoot.getChildren().add(fxmlLoader.load());
+                landingSetup(landingRoot, landingStage);
+
+                Scene scene = new Scene(landingRoot, 1200, 800);
                 landingStage.setScene(scene);
-                landingStage.setResizable(true);
+                landingStage.setResizable(false);
 
                 stage.close();
                 landingStage.show();
@@ -97,7 +101,7 @@ public class CapstoneApplication extends Application {
 
         Button minimize = new Button();
         minimize.setPrefWidth(25); minimize.setPrefHeight(25); minimize.setLayoutX(1120); minimize.setLayoutY(15);
-        minimize.setOpacity(0);
+        minimize.setOpacity(0); 
         root.getChildren().add(minimize);
 
         minimize.setOnAction(new EventHandler<ActionEvent>() {
@@ -175,7 +179,23 @@ public class CapstoneApplication extends Application {
         loginButton.setText("Login");
         loginRoot.getChildren().add(loginButton);
         loginButton.setOnAction(e -> {
-            stage.close();
+            boolean canLogin = false;
+            String username = usernameField.getText();
+            String email = emailField.getText();
+            String password = passwordField.getText();
+
+            for(User user : userbase) {
+                if(user.getUsername().equals(username) && user.getPassword().equals(password) && user.getEmail().equals(email)) {
+                    canLogin = true;
+                    break;
+                }
+            }
+
+            if(canLogin) {
+                stage.close();
+            } else {
+                System.out.println("Username or password incorrect");
+            }
         });
 
         Label registerButton = new Label();
@@ -270,6 +290,7 @@ public class CapstoneApplication extends Application {
         registerButton.setText("Register");
         root.getChildren().add(registerButton);
         registerButton.setOnAction(e -> {
+            boolean canCreate = true;
             String username = usernameField.getText();
             String password = firstNameField.getText();
             String firstName = firstNameField.getText();
@@ -279,8 +300,18 @@ public class CapstoneApplication extends Application {
 
 
             if (username.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()) {
-                System.out.println("One or more fields do not have inputs");
-            } else {
+                System.out.println("Error: One or more fields do not have inputs");
+                canCreate = false;
+            }
+
+            for (User user : userbase) {
+                if (user.getEmail().equals(email) || user.getUsername().equals(username)) {
+                    System.out.println("Error: This username or email is already in use");
+                    canCreate = false;
+                }
+            }
+
+            if(canCreate) {
                 userbase.add(new User(firstName, lastName, username, email, password));
                 stage.close();
             }
@@ -311,5 +342,102 @@ public class CapstoneApplication extends Application {
                 throw new RuntimeException(er);
             }
         });
+    }
+
+    /**
+     * Sets ups the interactable parts of the landing page as well as the observable lists and
+     * pathway to the scanner.
+     * @param root The AnchorPane for the landing page.
+     * @param landingStage The stage the landing page is set in
+     * @since 3/26/2025
+     * @author Nathaniel Rivera
+     */
+    public static void landingSetup(AnchorPane root, Stage landingStage) {
+        Button addInvoice = new Button();
+        addInvoice.setPrefWidth(160);
+        addInvoice.setPrefHeight(50);
+        addInvoice.setLayoutX(20);
+        addInvoice.setLayoutY(640);
+        addInvoice.setText("ADD INVOICE");
+        root.getChildren().add(addInvoice);
+        addInvoice.setOnMouseClicked(e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("scanner-view.fxml"));
+            AnchorPane scannerRoot = new AnchorPane();
+            try {
+                Stage stage = new Stage();
+                scannerRoot.getChildren().add(fxmlLoader.load());
+
+                scannerSetup(scannerRoot, stage);
+                Scene scene = new Scene(scannerRoot, 1000, 630);
+                scene.getStylesheets().add(Objects.requireNonNull(CapstoneApplication.class.getResource("scannerscreen.css")).toExternalForm());
+                stage.setScene(scene);
+                stage.setResizable(false);
+
+                stage.show();
+            }  catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+
+        Button removeInvoice = new Button();
+        removeInvoice.setPrefWidth(160);
+        removeInvoice.setPrefHeight(50);
+        removeInvoice.setLayoutX(20);
+        removeInvoice.setLayoutY(720);
+        removeInvoice.setText("REMOVE INVOICE");
+        root.getChildren().add(removeInvoice);
+    }
+
+    /**
+     * Sets ups the interactable parts of the scanner page.
+     * @param root The AnchorPane for the scanner page.
+     * @param stage The stage the scanner page is set in
+     * @since 3/26/2025
+     * @author Nathaniel Rivera
+     */
+    public static void scannerSetup(AnchorPane root, Stage stage) {
+        TextField invoiceNumberField = new TextField();
+        invoiceNumberField.setPrefWidth(270); invoiceNumberField.setPrefHeight(30); invoiceNumberField.setLayoutX(430); invoiceNumberField.setLayoutY(120);
+        invoiceNumberField.setPromptText("INVOICE-#");
+        root.getChildren().add(invoiceNumberField);
+
+        TextField customerIdField = new TextField();
+        customerIdField.setPrefWidth(270); customerIdField.setPrefHeight(30); customerIdField.setLayoutX(720); customerIdField.setLayoutY(120);
+        customerIdField.setPromptText("CUSTOMER-ID");
+        root.getChildren().add(customerIdField);
+
+        TextField orderDateField = new TextField();
+        orderDateField.setPrefWidth(270); orderDateField.setPrefHeight(30); orderDateField.setLayoutX(430); orderDateField.setLayoutY(230);
+        orderDateField.setPromptText("ORDER-DATE");
+        root.getChildren().add(orderDateField);
+
+        TextField deliveryDateField = new TextField();
+        deliveryDateField.setPrefWidth(270); deliveryDateField.setPrefHeight(30); deliveryDateField.setLayoutX(720); deliveryDateField.setLayoutY(230);
+        deliveryDateField.setPromptText("DELIVERY-DATE");
+        root.getChildren().add(deliveryDateField);
+
+        TextField itemIdField = new TextField();
+        itemIdField.setPrefWidth(270); itemIdField.setPrefHeight(30); itemIdField.setLayoutX(430); itemIdField.setLayoutY(340);
+        itemIdField.setPromptText("ITEM-ID");
+        root.getChildren().add(itemIdField);
+
+        TextField shippingAddressField = new TextField();
+        shippingAddressField.setPrefWidth(270); shippingAddressField.setPrefHeight(30); shippingAddressField.setLayoutX(720); shippingAddressField.setLayoutY(340);
+        shippingAddressField.setPromptText("SHIPPING-ADDRESS");
+        root.getChildren().add(shippingAddressField);
+
+        TextField statusField = new TextField();
+        statusField.setPrefWidth(270); statusField.setPrefHeight(30); statusField.setLayoutX(575); statusField.setLayoutY(430);
+        statusField.setPromptText("STATUS");
+        root.getChildren().add(statusField);
+
+        Button addInvoice = new Button();
+        addInvoice.setPrefWidth(230);
+        addInvoice.setPrefHeight(50);
+        addInvoice.setLayoutX(740);
+        addInvoice.setLayoutY(530);
+        addInvoice.setText("ADD INVOICE");
+        root.getChildren().add(addInvoice);
     }
 }
