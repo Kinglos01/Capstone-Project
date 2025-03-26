@@ -397,6 +397,47 @@ public class CapstoneApplication extends Application {
      * @author Nathaniel Rivera
      */
     public static void scannerSetup(AnchorPane root, Stage stage) {
+        TextField invoiceNumberField = new TextField();
+        invoiceNumberField.setPrefWidth(270); invoiceNumberField.setPrefHeight(30); invoiceNumberField.setLayoutX(430); invoiceNumberField.setLayoutY(120);
+        invoiceNumberField.setPromptText("INVOICE-#");
+        root.getChildren().add(invoiceNumberField);
 
+        TextField customerIdField = new TextField();
+        customerIdField.setPrefWidth(270); customerIdField.setPrefHeight(30); customerIdField.setLayoutX(720); customerIdField.setLayoutY(120);
+        customerIdField.setPromptText("CUSTOMER-ID");
+        root.getChildren().add(customerIdField);
+
+        TextField orderDateField = new TextField();
+        orderDateField.setPrefWidth(270); orderDateField.setPrefHeight(30); orderDateField.setLayoutX(430); orderDateField.setLayoutY(230);
+        orderDateField.setPromptText("ORDER-DATE");
+        root.getChildren().add(orderDateField);
+
+        TextField deliveryDateField = new TextField();
+        deliveryDateField.setPrefWidth(270); deliveryDateField.setPrefHeight(30); deliveryDateField.setLayoutX(720); deliveryDateField.setLayoutY(230);
+        deliveryDateField.setPromptText("DELIVERY-DATE");
+        root.getChildren().add(deliveryDateField);
+
+        TextField itemIdField = new TextField();
+        itemIdField.setPrefWidth(270); itemIdField.setPrefHeight(30); itemIdField.setLayoutX(430); itemIdField.setLayoutY(340);
+        itemIdField.setPromptText("ITEM-ID");
+        root.getChildren().add(itemIdField);
+
+        TextField shippingAddressField = new TextField();
+        shippingAddressField.setPrefWidth(270); shippingAddressField.setPrefHeight(30); shippingAddressField.setLayoutX(720); shippingAddressField.setLayoutY(340);
+        shippingAddressField.setPromptText("SHIPPING-ADDRESS");
+        root.getChildren().add(shippingAddressField);
+
+        TextField statusField = new TextField();
+        statusField.setPrefWidth(270); statusField.setPrefHeight(30); statusField.setLayoutX(575); statusField.setLayoutY(430);
+        statusField.setPromptText("STATUS");
+        root.getChildren().add(statusField);
+
+        Button addInvoice = new Button();
+        addInvoice.setPrefWidth(230);
+        addInvoice.setPrefHeight(50);
+        addInvoice.setLayoutX(740);
+        addInvoice.setLayoutY(530);
+        addInvoice.setText("ADD INVOICE");
+        root.getChildren().add(addInvoice);
     }
 }
