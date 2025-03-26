@@ -72,12 +72,16 @@ public class CapstoneApplication extends Application {
         launcher.setText("Launch");
         root.getChildren().add(launcher);
         launcher.setOnAction(e -> {
-            Stage landingStage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("landing-view.fxml"));
             try {
-                Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
+                Stage landingStage = new Stage();
+                AnchorPane landingRoot = new AnchorPane();
+                landingRoot.getChildren().add(fxmlLoader.load());
+                landingSetup(landingRoot, landingStage);
+
+                Scene scene = new Scene(landingRoot, 1200, 800);
                 landingStage.setScene(scene);
-                landingStage.setResizable(true);
+                landingStage.setResizable(false);
 
                 stage.close();
                 landingStage.show();
@@ -338,5 +342,61 @@ public class CapstoneApplication extends Application {
                 throw new RuntimeException(er);
             }
         });
+    }
+
+    /**
+     * Sets ups the interactable parts of the landing page as well as the observable lists and
+     * pathway to the scanner.
+     * @param root The AnchorPane for the landing page.
+     * @param landingStage The stage the landing page is set in
+     * @since 3/26/2025
+     * @author Nathaniel Rivera
+     */
+    public static void landingSetup(AnchorPane root, Stage landingStage) {
+        Button addInvoice = new Button();
+        addInvoice.setPrefWidth(160);
+        addInvoice.setPrefHeight(50);
+        addInvoice.setLayoutX(20);
+        addInvoice.setLayoutY(640);
+        addInvoice.setText("ADD INVOICE");
+        root.getChildren().add(addInvoice);
+        addInvoice.setOnMouseClicked(e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("scanner-view.fxml"));
+            AnchorPane scannerRoot = new AnchorPane();
+            try {
+                Stage stage = new Stage();
+                scannerRoot.getChildren().add(fxmlLoader.load());
+
+                scannerSetup(scannerRoot, stage);
+                Scene scene = new Scene(scannerRoot, 1000, 630);
+                scene.getStylesheets().add(Objects.requireNonNull(CapstoneApplication.class.getResource("scannerscreen.css")).toExternalForm());
+                stage.setScene(scene);
+                stage.setResizable(false);
+
+                stage.show();
+            }  catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+
+        Button removeInvoice = new Button();
+        removeInvoice.setPrefWidth(160);
+        removeInvoice.setPrefHeight(50);
+        removeInvoice.setLayoutX(20);
+        removeInvoice.setLayoutY(720);
+        removeInvoice.setText("REMOVE INVOICE");
+        root.getChildren().add(removeInvoice);
+    }
+
+    /**
+     * Sets ups the interactable parts of the scanner page.
+     * @param root The AnchorPane for the scanner page.
+     * @param stage The stage the scanner page is set in
+     * @since 3/26/2025
+     * @author Nathaniel Rivera
+     */
+    public static void scannerSetup(AnchorPane root, Stage stage) {
+
     }
 }
