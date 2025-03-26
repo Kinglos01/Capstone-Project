@@ -8,9 +8,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -399,7 +404,7 @@ public class CapstoneApplication extends Application {
     public static void scannerSetup(AnchorPane root, Stage stage) {
         TextField invoiceNumberField = new TextField();
         invoiceNumberField.setPrefWidth(270); invoiceNumberField.setPrefHeight(30); invoiceNumberField.setLayoutX(430); invoiceNumberField.setLayoutY(120);
-        invoiceNumberField.setPromptText("INVOICE-#");
+        invoiceNumberField.setPromptText("INVOICE#");
         root.getChildren().add(invoiceNumberField);
 
         TextField customerIdField = new TextField();
@@ -439,5 +444,26 @@ public class CapstoneApplication extends Application {
         addInvoice.setLayoutY(530);
         addInvoice.setText("ADD INVOICE");
         root.getChildren().add(addInvoice);
+
+        ImageView invoicePic = new ImageView(new Image("C:\\Users\\nycpu\\IdeaProjects\\CSC311_Capstone_Project\\src\\main\\resources\\com\\example\\csc311_capstone_project\\images\\close_symbol.png"));
+        invoicePic.setFitWidth(400);
+        invoicePic.setFitHeight(600);
+        invoicePic.setLayoutX(15);
+        invoicePic.setLayoutY(15);
+        root.getChildren().add(invoicePic);
+
+        Button imageChanger = new Button();
+        imageChanger.setPrefWidth(400);
+        imageChanger.setPrefHeight(600);
+        imageChanger.setLayoutX(15);
+        imageChanger.setLayoutY(15);
+        imageChanger.setOpacity(0.0);
+        root.getChildren().add(imageChanger);
+        imageChanger.setOnMouseClicked(e-> {
+            File file = (new FileChooser()).showOpenDialog(stage.getScene().getWindow());
+            if(file != null) {
+                invoicePic.setImage(new Image(file.toURI().toString()));
+            }
+        });
     }
 }
