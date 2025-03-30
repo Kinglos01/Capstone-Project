@@ -1,6 +1,8 @@
 package com.example.csc311_capstone_project;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -402,6 +404,7 @@ public class CapstoneApplication extends Application {
      * @author Nathaniel Rivera
      */
     public static void scannerSetup(AnchorPane root, Stage stage) {
+        /*
         TextField invoiceNumberField = new TextField();
         invoiceNumberField.setPrefWidth(270); invoiceNumberField.setPrefHeight(30); invoiceNumberField.setLayoutX(430); invoiceNumberField.setLayoutY(120);
         invoiceNumberField.setPromptText("INVOICE#");
@@ -436,14 +439,7 @@ public class CapstoneApplication extends Application {
         statusField.setPrefWidth(270); statusField.setPrefHeight(30); statusField.setLayoutX(575); statusField.setLayoutY(430);
         statusField.setPromptText("STATUS");
         root.getChildren().add(statusField);
-
-        Button addInvoice = new Button();
-        addInvoice.setPrefWidth(230);
-        addInvoice.setPrefHeight(50);
-        addInvoice.setLayoutX(740);
-        addInvoice.setLayoutY(530);
-        addInvoice.setText("ADD INVOICE");
-        root.getChildren().add(addInvoice);
+        */
 
         ImageView invoicePic = new ImageView(new Image("C:\\Users\\nycpu\\IdeaProjects\\CSC311_Capstone_Project\\src\\main\\resources\\com\\example\\csc311_capstone_project\\images\\close_symbol.png"));
         invoicePic.setFitWidth(400);
@@ -465,5 +461,15 @@ public class CapstoneApplication extends Application {
                 invoicePic.setImage(new Image(file.toURI().toString()));
             }
         });
+
+        /*
+        Button addInvoice = new Button();
+        addInvoice.setPrefWidth(230);
+        addInvoice.setPrefHeight(50);
+        addInvoice.setLayoutX(740);
+        addInvoice.setLayoutY(530);
+        addInvoice.setText("ADD INVOICE");
+        root.getChildren().add(addInvoice);
+         */
     }
 }

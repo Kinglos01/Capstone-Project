@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff7a51" height="800.0" stroke="BLACK" strokeType="INSIDE" style="-fx-arc-width: 0; -fx-arc-height: 0;" width="200.0" />
+      <TableView fx:id="invoiceTableView" layoutX="200.0" prefHeight="800.0" prefWidth="1000.0">
+        <columns>
+          <TableColumn fx:id="invoiceNum" prefWidth="115.99993896484375" text="Invoice Number" />
+          <TableColumn fx:id="accountID" prefWidth="91.20001220703125" text="Account ID" />
+            <TableColumn fx:id="orderDate" minWidth="0.0" prefWidth="82.4000244140625" text="Order Date" />
+            <TableColumn fx:id="deliveryDate" prefWidth="87.20001220703125" text="Delivery Date" />
+            <TableColumn fx:id="shippingAddress" prefWidth="171.20001220703125" text="Shipping Address" />
+            <TableColumn fx:id="status" prefWidth="83.199951171875" text="Status" />
+            <TableColumn fx:id="items" prefWidth="368.800048828125" text="Items" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
