@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -55,7 +56,7 @@ public class CapstoneApplication extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.initStyle(StageStyle.TRANSPARENT);
-
+        stage.getIcons().add(new Image("C:\\Users\\nycpu\\IdeaProjects\\Capstone-Project-Updated\\src\\main\\resources\\com\\example\\csc311_capstone_project\\images\\colored_icon.png"));
         stage.show();
     }
 
@@ -92,6 +93,7 @@ public class CapstoneApplication extends Application {
                 landingStage.setResizable(false);
 
                 stage.close();
+                landingStage.getIcons().add(new Image("C:\\Users\\nycpu\\IdeaProjects\\Capstone-Project-Updated\\src\\main\\resources\\com\\example\\csc311_capstone_project\\images\\colored_icon.png"));
                 landingStage.show();
             } catch(IOException _) {
 
@@ -141,7 +143,7 @@ public class CapstoneApplication extends Application {
                     scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("loginscreen.css")).toExternalForm());
                     loginStage.setResizable(false);
                     loginStage.initStyle(StageStyle.UNDECORATED);
-
+                    loginStage.getIcons().add(new Image("C:\\Users\\nycpu\\IdeaProjects\\Capstone-Project-Updated\\src\\main\\resources\\com\\example\\csc311_capstone_project\\images\\colored_icon.png"));
                     loginStage.show();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -184,7 +186,7 @@ public class CapstoneApplication extends Application {
 
         Button loginButton = new Button();
         loginButton.setPrefWidth(300); loginButton.setPrefHeight(40); loginButton.setLayoutX(322); loginButton.setLayoutY(260);
-        loginButton.setText("Login");
+        loginButton.setText("LOGIN");
         loginRoot.getChildren().add(loginButton);
         loginButton.setOnAction(e -> {
             boolean canLogin = false;
@@ -210,6 +212,7 @@ public class CapstoneApplication extends Application {
         registerButton.setLayoutX(502); registerButton.setLayoutY(324);
         loginRoot.getChildren().add(registerButton);
         registerButton.setText("Register here.");
+        registerButton.setTextFill(Color.WHITE);
         registerButton.setOnMouseClicked(e -> {
             stage.close();
             FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("register-view.fxml"));
@@ -380,6 +383,7 @@ public class CapstoneApplication extends Application {
                 scene.getStylesheets().add(Objects.requireNonNull(CapstoneApplication.class.getResource("scannerscreen.css")).toExternalForm());
                 stage.setScene(scene);
                 stage.setResizable(false);
+                stage.getIcons().add(new Image("C:\\Users\\nycpu\\IdeaProjects\\Capstone-Project-Updated\\src\\main\\resources\\com\\example\\csc311_capstone_project\\images\\colored_icon.png"));
 
                 stage.show();
             }  catch (IOException ex) {

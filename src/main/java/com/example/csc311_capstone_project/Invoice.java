@@ -11,8 +11,11 @@ public class Invoice {
     private String delivery_address;
     private Status status;
     private Item[] items;
+
     /**
      * Creates an invoice with placeholder values.
+     * @since 3/21/2025
+     * @author Aidan Rodriguez
      */
     public Invoice() {
         invoice_id = "1234";
@@ -32,6 +35,8 @@ public class Invoice {
      * @param delivery_date Assigns a String to the delivery_date
      * @param delivery_address Assigns a String to delivery_address.
      * @param status Assigns a Status to status.
+     * @since 3/21/2025
+     * @author Aidan Rodriguez
      */
     public Invoice(String invoice_id, String account_id, String order_date, String delivery_date, String delivery_address, Status status) {
         this.invoice_id = invoice_id;
@@ -44,7 +49,7 @@ public class Invoice {
     }
 
     /**
-     * Creates an Invoice populated with parameter values.
+     * Creates an Invoice populated with parameter values plus a populated list of Items based on a String.
      * @param invoice_id Assigns a String to item_id.
      * @param account_id Assigns a String to account_id.
      * @param order_date Assigns a String to the order_date.
@@ -52,6 +57,8 @@ public class Invoice {
      * @param delivery_address Assigns a String to delivery_address.
      * @param status Assigns a Status to status.
      * @param item String of items that will be added to the array
+     * @author Nathaniel Rivera
+     * @since 4/1/2025
      */
     public Invoice(String invoice_id, String account_id, String order_date, String delivery_date, String delivery_address, Status status, String item) {
         this.invoice_id = invoice_id;
