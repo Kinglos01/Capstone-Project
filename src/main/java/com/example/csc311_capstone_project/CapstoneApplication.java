@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -201,7 +202,7 @@ public class CapstoneApplication extends Application {
             if(canLogin) {
                 stage.close();
             } else {
-                System.out.println("Username or password incorrect");
+                System.out.println("One of the following fields: Username, password, or email is incorrect");
             }
         });
 
@@ -299,7 +300,7 @@ public class CapstoneApplication extends Application {
         registerButton.setOnAction(e -> {
             boolean canCreate = true;
             String username = usernameField.getText();
-            String password = firstNameField.getText();
+            String password = passwordField.getText();
             String firstName = firstNameField.getText();
             String lastName = lastNameField.getText();
             String email = emailField.getText();
@@ -386,14 +387,15 @@ public class CapstoneApplication extends Application {
             }
         });
 
-
+        /*
         Button removeInvoice = new Button();
         removeInvoice.setPrefWidth(160);
         removeInvoice.setPrefHeight(50);
         removeInvoice.setLayoutX(20);
         removeInvoice.setLayoutY(720);
         removeInvoice.setText("REMOVE INVOICE");
-        root.getChildren().add(removeInvoice);
+        root.getChildren().add(removeInvoice);*/
+
     }
 
     /**
