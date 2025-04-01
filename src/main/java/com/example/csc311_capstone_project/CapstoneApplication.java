@@ -386,14 +386,15 @@ public class CapstoneApplication extends Application {
             }
         });
 
-
+        /*
         Button removeInvoice = new Button();
         removeInvoice.setPrefWidth(160);
         removeInvoice.setPrefHeight(50);
         removeInvoice.setLayoutX(20);
         removeInvoice.setLayoutY(720);
         removeInvoice.setText("REMOVE INVOICE");
-        root.getChildren().add(removeInvoice);
+        root.getChildren().add(removeInvoice);*/
+
     }
 
     /**

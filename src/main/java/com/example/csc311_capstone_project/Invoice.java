@@ -43,6 +43,26 @@ public class Invoice {
         this.items = new Item[999];
     }
 
+    /**
+     * Creates an Invoice populated with parameter values.
+     * @param invoice_id Assigns a String to item_id.
+     * @param account_id Assigns a String to account_id.
+     * @param order_date Assigns a String to the order_date.
+     * @param delivery_date Assigns a String to the delivery_date
+     * @param delivery_address Assigns a String to delivery_address.
+     * @param status Assigns a Status to status.
+     * @param item String of items that will be added to the array
+     */
+    public Invoice(String invoice_id, String account_id, String order_date, String delivery_date, String delivery_address, Status status, String item) {
+        this.invoice_id = invoice_id;
+        this.account_id = account_id;
+        this.order_date = order_date;
+        this.delivery_date = delivery_date;
+        this.delivery_address = delivery_address;
+        this.status = status;
+        this.items = new Item[999];
+    }
+
     public String getInvoiceId() {
         return this.invoice_id;
     }
