@@ -32,7 +32,7 @@ import java.util.Objects;
  * @since 3/12/25
  * @author Nathaniel Rivera
  */
-public class CapstoneApplication extends Application {
+public class    CapstoneApplication extends Application {
 
     public static ArrayList<User> userbase = new ArrayList<>();
 
@@ -395,7 +395,7 @@ public class CapstoneApplication extends Application {
                 scannerRoot.getChildren().add(fxmlLoader.load());
 
                 scannerSetup(scannerRoot, stage);
-                Scene scene = new Scene(scannerRoot, 1000, 630);
+                Scene scene = new Scene(scannerRoot, 1100, 630);
                 scene.getStylesheets().add(Objects.requireNonNull(CapstoneApplication.class.getResource("scannerscreen.css")).toExternalForm());
                 stage.setScene(scene);
                 stage.setResizable(false);
