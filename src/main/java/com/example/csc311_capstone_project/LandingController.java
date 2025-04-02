@@ -25,13 +25,14 @@ public class LandingController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        /*
         invoiceNum.setCellValueFactory(new PropertyValueFactory<>("Invoice Number"));
         accountID.setCellValueFactory(new PropertyValueFactory<>("Account ID"));
         orderDate.setCellValueFactory(new PropertyValueFactory<>("Order Date"));
         deliveryDate.setCellValueFactory(new PropertyValueFactory<>("Delivery Date"));
-        shippingAddress.setCellValueFactory(new PropertyValueFactory<>("Shipping Address"));
+        shippingAddress.setCellValueFactory(new PropertyValueFactory<>("Shipping Address"));*/
         status.setCellValueFactory(new PropertyValueFactory<>("Status"));
-        items.setCellValueFactory(new PropertyValueFactory<>("Items"));
+        /*items.setCellValueFactory(new PropertyValueFactory<>("Items"));*/
 
 
         invoiceTable.setItems(invoices);
