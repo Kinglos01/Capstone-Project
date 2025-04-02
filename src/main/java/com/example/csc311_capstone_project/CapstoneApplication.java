@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -271,7 +272,7 @@ public class CapstoneApplication extends Application {
         firstNameField.setPrefHeight(40);
         firstNameField.setLayoutX(322);
         firstNameField.setLayoutY(250);
-        firstNameField.setPromptText("f. Name");
+        firstNameField.setPromptText("F. Name");
         root.getChildren().add(firstNameField);
 
         TextField lastNameField = new TextField();
@@ -279,7 +280,7 @@ public class CapstoneApplication extends Application {
         lastNameField.setPrefHeight(40);
         lastNameField.setLayoutX(482);
         lastNameField.setLayoutY(250);
-        lastNameField.setPromptText("l. Name");
+        lastNameField.setPromptText("L. Name");
         root.getChildren().add(lastNameField);
 
         Button close = new Button();
@@ -461,6 +462,7 @@ public class CapstoneApplication extends Application {
         imageChanger.setLayoutY(15);
         imageChanger.setOpacity(0.0);
         root.getChildren().add(imageChanger);
+        imageChanger.setCursor(Cursor.HAND); // Set cursor to hand on hover
         imageChanger.setOnMouseClicked(e-> {
             File file = (new FileChooser()).showOpenDialog(stage.getScene().getWindow());
             if(file != null) {
