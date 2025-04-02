@@ -379,7 +379,7 @@ public class    CapstoneApplication extends Application {
                 scannerRoot.getChildren().add(fxmlLoader.load());
 
                 scannerSetup(scannerRoot, stage);
-                Scene scene = new Scene(scannerRoot, 1000, 630);
+                Scene scene = new Scene(scannerRoot, 1100, 630);
                 scene.getStylesheets().add(Objects.requireNonNull(CapstoneApplication.class.getResource("scannerscreen.css")).toExternalForm());
                 stage.setScene(scene);
                 stage.setResizable(false);
