@@ -4,28 +4,69 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="651.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="380.0" stroke="BLACK" strokeType="INSIDE" width="650.0" />
-      <Label id="welcomeText" layoutX="63.0" layoutY="166.0" stylesheets="@loginscreen.css" text="Welcome!">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="380.0" stroke="BLACK" strokeType="INSIDE" width="651.0">
+         <fill>
+            <RadialGradient centerX="0.1161504941703999" focusDistance="-1.0" radius="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.5444444417953491" green="1.0" blue="0.7494444251060486" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.006729475100942127">
+                     <color>
+                        <Color red="0.2240999937057495" green="0.8299999833106995" blue="0.5864096879959106" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.4158815612382233">
+                     <color>
+                        <Color red="0.17249999940395355" green="0.75" blue="0.6026935577392578" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.5262449528936742">
+                     <color>
+                        <Color red="0.2849999964237213" green="0.75" blue="0.6243870258331299" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.7682926829268294">
+                     <color>
+                        <Color red="0.22139999270439148" green="0.8199999928474426" blue="0.5611129403114319" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.2849999964237213" green="0.75" blue="0.6243870258331299" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill>
+      </Rectangle>
+      <Label id="welcomeText" layoutX="63.0" layoutY="166.0" stylesheets="@loginscreen.css" text="Welcome!" textFill="WHITE">
          <font>
             <Font name="Berlin Sans FB" size="43.0" />
          </font>
       </Label>
-      <Label id="signText" layoutX="448.0" layoutY="25.0" stylesheets="@loginscreen.css" text="Sign in ">
+      <Label id="signText" layoutX="448.0" layoutY="25.0" stylesheets="@loginscreen.css" text="Sign in " textFill="WHITE">
          <font>
             <Font name="Berlin Sans FB" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="338.0" layoutY="324.0" stylesheets="@loginscreen.css" text="Don't have an account?">
+      <Label layoutX="338.0" layoutY="324.0" stylesheets="@loginscreen.css" text="Don't have an account?" textFill="WHITE">
          <font>
             <Font name="Berlin Sans FB" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="502.0" layoutY="324.0" text="Register here.">
+      <Label layoutX="502.0" layoutY="324.0" text="Register here." textFill="WHITE">
          <font>
             <Font name="Berlin Sans FB" size="16.0" />
          </font>
@@ -35,5 +76,6 @@
             <Image url="@images/close_symbol.png" />
          </image>
       </ImageView>
+      <Line endX="100.0" layoutX="472.0" layoutY="52.0" startX="-100.0" stroke="WHITE" />
    </children>
 </AnchorPane>
