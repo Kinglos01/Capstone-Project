@@ -185,6 +185,12 @@ public class CapstoneApplication extends Application {
             stage.close();
         });
 
+        Label errorLabel = new Label();
+        errorLabel.setTextFill(Color.RED); // Set text color to red
+        errorLabel.setLayoutX(322); // Position near the input fields
+        errorLabel.setLayoutY(240);
+        loginRoot.getChildren().add(errorLabel);
+
         Button loginButton = new Button();
         loginButton.setPrefWidth(300); loginButton.setPrefHeight(40); loginButton.setLayoutX(322); loginButton.setLayoutY(260);
         loginButton.setText("LOGIN");
@@ -206,6 +212,7 @@ public class CapstoneApplication extends Application {
                 stage.close();
             } else {
                 System.out.println("One of the following fields: Username, password, or email is incorrect");
+                errorLabel.setText("Error: Username, email, or password are incorrect."); // print error to UI
             }
         });
 
@@ -283,6 +290,12 @@ public class CapstoneApplication extends Application {
         lastNameField.setPromptText("L. Name");
         root.getChildren().add(lastNameField);
 
+        Label errorLabel = new Label();
+        errorLabel.setTextFill(Color.RED); // Set text color to red
+        errorLabel.setLayoutX(322); // Position near the input fields
+        errorLabel.setLayoutY(290);
+        root.getChildren().add(errorLabel);
+
         Button close = new Button();
         close.setPrefWidth(25);
         close.setPrefHeight(25);
@@ -313,12 +326,14 @@ public class CapstoneApplication extends Application {
 
             if (username.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()) {
                 System.out.println("Error: One or more fields do not have inputs");
+                errorLabel.setText("Error: All fields must be filled."); // Print error to UI
                 canCreate = false;
             }
 
             for (User user : userbase) {
                 if (user.getEmail().equals(email) || user.getUsername().equals(username)) {
                     System.out.println("Error: This username or email is already in use");
+                    errorLabel.setText("Error: Username or email already exists."); // Print error to UI
                     canCreate = false;
                 }
             }
