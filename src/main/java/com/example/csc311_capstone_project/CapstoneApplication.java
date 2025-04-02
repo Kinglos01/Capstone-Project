@@ -56,7 +56,7 @@ public class CapstoneApplication extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.initStyle(StageStyle.TRANSPARENT);
-        stage.getIcons().add(new Image("C:\\Users\\nycpu\\IdeaProjects\\Capstone-Project-Updated\\src\\main\\resources\\com\\example\\csc311_capstone_project\\images\\colored_icon.png"));
+        stage.getIcons().add(new Image(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png")));
         stage.show();
     }
 
@@ -93,7 +93,7 @@ public class CapstoneApplication extends Application {
                 landingStage.setResizable(false);
 
                 stage.close();
-                landingStage.getIcons().add(new Image("C:\\Users\\nycpu\\IdeaProjects\\Capstone-Project-Updated\\src\\main\\resources\\com\\example\\csc311_capstone_project\\images\\colored_icon.png"));
+                landingStage.getIcons().add(new Image(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png")));
                 landingStage.show();
             } catch(IOException _) {
 
@@ -143,7 +143,7 @@ public class CapstoneApplication extends Application {
                     scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("loginscreen.css")).toExternalForm());
                     loginStage.setResizable(false);
                     loginStage.initStyle(StageStyle.UNDECORATED);
-                    loginStage.getIcons().add(new Image("C:\\Users\\nycpu\\IdeaProjects\\Capstone-Project-Updated\\src\\main\\resources\\com\\example\\csc311_capstone_project\\images\\colored_icon.png"));
+                    loginStage.getIcons().add(new Image(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png")));
                     loginStage.show();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -383,7 +383,7 @@ public class CapstoneApplication extends Application {
                 scene.getStylesheets().add(Objects.requireNonNull(CapstoneApplication.class.getResource("scannerscreen.css")).toExternalForm());
                 stage.setScene(scene);
                 stage.setResizable(false);
-                stage.getIcons().add(new Image("C:\\Users\\nycpu\\IdeaProjects\\Capstone-Project-Updated\\src\\main\\resources\\com\\example\\csc311_capstone_project\\images\\colored_icon.png"));
+                stage.getIcons().add(new Image(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png")));
 
                 stage.show();
             }  catch (IOException ex) {
@@ -447,7 +447,7 @@ public class CapstoneApplication extends Application {
         root.getChildren().add(statusField);
         */
 
-        ImageView invoicePic = new ImageView(new Image("C:\\Users\\nycpu\\IdeaProjects\\CSC311_Capstone_Project\\src\\main\\resources\\com\\example\\csc311_capstone_project\\images\\close_symbol.png"));
+        ImageView invoicePic = new ImageView();
         invoicePic.setFitWidth(400);
         invoicePic.setFitHeight(600);
         invoicePic.setLayoutX(15);
