@@ -112,7 +112,7 @@ public class    CapstoneApplication extends Application {
 
         Button minimize = new Button();
         minimize.setPrefWidth(25); minimize.setPrefHeight(25); minimize.setLayoutX(1120); minimize.setLayoutY(15);
-        minimize.setOpacity(0); 
+        minimize.setOpacity(0);
         root.getChildren().add(minimize);
 
         minimize.setOnAction(new EventHandler<ActionEvent>() {
@@ -349,6 +349,7 @@ public class    CapstoneApplication extends Application {
         loginButton.setLayoutY(356);
         root.getChildren().add(loginButton);
         loginButton.setText("Log in.");
+        loginButton.setTextFill(Color.WHITE);
         loginButton.setOnMouseClicked(e-> {
             stage.close();
             FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("login-view.fxml"));
