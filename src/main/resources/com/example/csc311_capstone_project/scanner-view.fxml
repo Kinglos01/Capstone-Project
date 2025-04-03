@@ -18,7 +18,7 @@
       <Label layoutX="596.0" layoutY="94.0" stylesheets="@scannerscreen.css" text="Invoice Number" />
       <Label layoutX="624.0" layoutY="314.0" stylesheets="@scannerscreen.css" text="Item ID" />
       <Label layoutX="772.0" layoutY="404.0" stylesheets="@scannerscreen.css" text="Status" />
-      <Button fx:id="generateButton" layoutX="534.0" layoutY="529.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="230.0" stylesheets="@scannerscreen.css" text="GENERATE FIELDS" />
+      <Button fx:id="generateButton" layoutX="534.0" layoutY="529.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="230.0" style="-fx-cursor: Hand;" stylesheets="@scannerscreen.css" text="GENERATE FIELDS" />
       <Label id="generateText" layoutX="522.0" layoutY="579.0" stylesheets="@scannerscreen.css" text="Allow the Scanner to generate the fields for you" />
       <Label id="addText" layoutX="869.0" layoutY="581.0" stylesheets="@scannerscreen.css" text="Add the invoice to the list" />
       <Line endX="225.0" layoutX="794.0" layoutY="39.0" startX="-225.0" />
@@ -29,6 +29,6 @@
       <TextField fx:id="statusField" layoutX="659.0" layoutY="429.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
       <TextField fx:id="itemIDField" layoutX="514.0" layoutY="339.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
       <TextField fx:id="shippingAddressField" layoutX="804.0" layoutY="339.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
-      <Button fx:id="addButton" layoutX="824.0" layoutY="529.0" mnemonicParsing="false" onAction="#addInvoice" prefHeight="50.0" prefWidth="230.0" stylesheets="@scannerscreen.css" text="ADD INVOICE" />
+      <Button fx:id="addButton" layoutX="824.0" layoutY="529.0" mnemonicParsing="false" onAction="#addInvoice" prefHeight="50.0" prefWidth="230.0" style="-fx-cursor: Hand;" stylesheets="@scannerscreen.css" text="ADD INVOICE" />
    </children>
 </AnchorPane>

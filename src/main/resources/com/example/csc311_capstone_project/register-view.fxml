@@ -4,18 +4,58 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="380.0" stroke="BLACK" strokeType="INSIDE" width="650.0" />
-      <Label id="registerText" layoutX="26.0" layoutY="23.0" stylesheets="@registerscreen.css" text="Register Now!">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="380.0" stroke="BLACK" strokeType="INSIDE" width="650.0">
+         <fill>
+            <RadialGradient centerX="0.4171270718232044" centerY="0.17298578199052134" focusDistance="-1.0" radius="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.2862745225429535" green="0.7490196228027344" blue="0.6235294342041016" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.006711409395973154">
+                     <color>
+                        <Color red="0.2862745225429535" green="0.7490196228027344" blue="0.6235294342041016" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.22818791946308714">
+                     <color>
+                        <Color red="0.047514621168375015" green="0.8552631735801697" blue="0.734100878238678" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.5771812080536912">
+                     <color>
+                        <Color red="0.2862745225429535" green="0.7490196228027344" blue="0.6235294342041016" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.7628498935996072">
+                     <color>
+                        <Color red="0.28859999775886536" green="0.7400000095367432" blue="0.6464956998825073" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.4722222089767456" green="0.8947368264198303" blue="0.6834795475006104" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill></Rectangle>
+      <Label id="registerText" layoutX="26.0" layoutY="23.0" stylesheets="@registerscreen.css" text="Register Now!" textFill="WHITE">
          <font>
             <Font name="Berlin Sans FB" size="43.0" />
          </font>
       </Label>
-      <Label id="signText" layoutX="409.0" layoutY="25.0" stylesheets="@loginscreen.css" text="Create an Account">
+      <Label id="signText" layoutX="409.0" layoutY="25.0" stylesheets="@loginscreen.css" text="Create an Account" textFill="WHITE">
          <font>
             <Font name="Berlin Sans FB" size="16.0" />
          </font>
@@ -25,10 +65,11 @@
             <Image url="@images/close_symbol.png" />
          </image>
       </ImageView>
-      <Label id="signText" layoutX="359.0" layoutY="356.0" stylesheets="@loginscreen.css" text="Already have an account?">
+      <Label id="signText" layoutX="359.0" layoutY="356.0" stylesheets="@loginscreen.css" text="Already have an account?" textFill="WHITE">
          <font>
             <Font name="Berlin Sans FB" size="16.0" />
          </font>
       </Label>
+      <Line endX="100.0" layoutX="471.0" layoutY="51.0" startX="-100.0" stroke="WHITE" />
    </children>
 </AnchorPane>
