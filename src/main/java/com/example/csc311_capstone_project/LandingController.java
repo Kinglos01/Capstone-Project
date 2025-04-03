@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -16,6 +17,7 @@ import java.util.ResourceBundle;
 public class LandingController implements Initializable{
 
     private final ObservableList<Invoice> invoices = FXCollections.observableArrayList(new Invoice("I123", "C123", "01-01-1900", "01-01-1900", "Place", Status.unknown));
+    public Button removeButton;
 
     @FXML
     private TableView<Invoice> invoiceTable;
