@@ -465,14 +465,14 @@ public class    CapstoneApplication extends Application {
         */
 
         ImageView invoicePic = new ImageView();
-        invoicePic.setFitWidth(400);
+        invoicePic.setFitWidth(465);
         invoicePic.setFitHeight(600);
         invoicePic.setLayoutX(15);
         invoicePic.setLayoutY(15);
         root.getChildren().add(invoicePic);
 
         Button imageChanger = new Button();
-        imageChanger.setPrefWidth(400);
+        imageChanger.setPrefWidth(465);
         imageChanger.setPrefHeight(600);
         imageChanger.setLayoutX(15);
         imageChanger.setLayoutY(15);
