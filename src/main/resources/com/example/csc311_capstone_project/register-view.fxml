@@ -62,7 +62,7 @@
       </Label>
       <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="630.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/close_symbol.png" />
+            <Image url="@images/white_close_symbol.png" />
          </image>
       </ImageView>
       <Label id="signText" layoutX="359.0" layoutY="356.0" stylesheets="@loginscreen.css" text="Already have an account?" textFill="WHITE">

@@ -36,7 +36,6 @@ public class LandingController implements Initializable{
         status.setCellValueFactory(new PropertyValueFactory<>("Status"));
         /*items.setCellValueFactory(new PropertyValueFactory<>("Items"));*/
 
-
         invoiceTable.setItems(invoices);
     }
 
