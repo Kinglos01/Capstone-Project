@@ -32,7 +32,7 @@ import java.util.Objects;
  * @since 3/12/25
  * @author Nathaniel Rivera
  */
-public class    CapstoneApplication extends Application {
+public class CapstoneApplication extends Application {
 
     public static ArrayList<User> userbase = new ArrayList<>();
 
