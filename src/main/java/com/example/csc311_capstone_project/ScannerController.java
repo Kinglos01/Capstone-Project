@@ -41,10 +41,10 @@ public class ScannerController {
 
         if (canCreate) {
             switch(inStat) {
-                case "Delivered" -> invoices.add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.delivered));
-                case "En-Route" -> invoices.add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.en_route));
-                case "Not Delivered" -> invoices.add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.not_delivered));
-                default -> invoices.add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.unknown));
+                case "Delivered" -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.delivered));
+                case "En-Route" -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.en_route));
+                case "Not Delivered" -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.not_delivered));
+                default -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.unknown));
             }
         }
     }

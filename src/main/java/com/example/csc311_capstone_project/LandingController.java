@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 
 public class LandingController implements Initializable{
 
-    private final ObservableList<Invoice> invoices = FXCollections.observableArrayList(new Invoice("I123", "C123", "01-01-1900", "01-01-1900", "Place", Status.unknown));
+    private static ObservableList<Invoice> invoices = FXCollections.observableArrayList(new Invoice("I123", "C123", "01-01-1900", "01-01-1900", "Place", Status.unknown));
     public Button removeButton;
 
     @FXML
@@ -42,5 +42,10 @@ public class LandingController implements Initializable{
     @FXML
     public void delete() {
 
+    }
+
+
+    public static ObservableList<Invoice> addInvoices() {
+        return invoices;
     }
 }
