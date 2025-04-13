@@ -30,8 +30,8 @@ public class LandingController{
     @FXML
     private TextField invoiceNumField, accountIDField, orderDateField, deliveryDateField, statusField, shippingAddressField;
 
-    /*
-    @Override
+
+    //@Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         invoiceNum.setCellValueFactory(new PropertyValueFactory<>("Invoice Number"));
         accountID.setCellValueFactory(new PropertyValueFactory<>("Account ID"));
@@ -41,7 +41,7 @@ public class LandingController{
         status.setCellValueFactory(new PropertyValueFactory<>("Status"));
 
         //invoiceTableView.setItems(invoices);
-    }*/
+    }
 
     @FXML
     protected void addInvoice() {
@@ -69,7 +69,7 @@ public class LandingController{
 
         if(canCreate) {
             invoices.add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.not_delivered));
-            /*if(init) {
+            if(init) {
                 invoiceNum.setCellValueFactory(new PropertyValueFactory<>("Invoice Number"));
                 accountID.setCellValueFactory(new PropertyValueFactory<>("Account ID"));
                 orderDate.setCellValueFactory(new PropertyValueFactory<>("Order Date"));
@@ -79,7 +79,7 @@ public class LandingController{
 
                 invoiceTableView.setItems(invoices);
                 init = false;
-            }*/
+            }
         }
     }
 }
