@@ -428,6 +428,7 @@ public class CapstoneApplication extends Application {
      */
     public static void scannerSetup(AnchorPane root, Stage stage) {
 
+        /*
         TextField invoiceNumberField = new TextField();
         invoiceNumberField.setPrefWidth(270); invoiceNumberField.setPrefHeight(30); invoiceNumberField.setLayoutX(430); invoiceNumberField.setLayoutY(120);
         invoiceNumberField.setPromptText("INVOICE#");
@@ -463,7 +464,7 @@ public class CapstoneApplication extends Application {
         statusField.setPromptText("STATUS");
         root.getChildren().add(statusField);
 
-        /*
+        
         ImageView invoicePic = new ImageView(new Image("C:\\Users\\nycpu\\IdeaProjects\\CSC311_Capstone_Project\\src\\main\\resources\\com\\example\\csc311_capstone_project\\images\\close_symbol.png"));
         ImageView invoicePic = new ImageView();
         invoicePic.setFitWidth(400);
@@ -487,7 +488,7 @@ public class CapstoneApplication extends Application {
             }
         });
 
-
+        /*
         Button addInvoice = new Button();
         addInvoice.setPrefWidth(230);
         addInvoice.setPrefHeight(50);
@@ -495,6 +496,6 @@ public class CapstoneApplication extends Application {
         addInvoice.setLayoutY(530);
         addInvoice.setText("ADD INVOICE");
         root.getChildren().add(addInvoice);
-
+        */
     }
 }
