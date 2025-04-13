@@ -7,28 +7,28 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csc311_capstone_project.LandingController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csc311_capstone_project.ScannerController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="610.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="410.0" />
-      <Label layoutX="672.0" layoutY="15.0" stylesheets="@scannerscreen.css" text="Input Fields" />
-      <Label layoutX="527.0" layoutY="205.0" stylesheets="@scannerscreen.css" text="Order Date" />
-      <Label layoutX="809.0" layoutY="205.0" stylesheets="@scannerscreen.css" text="Delivery Date" />
-      <Label layoutX="814.0" layoutY="95.0" stylesheets="@scannerscreen.css" text="Customer ID" />
-      <Label layoutX="799.0" layoutY="315.0" stylesheets="@scannerscreen.css" text="Shipping Address" />
-      <Label layoutX="512.0" layoutY="95.0" stylesheets="@scannerscreen.css" text="Invoice Number" />
-      <Label layoutX="540.0" layoutY="315.0" stylesheets="@scannerscreen.css" text="Item ID" />
-      <Label layoutX="688.0" layoutY="405.0" stylesheets="@scannerscreen.css" text="Status" />
-      <Button fx:id="generateButton" layoutX="450.0" layoutY="530.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="230.0" stylesheets="@scannerscreen.css" text="GENERATE FIELDS" />
-      <Label id="generateText" layoutX="454.0" layoutY="580.0" stylesheets="@scannerscreen.css" text="Allow the AI to generate the fields for you" />
-      <Label id="addText" layoutX="785.0" layoutY="582.0" stylesheets="@scannerscreen.css" text="Add the invoice to the list" />
-      <Line endX="225.0" layoutX="710.0" layoutY="40.0" startX="-225.0" />
-      <TextField fx:id="invoiceNumField" layoutX="430.0" layoutY="120.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
-      <TextField fx:id="accountIDField" layoutX="720.0" layoutY="120.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
-      <TextField fx:id="orderDateField" layoutX="430.0" layoutY="230.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
-      <TextField fx:id="deliveryDateField" layoutX="720.0" layoutY="230.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
-      <TextField fx:id="statusField" layoutX="575.0" layoutY="430.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
-      <TextField fx:id="itemIDField" layoutX="430.0" layoutY="340.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
-      <TextField fx:id="shippingAddressField" layoutX="720.0" layoutY="340.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
-      <Button fx:id="addButton" layoutX="740.0" layoutY="530.0" mnemonicParsing="false" onAction="#addInvoice" prefHeight="50.0" prefWidth="230.0" stylesheets="@scannerscreen.css" text="ADD INVOICE" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="610.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="475.0" />
+      <Label layoutX="756.0" layoutY="14.0" stylesheets="@scannerscreen.css" text="Input Fields" />
+      <Label layoutX="611.0" layoutY="204.0" stylesheets="@scannerscreen.css" text="Order Date" />
+      <Label layoutX="893.0" layoutY="204.0" stylesheets="@scannerscreen.css" text="Delivery Date" />
+      <Label layoutX="898.0" layoutY="94.0" stylesheets="@scannerscreen.css" text="Customer ID" />
+      <Label layoutX="883.0" layoutY="314.0" stylesheets="@scannerscreen.css" text="Shipping Address" />
+      <Label layoutX="596.0" layoutY="94.0" stylesheets="@scannerscreen.css" text="Invoice Number" />
+      <Label layoutX="624.0" layoutY="314.0" stylesheets="@scannerscreen.css" text="Item ID" />
+      <Label layoutX="772.0" layoutY="404.0" stylesheets="@scannerscreen.css" text="Status" />
+      <Button fx:id="generateButton" layoutX="534.0" layoutY="529.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="230.0" style="-fx-cursor: Hand;" stylesheets="@scannerscreen.css" text="GENERATE FIELDS" />
+      <Label id="generateText" layoutX="522.0" layoutY="579.0" stylesheets="@scannerscreen.css" text="Allow the Scanner to generate the fields for you" />
+      <Label id="addText" layoutX="869.0" layoutY="581.0" stylesheets="@scannerscreen.css" text="Add the invoice to the list" />
+      <Line endX="225.0" layoutX="794.0" layoutY="39.0" startX="-225.0" />
+      <TextField fx:id="invoiceNumField" layoutX="514.0" layoutY="119.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
+      <TextField fx:id="accountIDField" layoutX="804.0" layoutY="119.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
+      <TextField fx:id="orderDateField" layoutX="514.0" layoutY="229.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
+      <TextField fx:id="deliveryDateField" layoutX="804.0" layoutY="229.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
+      <TextField fx:id="statusField" layoutX="659.0" layoutY="429.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
+      <TextField fx:id="itemIDField" layoutX="514.0" layoutY="339.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
+      <TextField fx:id="shippingAddressField" layoutX="804.0" layoutY="339.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
+      <Button fx:id="addButton" layoutX="824.0" layoutY="529.0" mnemonicParsing="false" onAction="#addInvoice" prefHeight="50.0" prefWidth="230.0" style="-fx-cursor: Hand;" stylesheets="@scannerscreen.css" text="ADD INVOICE" />
    </children>
 </AnchorPane>

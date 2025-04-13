@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,6 +14,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -54,7 +57,7 @@ public class CapstoneApplication extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.initStyle(StageStyle.TRANSPARENT);
-
+        stage.getIcons().add(new Image(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png")));
         stage.show();
     }
 
@@ -91,6 +94,7 @@ public class CapstoneApplication extends Application {
                 landingStage.setResizable(false);
 
                 stage.close();
+                landingStage.getIcons().add(new Image(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png")));
                 landingStage.show();
             } catch(IOException _) {
 
@@ -108,7 +112,7 @@ public class CapstoneApplication extends Application {
 
         Button minimize = new Button();
         minimize.setPrefWidth(25); minimize.setPrefHeight(25); minimize.setLayoutX(1120); minimize.setLayoutY(15);
-        minimize.setOpacity(0); 
+        minimize.setOpacity(0);
         root.getChildren().add(minimize);
 
         minimize.setOnAction(new EventHandler<ActionEvent>() {
@@ -140,7 +144,7 @@ public class CapstoneApplication extends Application {
                     scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("loginscreen.css")).toExternalForm());
                     loginStage.setResizable(false);
                     loginStage.initStyle(StageStyle.UNDECORATED);
-
+                    loginStage.getIcons().add(new Image(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png")));
                     loginStage.show();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -181,9 +185,15 @@ public class CapstoneApplication extends Application {
             stage.close();
         });
 
+        Label errorLabel = new Label();
+        errorLabel.setTextFill(Color.RED); // Set text color to red
+        errorLabel.setLayoutX(322); // Position near the input fields
+        errorLabel.setLayoutY(240);
+        loginRoot.getChildren().add(errorLabel);
+
         Button loginButton = new Button();
         loginButton.setPrefWidth(300); loginButton.setPrefHeight(40); loginButton.setLayoutX(322); loginButton.setLayoutY(260);
-        loginButton.setText("Login");
+        loginButton.setText("LOGIN");
         loginRoot.getChildren().add(loginButton);
         loginButton.setOnAction(e -> {
             boolean canLogin = false;
@@ -201,7 +211,8 @@ public class CapstoneApplication extends Application {
             if(canLogin) {
                 stage.close();
             } else {
-                System.out.println("Username or password incorrect");
+                System.out.println("One of the following fields: Username, password, or email is incorrect");
+                errorLabel.setText("Error: Username, email, or password are incorrect."); // print error to UI
             }
         });
 
@@ -209,6 +220,7 @@ public class CapstoneApplication extends Application {
         registerButton.setLayoutX(502); registerButton.setLayoutY(324);
         loginRoot.getChildren().add(registerButton);
         registerButton.setText("Register here.");
+        registerButton.setTextFill(Color.WHITE);
         registerButton.setOnMouseClicked(e -> {
             stage.close();
             FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("register-view.fxml"));
@@ -267,7 +279,7 @@ public class CapstoneApplication extends Application {
         firstNameField.setPrefHeight(40);
         firstNameField.setLayoutX(322);
         firstNameField.setLayoutY(250);
-        firstNameField.setPromptText("f. Name");
+        firstNameField.setPromptText("F. Name");
         root.getChildren().add(firstNameField);
 
         TextField lastNameField = new TextField();
@@ -275,8 +287,14 @@ public class CapstoneApplication extends Application {
         lastNameField.setPrefHeight(40);
         lastNameField.setLayoutX(482);
         lastNameField.setLayoutY(250);
-        lastNameField.setPromptText("l. Name");
+        lastNameField.setPromptText("L. Name");
         root.getChildren().add(lastNameField);
+
+        Label errorLabel = new Label();
+        errorLabel.setTextFill(Color.RED); // Set text color to red
+        errorLabel.setLayoutX(322); // Position near the input fields
+        errorLabel.setLayoutY(290);
+        root.getChildren().add(errorLabel);
 
         Button close = new Button();
         close.setPrefWidth(25);
@@ -299,7 +317,7 @@ public class CapstoneApplication extends Application {
         registerButton.setOnAction(e -> {
             boolean canCreate = true;
             String username = usernameField.getText();
-            String password = firstNameField.getText();
+            String password = passwordField.getText();
             String firstName = firstNameField.getText();
             String lastName = lastNameField.getText();
             String email = emailField.getText();
@@ -308,12 +326,14 @@ public class CapstoneApplication extends Application {
 
             if (username.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()) {
                 System.out.println("Error: One or more fields do not have inputs");
+                errorLabel.setText("Error: All fields must be filled."); // Print error to UI
                 canCreate = false;
             }
 
             for (User user : userbase) {
                 if (user.getEmail().equals(email) || user.getUsername().equals(username)) {
                     System.out.println("Error: This username or email is already in use");
+                    errorLabel.setText("Error: Username or email already exists."); // Print error to UI
                     canCreate = false;
                 }
             }
@@ -329,6 +349,7 @@ public class CapstoneApplication extends Application {
         loginButton.setLayoutY(356);
         root.getChildren().add(loginButton);
         loginButton.setText("Log in.");
+        loginButton.setTextFill(Color.WHITE);
         loginButton.setOnMouseClicked(e-> {
             stage.close();
             FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("login-view.fxml"));
@@ -375,10 +396,11 @@ public class CapstoneApplication extends Application {
                 scannerRoot.getChildren().add(fxmlLoader.load());
 
                 scannerSetup(scannerRoot, stage);
-                Scene scene = new Scene(scannerRoot, 1000, 630);
+                Scene scene = new Scene(scannerRoot, 1100, 630);
                 scene.getStylesheets().add(Objects.requireNonNull(CapstoneApplication.class.getResource("scannerscreen.css")).toExternalForm());
                 stage.setScene(scene);
                 stage.setResizable(false);
+                stage.getIcons().add(new Image(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png")));
 
                 stage.show();
             }  catch (IOException ex) {
@@ -386,14 +408,15 @@ public class CapstoneApplication extends Application {
             }
         });
 
-
+        /*
         Button removeInvoice = new Button();
         removeInvoice.setPrefWidth(160);
         removeInvoice.setPrefHeight(50);
         removeInvoice.setLayoutX(20);
         removeInvoice.setLayoutY(720);
         removeInvoice.setText("REMOVE INVOICE");
-        root.getChildren().add(removeInvoice);
+        root.getChildren().add(removeInvoice);*/
+
     }
 
     /**
@@ -442,6 +465,7 @@ public class CapstoneApplication extends Application {
 
         /*
         ImageView invoicePic = new ImageView(new Image("C:\\Users\\nycpu\\IdeaProjects\\CSC311_Capstone_Project\\src\\main\\resources\\com\\example\\csc311_capstone_project\\images\\close_symbol.png"));
+        ImageView invoicePic = new ImageView();
         invoicePic.setFitWidth(400);
         invoicePic.setFitHeight(600);
         invoicePic.setLayoutX(15);
@@ -455,6 +479,7 @@ public class CapstoneApplication extends Application {
         imageChanger.setLayoutY(15);
         imageChanger.setOpacity(0.0);
         root.getChildren().add(imageChanger);
+        imageChanger.setCursor(Cursor.HAND); // Set cursor to hand on hover
         imageChanger.setOnMouseClicked(e-> {
             File file = (new FileChooser()).showOpenDialog(stage.getScene().getWindow());
             if(file != null) {
