@@ -44,7 +44,6 @@ public class LandingController implements Initializable{
 
     }
 
-
     public static ObservableList<Invoice> addInvoices() {
         return invoices;
     }
