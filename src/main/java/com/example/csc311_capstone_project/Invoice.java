@@ -149,4 +149,20 @@ public class Invoice {
         }
         items[counter] = item;
     }
+
+    /**
+     * A getter method for the items in the invoice.
+     * Necessary for the PropertyValueFactory to get the information
+     * @return A String of all items in the invoice
+     * @since 4/14/25
+     * @author Jared Mitchell
+     */
+    public String getItems() {
+        String itemString = "";
+        for (Item i : items){
+            itemString += i.toString() + ", ";
+        }
+        itemString = itemString.substring(0, itemString.length()-1);
+        return itemString;
+    }
 }
