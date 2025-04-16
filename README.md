@@ -17,7 +17,11 @@ The Register Screen of the autoCommerce applciation is a standard register scree
 ### Contributors
 
 Berio, Carlos
+
 Costa, Anthony
+
 Mitchell, Jared
+
 Rivera, Nathaniel 
+
 Rodriguez, Aiden
