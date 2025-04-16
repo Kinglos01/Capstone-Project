@@ -13,3 +13,11 @@ The Login Screen of the autoCommerce application is a standard login screen for 
 ### Register Screen
 
 The Register Screen of the autoCommerce applciation is a standard register screen for an application.
+
+### Contributors
+
+Berio, Carlos
+Costa, Anthony
+Mitchell, Jared
+Rivera, Nathaniel 
+Rodriguez, Aiden
