@@ -8,11 +8,20 @@ The Splash Screen of the autoCommerce application acts a hub that allows one to 
 
 ### Login Screen
 
-The Login Screen of the autoCommerce application is a standard login screen for an application. The login screen has a refreshing design with its own customized taskbar. The taskbar like consists only of a close button but with a cleaner more refreshing design. The Login Screen has three required textfields which represent the user's "username," "email," and "password." The login screen has two buttons other then the taskbar, the Log in button and the Register button. The Log in button exactly as stated it logs it checks the email, username and password of the user and checks them against the users entered into the database. If the user is not in the database, the log in will be rejected and the user will stay on the Log in screen with an error message displayed. If the user is already located within the database the user will be logged in and sent back to the Splash Screen. The other button on the Log in screen is the register button. The button appears as a text label saying "Create an Account Here." When clicked on the Login will be closed and the Register screen will be opened in its place.
+The Login Screen of the autoCommerce application is a standard login screen for an application. The login screen has a refreshing design with its own customized taskbar. The taskbar like consists only of a close button but with a cleaner more refreshing design. The Login Screen has three required textfields which represent the user's username, email, and password. The login screen has two buttons other then the taskbar, the Log in button and the Register button. The Log in button exactly as stated it logs it checks the email, username and password of the user and checks them against the users entered into the database. If the user is not in the database, the log in will be rejected and the user will stay on the Log in screen with an error message displayed. If the user is already located within the database the user will be logged in and sent back to the Splash Screen. The other button on the Log in screen is the register button. The button appears as a text label saying "Create an Account Here." When clicked on the Login will be closed and the Register screen will be opened in its place.
 
 ### Register Screen
 
-The Register Screen of the autoCommerce applciation is a standard register screen for an application.
+The Register Screen of the autoCommerce applciation is a standard register screen for an application. The Register Screen possesses 5 necessary textfields for the user to fill out username, email, password, first name, last name.
+
+The username of the user must follow the following criteria, it must be 2-25 characters long, it must consist of only the word charactes as well as the - character, and it must also be unique in that two users may not share the same username.
+
+The email of the user must follow the following criteria, it must be a valid email containing an @ and a .domain, and it must also be unique in that two users may not share the same username.
+
+The password of the user must follow the following criteria, it must be 2-25 characters long, and it must consist of only word characters.
+
+The first and last name of the user, must be 2-25 characters long as well as only consiting of letters and 's. 
+
 
 ### Contributors
 
