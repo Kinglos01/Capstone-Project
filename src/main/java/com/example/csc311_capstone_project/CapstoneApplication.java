@@ -24,6 +24,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * CapstoneApplication is the main handler for the Application.
@@ -322,11 +324,44 @@ public class CapstoneApplication extends Application {
             String lastName = lastNameField.getText();
             String email = emailField.getText();
 
-
+            Pattern userNamePattern = Pattern.compile("[\\w|-]{2,25}");
+            Matcher userNameMatcher = userNamePattern.matcher(username);
+            Pattern passwordPattern = Pattern.compile("\\w{2,25}");
+            Matcher passwordMatcher = passwordPattern.matcher(password);
+            Pattern namePattern = Pattern.compile("\\w{2,25}+");
+            Matcher firstNameMatcher = namePattern.matcher(firstName);
+            Matcher lastNameMatcher = namePattern.matcher(lastName);
+            Pattern emailPattern = Pattern.compile("\\w+@\\w+.\\w{2,4}");
+            Matcher emailMatcher = emailPattern.matcher(email);
 
             if (username.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()) {
                 System.out.println("Error: One or more fields do not have inputs");
                 errorLabel.setText("Error: All fields must be filled."); // Print error to UI
+                canCreate = false;
+            }
+
+            if(!userNameMatcher.matches()){
+                System.out.println("Error: Username needs to be within 2-25 characters, no special characters besides '-'");
+                canCreate = false;
+            }
+
+            if(!passwordMatcher.matches()){
+                System.out.println("Error: Password needs to be within 2-25 characters, no special characters");
+                canCreate = false;
+            }
+
+            if(!firstNameMatcher.matches()){
+                System.out.println("Error: First name needs to be within 2-25 letters, no other characters");
+                canCreate = false;
+            }
+
+            if(!lastNameMatcher.matches()){
+                System.out.println("Error: Last name needs to be within 2-25 letters, no other characters");
+                canCreate = false;
+            }
+
+            if(!emailMatcher.matches()){
+                System.out.println("Error: Invalid email input.  Please use a valid email address");
                 canCreate = false;
             }
 
@@ -464,7 +499,7 @@ public class CapstoneApplication extends Application {
         statusField.setPromptText("STATUS");
         root.getChildren().add(statusField);
 
-        
+
         ImageView invoicePic = new ImageView(new Image("C:\\Users\\nycpu\\IdeaProjects\\CSC311_Capstone_Project\\src\\main\\resources\\com\\example\\csc311_capstone_project\\images\\close_symbol.png"));
         ImageView invoicePic = new ImageView();
         invoicePic.setFitWidth(400);
