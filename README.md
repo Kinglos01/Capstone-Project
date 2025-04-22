@@ -36,6 +36,8 @@ The delivery date must follow the following criteria, it must be in **MM-DD-YYYY
 
 The shipping address must follow the following criteria, it must be written as **STREET ADDRESS(Allows all characters), CITY(Allows all characters), STATE(2 letter characters), ZIPCODE(5 number digits)**, this field is currently mandatory but may change in later versions.
 
+The status field must follow the following criteria, it must be one of the four terms, **Delivered, Not Delivered, En-Route, or Unknown**
+
 The item fields must follow the following criteria, unknown as of now.
 
 ### Contributors
