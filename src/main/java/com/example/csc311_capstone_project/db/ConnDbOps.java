@@ -7,7 +7,6 @@ package com.example.csc311_capstone_project.db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -19,14 +18,12 @@ public class ConnDbOps {
     final String PASSWORD = "thisisouradminpassword1";
 
     /**
-     *
-     * @return
+     * Connects to the Database and creates the tables if they do not already exist.
+     * @since 4/21/2025
+     * @author Nathaniel Rivera
      */
-    public  boolean connectToDatabase() {
-        boolean hasRegistredUsers = false;
+    public void connectToDatabase() {
 
-
-        //Class.forName("com.mysql.jdbc.Driver");
         try {
             //First, connect to MYSQL server and create the database if not created
             Connection conn = DriverManager.getConnection(MYSQL_SERVER_URL, USERNAME, PASSWORD);
@@ -55,8 +52,9 @@ public class ConnDbOps {
                     + "email VARCHAR(50) NOT NULL,"
                     + "order_date DATE,"
                     + "delivery_date DATE,"
-                    + "[status] VARCHAR(50)"
-                    + "account_id VARCHAR(50)"
+                    + "[status] VARCHAR(50),"
+                    + "account_id VARCHAR(50),"
+                    + "invoice_image VARCHAR(250),"
                     + "CONSTRAINT pk_invoice PRIMARY KEY (invoice_id, username, email),"
                     + "CONSTRAINT fk_invoice_users FOREIGN KEY (username, email) REFERENCES users(username, email),"
                     + "CONSTRAINT fk_invoice_customer FOREIGN KEY (account_id) REFERENCES customer(account_id)"
@@ -90,25 +88,12 @@ public class ConnDbOps {
                     + ")";
             statement.executeUpdate(sql5);
 
-            //check if we have users in the table users
-            statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM users");
-
-            if (resultSet.next()) {
-                int numUsers = resultSet.getInt(1);
-                if (numUsers > 0) {
-                    hasRegistredUsers = true;
-                }
-            }
-
             statement.close();
             conn.close();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return hasRegistredUsers;
     }
 
     /**
@@ -157,14 +142,15 @@ public class ConnDbOps {
      * @param delivery_date The day the invoice was delivered if applicable.
      * @param status The current status of the invoice.
      * @param account_id The id of the account on the invoice.
+     * @param invoice_image The image-path of the selected invoice.
      * @since 4/14/2025
      * @author Nathaniel Rivera
      */
-    public void insertInvoice(String invoice_id, String username, String email, String order_date , String delivery_date, String status, String account_id) {
+    public void insertInvoice(String invoice_id, String username, String email, String order_date , String delivery_date, String status, String account_id, String invoice_image) {
 
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "INSERT INTO invoice (invoice_id, username, email, order_date, delivery_date, status, account_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO invoice (invoice_id, username, email, order_date, delivery_date, status, account_id, invoice_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, invoice_id);
             preparedStatement.setString(2, username);
@@ -173,6 +159,7 @@ public class ConnDbOps {
             preparedStatement.setString(5, delivery_date);
             preparedStatement.setString(6, status);
             preparedStatement.setString(7, account_id);
+            preparedStatement.setString(8, invoice_image);
 
             int row = preparedStatement.executeUpdate();
 
