@@ -499,7 +499,7 @@ public class CapstoneApplication extends Application {
         statusField.setPromptText("STATUS");
         root.getChildren().add(statusField);
 
-        
+
         ImageView invoicePic = new ImageView(new Image("C:\\Users\\nycpu\\IdeaProjects\\CSC311_Capstone_Project\\src\\main\\resources\\com\\example\\csc311_capstone_project\\images\\close_symbol.png"));
         ImageView invoicePic = new ImageView();
         invoicePic.setFitWidth(400);

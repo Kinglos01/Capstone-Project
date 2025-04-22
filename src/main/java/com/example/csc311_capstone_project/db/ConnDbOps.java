@@ -7,25 +7,23 @@ package com.example.csc311_capstone_project.db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- *
- * @author MoaathAlrajab
- */
+
 public class ConnDbOps {
-    final String MYSQL_SERVER_URL = "jdbc:mysql://localhost/";
-    final String DB_URL = "jdbc:mysql://localhost/DBname";
-    final String USERNAME = "admin";
-    final String PASSWORD = "password";
+    final String MYSQL_SERVER_URL = "jdbc:mysql://jabaltariq2.database.windows.net/";
+    final String DB_URL = MYSQL_SERVER_URL + "/DBname";
+    final String USERNAME = "jabaltariq";
+    final String PASSWORD = "thisisouradminpassword1";
 
-    public  boolean connectToDatabase() {
-        boolean hasRegistredUsers = false;
+    /**
+     * Connects to the Database and creates the tables if they do not already exist.
+     * @since 4/21/2025
+     * @author Nathaniel Rivera
+     */
+    public void connectToDatabase() {
 
-
-        //Class.forName("com.mysql.jdbc.Driver");
         try {
             //First, connect to MYSQL server and create the database if not created
             Connection conn = DriverManager.getConnection(MYSQL_SERVER_URL, USERNAME, PASSWORD);
@@ -37,86 +35,63 @@ public class ConnDbOps {
             //Second, connect to the database and create the table "users" if cot created
             conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             statement = conn.createStatement();
-            String sql = "CREATE TABLE IF NOT EXISTS user ("
-                    + "id INT( 10 ) NOT NULL PRIMARY KEY AUTO_INCREMENT,"
-                    + "name VARCHAR(200) NOT NULL,"
-                    + "email VARCHAR(200) NOT NULL UNIQUE,"
-                    + "phone VARCHAR(200),"
-                    + "address VARCHAR(200),"
-                    + "password VARCHAR(200) NOT NULL"
+            String sql = "CREATE TABLE IF NOT EXISTS users ("
+                    + "username VARCHAR(50) NOT NULL,"
+                    + "email VARCHAR(50) NOT NULL,"
+                    + "[password] VARCHAR(50) NOT NULL,"
+                    + "first_name VARCHAR(50),"
+                    + "last_name VARCHAR(50),"
+                    + "CONSTRAINT pk_users PRIMARY KEY (username, email)"
                     + ")";
             statement.executeUpdate(sql);
 
-            //check if we have users in the table users
             statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM users");
+            String sql2 = "CREATE TABLE IF NOT EXISTS invoice ("
+                    + "invoice_id VARCHAR(50) NOT NULL,"
+                    + "username VARCHAR(50) NOT NULL,"
+                    + "email VARCHAR(50) NOT NULL,"
+                    + "order_date DATE,"
+                    + "delivery_date DATE,"
+                    + "[status] VARCHAR(50),"
+                    + "account_id VARCHAR(50),"
+                    + "invoice_image VARCHAR(250),"
+                    + "CONSTRAINT pk_invoice PRIMARY KEY (invoice_id, username, email),"
+                    + "CONSTRAINT fk_invoice_users FOREIGN KEY (username, email) REFERENCES users(username, email),"
+                    + "CONSTRAINT fk_invoice_customer FOREIGN KEY (account_id) REFERENCES customer(account_id)"
+                    + ")";
+            statement.executeUpdate(sql2);
 
-            if (resultSet.next()) {
-                int numUsers = resultSet.getInt(1);
-                if (numUsers > 0) {
-                    hasRegistredUsers = true;
-                }
-            }
+            statement = conn.createStatement();
+            String sql3 = "CREATE TABLE IF NOT EXISTS customer ("
+                    + "account_id VARCHAR(50) NOT NULL,"
+                    + "[address] VARCHAR(50) NOT NULL,"
+                    + "CONSTRAINT pk_customer PRIMARY KEY (account_id)"
+                    + ")";
+            statement.executeUpdate(sql3);
+
+            statement = conn.createStatement();
+            String sql4 = "CREATE TABLE IF NOT EXISTS items ("
+                    + "item_id VARCHAR(50),"
+                    + "price MONEY,"
+                    + "CONSTRAINT pk_user PRIMARY KEY (item_id)"
+                    + ")";
+            statement.executeUpdate(sql4);
+
+            statement = conn.createStatement();
+            String sql5 = "CREATE TABLE IF NOT EXISTS users ("
+                    + "username VARCHAR(50) NOT NULL,"
+                    + "email VARCHAR(50) NOT NULL,"
+                    + "[password] VARCHAR(50) NOT NULL,"
+                    + "first_name VARCHAR(50),"
+                    + "last_name VARCHAR(50),"
+                    + "CONSTRAINT pk_user PRIMARY KEY (username, email)"
+                    + ")";
+            statement.executeUpdate(sql5);
 
             statement.close();
             conn.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return hasRegistredUsers;
-    }
-
-    public  void queryUserByName(String name) {
-
-
-        try {
-            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "SELECT * FROM user WHERE name = ?";
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, name);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String email = resultSet.getString("email");
-                String phone = resultSet.getString("phone");
-                String address = resultSet.getString("address");
-                System.out.println("ID: " + id + ", Name: " + name + ", Email: " + email + ", Phone: " + phone + ", Address: " + address);
-            }
-
-            preparedStatement.close();
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public  void listAllUsers() {
-
-
-
-        try {
-            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "SELECT * FROM user ";
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String email = resultSet.getString("email");
-                String phone = resultSet.getString("phone");
-                String address = resultSet.getString("address");
-                System.out.println("ID: " + id + ", Name: " + name + ", Email: " + email + ", Phone: " + phone + ", Address: " + address);
-            }
-
-            preparedStatement.close();
-            conn.close();
-        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -129,12 +104,14 @@ public class ConnDbOps {
      * @param password The password of the user.
      * @param first_name The first_name of the user.
      * @param last_name The last_name of the user.
+     * @since 4/14/2025
+     * @author Nathaniel Rivera
      */
     public void insertUser(String username, String email, String password, String first_name, String last_name) {
 
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "INSERT INTO user (username, email, password, first_name, last_name) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO users (username, email, password, first_name, last_name) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, email);
@@ -164,12 +141,16 @@ public class ConnDbOps {
      * @param order_date The date the invoice was ordered.
      * @param delivery_date The day the invoice was delivered if applicable.
      * @param status The current status of the invoice.
+     * @param account_id The id of the account on the invoice.
+     * @param invoice_image The image-path of the selected invoice.
+     * @since 4/14/2025
+     * @author Nathaniel Rivera
      */
-    public void insertInvoice(String invoice_id, String username, String email, String order_date , String delivery_date, String status) {
+    public void insertInvoice(String invoice_id, String username, String email, String order_date , String delivery_date, String status, String account_id, String invoice_image) {
 
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "INSERT INTO invoice (invoice_id, username, email, order_date, delivery_date, status) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO invoice (invoice_id, username, email, order_date, delivery_date, status, account_id, invoice_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, invoice_id);
             preparedStatement.setString(2, username);
@@ -177,6 +158,8 @@ public class ConnDbOps {
             preparedStatement.setString(4, order_date);
             preparedStatement.setString(5, delivery_date);
             preparedStatement.setString(6, status);
+            preparedStatement.setString(7, account_id);
+            preparedStatement.setString(8, invoice_image);
 
             int row = preparedStatement.executeUpdate();
 
@@ -191,7 +174,34 @@ public class ConnDbOps {
         }
     }
 
-    
+    /**
+     * Adds a new customer into the SQL Table invoice.
+     * This PK consists of account_id alone.
+     * @param account_id The account id of the customer must be unique.
+     * @param address The address for the customer
+     * @since 4/21/2025
+     * @author Nathaniel Rivera
+     */
+    public void insertCustomer(String account_id, String address) {
 
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "INSERT INTO customers (account_id, [address]) VALUES (?, ?)";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, account_id);
+            preparedStatement.setString(2, address);
+
+            int row = preparedStatement.executeUpdate();
+
+            if (row > 0) {
+                System.out.println("A new customer was inserted successfully.");
+            }
+
+            preparedStatement.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
