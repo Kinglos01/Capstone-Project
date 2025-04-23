@@ -68,7 +68,7 @@ public class ScannerController {
         }
 
         if(!addressMatcher.matches()){
-            System.out.println("Error: Address must be a street address, a city name, a state abbreviation, an a 5 digit zip code");
+            System.out.println("Error: Address must be a street address, a city name, a state abbreviation, and a 5 digit zip code");
             canCreate = false;
         }
 
