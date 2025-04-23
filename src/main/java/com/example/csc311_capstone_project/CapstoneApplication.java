@@ -91,7 +91,7 @@ public class CapstoneApplication extends Application {
                 landingRoot.getChildren().add(fxmlLoader.load());
                 landingSetup(landingRoot, landingStage);
 
-                Scene scene = new Scene(landingRoot, 1200, 800);
+                Scene scene = new Scene(landingRoot, 1800, 800);
                 landingStage.setScene(scene);
                 landingStage.setResizable(false);
 

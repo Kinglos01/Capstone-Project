@@ -10,6 +10,8 @@ public class Invoice {
     private String delivery_date;
     private String delivery_address;
     private Status status;
+    private String name;
+    private String price;
     private Item[] items;
 
     /**
@@ -23,7 +25,7 @@ public class Invoice {
         order_date = "01-01-1900";
         delivery_date = "01-01-1900";
         delivery_address = "21 Jump Street";
-        status = Status.not_delivered;
+        status = Status.unknown;
         items = new Item[999];
     }
 
@@ -38,7 +40,7 @@ public class Invoice {
      * @since 3/21/2025
      * @author Aidan Rodriguez
      */
-    public Invoice(String invoice_id, String account_id, String order_date, String delivery_date, String delivery_address, Status status) {
+    public Invoice(String invoice_id, String account_id, String order_date, String delivery_date, String delivery_address, Status status, String name, String price) {
         this.invoice_id = invoice_id;
         this.account_id = account_id;
         this.order_date = order_date;
@@ -46,6 +48,8 @@ public class Invoice {
         this.delivery_address = delivery_address;
         this.status = status;
         this.items = new Item[999];
+        this.name = name;
+        this.price = price;
     }
 
     /**
@@ -148,6 +152,26 @@ public class Invoice {
             counter++;
         }
         items[counter] = item;
+    }
+
+    /**
+     * A getter method for the price of the invoice
+     * @return A String of the price
+     * @since 4/23/2025
+     * @author Nathaniel Rivera
+     */
+    public String getPrice() {
+        return price;
+    }
+
+    /**
+     * A getter method for the price of the invoice
+     * @return A String of the price
+     * @since 4/23/2025
+     * @author Nathaniel Rivera
+     */
+    public String getInvoiceName() {
+        return name;
     }
 
     /**

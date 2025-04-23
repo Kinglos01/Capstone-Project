@@ -55,6 +55,7 @@ public class ConnDbOps {
                     + "[status] VARCHAR(50),"
                     + "account_id VARCHAR(50),"
                     + "invoice_image VARCHAR(250),"
+                    + "invoice_name VARCHAR(50),"
                     + "CONSTRAINT pk_invoice PRIMARY KEY (invoice_id, username, email),"
                     + "CONSTRAINT fk_invoice_users FOREIGN KEY (username, email) REFERENCES users(username, email),"
                     + "CONSTRAINT fk_invoice_customer FOREIGN KEY (account_id) REFERENCES customer(account_id)"
@@ -146,11 +147,11 @@ public class ConnDbOps {
      * @since 4/14/2025
      * @author Nathaniel Rivera
      */
-    public void insertInvoice(String invoice_id, String username, String email, String order_date , String delivery_date, String status, String account_id, String invoice_image) {
+    public void insertInvoice(String invoice_id, String username, String email, String order_date , String delivery_date, String status, String account_id, String invoice_image, String invoice_name) {
 
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "INSERT INTO invoice (invoice_id, username, email, order_date, delivery_date, status, account_id, invoice_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO invoice (invoice_id, username, email, order_date, delivery_date, status, account_id, invoice_image, invoice_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, invoice_id);
             preparedStatement.setString(2, username);
@@ -160,6 +161,7 @@ public class ConnDbOps {
             preparedStatement.setString(6, status);
             preparedStatement.setString(7, account_id);
             preparedStatement.setString(8, invoice_image);
+            preparedStatement.setString(9, invoice_name);
 
             int row = preparedStatement.executeUpdate();
 
