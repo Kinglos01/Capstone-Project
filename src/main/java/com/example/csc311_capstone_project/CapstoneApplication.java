@@ -1,8 +1,9 @@
 package com.example.csc311_capstone_project;
+import com.example.csc311_capstone_project.db.ConnDbOps;
+import com.example.csc311_capstone_project.model.User;
+import com.example.csc311_capstone_project.service.CurrentUser;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -12,17 +13,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -36,7 +34,7 @@ import java.util.regex.Pattern;
  */
 public class CapstoneApplication extends Application {
 
-    public static ArrayList<User> userbase = new ArrayList<>();
+    public static List<User> userbase;
 
     /**
      * The initial start method for the program. Launches ands calls the setup for the splash screen.
@@ -59,7 +57,7 @@ public class CapstoneApplication extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.initStyle(StageStyle.TRANSPARENT);
-        stage.getIcons().add(new Image(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png")));
+        stage.getIcons().add(new Image(Objects.requireNonNull(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png"))));
         stage.show();
     }
 
@@ -79,6 +77,10 @@ public class CapstoneApplication extends Application {
      * @since 3/12/2025
      */
     public static void splashSetup(AnchorPane root, Stage stage) {
+        ConnDbOps db = new ConnDbOps();
+        db.connectToDatabase();
+        userbase = db.retrieveUsers();
+
         Button launcher = new Button();
         launcher.setPrefWidth(300); launcher.setPrefHeight(100); launcher.setLayoutX(850); launcher.setLayoutY(550);
         launcher.setText("Launch");
@@ -91,12 +93,12 @@ public class CapstoneApplication extends Application {
                 landingRoot.getChildren().add(fxmlLoader.load());
                 landingSetup(landingRoot, landingStage);
 
-                Scene scene = new Scene(landingRoot, 1200, 800);
+                Scene scene = new Scene(landingRoot, 1800, 800);
                 landingStage.setScene(scene);
                 landingStage.setResizable(false);
 
                 stage.close();
-                landingStage.getIcons().add(new Image(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png")));
+                landingStage.getIcons().add(new Image(Objects.requireNonNull(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png"))));
                 landingStage.show();
             } catch(IOException _) {
 
@@ -146,7 +148,7 @@ public class CapstoneApplication extends Application {
                     scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("loginscreen.css")).toExternalForm());
                     loginStage.setResizable(false);
                     loginStage.initStyle(StageStyle.UNDECORATED);
-                    loginStage.getIcons().add(new Image(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png")));
+                    loginStage.getIcons().add(new Image(Objects.requireNonNull(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png"))));
                     loginStage.show();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -199,18 +201,21 @@ public class CapstoneApplication extends Application {
         loginRoot.getChildren().add(loginButton);
         loginButton.setOnAction(e -> {
             boolean canLogin = false;
+            User currUser = null;
             String username = usernameField.getText();
             String email = emailField.getText();
             String password = passwordField.getText();
 
             for(User user : userbase) {
                 if(user.getUsername().equals(username) && user.getPassword().equals(password) && user.getEmail().equals(email)) {
+                    currUser = user;
                     canLogin = true;
                     break;
                 }
             }
 
             if(canLogin) {
+                CurrentUser.setCurrentUser(currUser.getUsername(), currUser.getPassword());
                 stage.close();
             } else {
                 System.out.println("One of the following fields: Username, password, or email is incorrect");
@@ -252,6 +257,8 @@ public class CapstoneApplication extends Application {
      * @since 3/13/2025
      */
     public static void registerSetup(AnchorPane root, Stage stage) {
+        ConnDbOps db = new ConnDbOps();
+        db.connectToDatabase();
         TextField usernameField = new TextField();
         usernameField.setPrefWidth(300);
         usernameField.setPrefHeight(40);
@@ -375,6 +382,7 @@ public class CapstoneApplication extends Application {
 
             if(canCreate) {
                 userbase.add(new User(firstName, lastName, username, email, password));
+                db.insertUser(username, email, password, firstName, lastName);
                 stage.close();
             }
         });
@@ -435,7 +443,7 @@ public class CapstoneApplication extends Application {
                 scene.getStylesheets().add(Objects.requireNonNull(CapstoneApplication.class.getResource("scannerscreen.css")).toExternalForm());
                 stage.setScene(scene);
                 stage.setResizable(false);
-                stage.getIcons().add(new Image(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png")));
+                stage.getIcons().add(new Image(Objects.requireNonNull(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png"))));
 
                 stage.show();
             }  catch (IOException ex) {
@@ -506,7 +514,8 @@ public class CapstoneApplication extends Application {
         invoicePic.setFitHeight(600);
         invoicePic.setLayoutX(15);
         invoicePic.setLayoutY(15);
-        root.getChildren().add(invoicePic);*/
+        root.getChildren().add(invoicePic);
+
 
         Button imageChanger = new Button();
         imageChanger.setPrefWidth(400);
@@ -519,11 +528,11 @@ public class CapstoneApplication extends Application {
         imageChanger.setOnMouseClicked(e-> {
             File file = (new FileChooser()).showOpenDialog(stage.getScene().getWindow());
             if(file != null) {
-                /*invoicePic.setImage(new Image(file.toURI().toString()));*/
+                invoicePic.setImage(new Image(file.toURI().toString()));
             }
         });
 
-        /*
+
         Button addInvoice = new Button();
         addInvoice.setPrefWidth(230);
         addInvoice.setPrefHeight(50);

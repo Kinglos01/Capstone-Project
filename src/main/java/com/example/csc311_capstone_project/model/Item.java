@@ -1,4 +1,4 @@
-package com.example.csc311_capstone_project;
+package com.example.csc311_capstone_project.model;
 
 /**
  * This class is created to populate the Invoice class. On program start, Items that are already

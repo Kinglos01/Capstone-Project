@@ -1,6 +1,4 @@
-package com.example.csc311_capstone_project;
-
-import javafx.scene.image.Image;
+package com.example.csc311_capstone_project.model;
 
 public class Invoice {
 
@@ -10,7 +8,10 @@ public class Invoice {
     private String delivery_date;
     private String delivery_address;
     private Status status;
+    private String name;
+    private String price;
     private Item[] items;
+    private String image;
 
     /**
      * Creates an invoice with placeholder values.
@@ -23,7 +24,7 @@ public class Invoice {
         order_date = "01-01-1900";
         delivery_date = "01-01-1900";
         delivery_address = "21 Jump Street";
-        status = Status.not_delivered;
+        status = Status.unknown;
         items = new Item[999];
     }
 
@@ -38,7 +39,7 @@ public class Invoice {
      * @since 3/21/2025
      * @author Aidan Rodriguez
      */
-    public Invoice(String invoice_id, String account_id, String order_date, String delivery_date, String delivery_address, Status status) {
+    public Invoice(String invoice_id, String account_id, String order_date, String delivery_date, String delivery_address, Status status, String name, String price, String image) {
         this.invoice_id = invoice_id;
         this.account_id = account_id;
         this.order_date = order_date;
@@ -46,6 +47,9 @@ public class Invoice {
         this.delivery_address = delivery_address;
         this.status = status;
         this.items = new Item[999];
+        this.name = name;
+        this.price = price;
+        this.image = image;
     }
 
     /**
@@ -151,6 +155,26 @@ public class Invoice {
     }
 
     /**
+     * A getter method for the price of the invoice
+     * @return A String of the price
+     * @since 4/23/2025
+     * @author Nathaniel Rivera
+     */
+    public String getPrice() {
+        return price;
+    }
+
+    /**
+     * A getter method for the price of the invoice
+     * @return A String of the price
+     * @since 4/23/2025
+     * @author Nathaniel Rivera
+     */
+    public String getInvoiceName() {
+        return name;
+    }
+
+    /**
      * A getter method for the items in the invoice.
      * Necessary for the PropertyValueFactory to get the information
      * @return A String of all items in the invoice
@@ -164,5 +188,13 @@ public class Invoice {
         }
         itemString = itemString.substring(0, itemString.length()-1);
         return itemString;
+    }
+
+    /**
+     * Returns the image of the given invoice
+     * @return A String with the image of the invoice.
+     */
+    public String getImage() {
+        return image;
     }
 }

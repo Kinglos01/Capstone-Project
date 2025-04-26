@@ -1,11 +1,23 @@
 package com.example.csc311_capstone_project;
 
+import com.example.csc311_capstone_project.db.ConnDbOps;
+import com.example.csc311_capstone_project.model.Invoice;
+import com.example.csc311_capstone_project.model.Status;
+import com.example.csc311_capstone_project.service.CurrentUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.css.Match;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,15 +25,22 @@ import java.util.regex.Pattern;
 public class ScannerController {
 
     private final ObservableList<Invoice> invoices = FXCollections.observableArrayList();
-    public TextField itemIDField;
-    public Button generateButton;
-    public Button addButton;
+    protected TextField itemIDField;
+    protected Button generateButton;
+    protected Button addButton;
+    ConnDbOps db = new ConnDbOps();
+    @FXML
+    protected ImageView invoiceImage;
 
     @FXML
-    private TextField invoiceNumField, accountIDField, orderDateField, deliveryDateField, statusField, shippingAddressField;
+    private TextField invoiceNumField, accountIDField, orderDateField, deliveryDateField, statusField, shippingAddressField, invoiceNameField;
 
     @FXML
     protected void addInvoice() {
+
+        db.connectToDatabase();
+        db.setCurrentUser(CurrentUser.getCurrentUsername(), CurrentUser.getCurrentEmail());
+
         boolean canCreate = true;
         String inNum = invoiceNumField.getText();
         String inAccount = accountIDField.getText();
@@ -29,6 +48,7 @@ public class ScannerController {
         String inDeliv = deliveryDateField.getText();
         String inAddress = shippingAddressField.getText();
         String inStat = statusField.getText();
+        String inName = invoiceNameField.getText();
 
         Pattern invoicePattern = Pattern.compile("IN\\d{8}");
         Matcher invoiceMatcher = invoicePattern.matcher(inNum);
@@ -86,11 +106,19 @@ public class ScannerController {
 
         if (canCreate) {
             switch(inStat) {
-                case "Delivered" -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.delivered));
-                case "En-Route" -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.en_route));
-                case "Not Delivered" -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.not_delivered));
-                default -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.unknown));
+                case "Delivered" -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.delivered, inName, "$0.00", invoiceImage.getImage().toString())); //db.insertInvoice(inNum, inAccount, inOrder, inDeliv, inAddress, "delivered", inName, );
+                case "En-Route" -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.en_route, inName, "$0.00", invoiceImage.getImage().toString()));
+                case "Not Delivered" -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.not_delivered, inName, "$0.00", invoiceImage.getImage().toString()));
+                default -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.unknown, inName, "$0.00", invoiceImage.getImage().toString()));
             }
+        }
+    }
+
+    @FXML
+    protected void imageChange() {
+        File file = (new FileChooser()).showOpenDialog(invoiceImage.getScene().getWindow());
+        if(file != null) {
+            invoiceImage.setImage(new Image(file.toURI().toString()));
         }
     }
 }
