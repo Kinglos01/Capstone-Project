@@ -514,7 +514,8 @@ public class CapstoneApplication extends Application {
         invoicePic.setFitHeight(600);
         invoicePic.setLayoutX(15);
         invoicePic.setLayoutY(15);
-        root.getChildren().add(invoicePic);*/
+        root.getChildren().add(invoicePic);
+
 
         Button imageChanger = new Button();
         imageChanger.setPrefWidth(400);
@@ -527,11 +528,11 @@ public class CapstoneApplication extends Application {
         imageChanger.setOnMouseClicked(e-> {
             File file = (new FileChooser()).showOpenDialog(stage.getScene().getWindow());
             if(file != null) {
-                /*invoicePic.setImage(new Image(file.toURI().toString()));*/
+                invoicePic.setImage(new Image(file.toURI().toString()));
             }
         });
 
-        /*
+
         Button addInvoice = new Button();
         addInvoice.setPrefWidth(230);
         addInvoice.setPrefHeight(50);

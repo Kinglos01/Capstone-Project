@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
@@ -32,5 +33,7 @@
       <Button fx:id="addButton" layoutX="824.0" layoutY="529.0" mnemonicParsing="false" onAction="#addInvoice" prefHeight="50.0" prefWidth="230.0" style="-fx-cursor: Hand;" stylesheets="@scannerscreen.css" text="ADD INVOICE" />
       <Label layoutX="894.0" layoutY="404.0" stylesheets="@scannerscreen.css" text="Invoice Name" />
       <TextField fx:id="invoiceNameField" layoutX="804.0" layoutY="429.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
+      <ImageView fx:id="invoiceImage" fitHeight="590.0" fitWidth="465.0" layoutX="15.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="imageChanger" layoutX="15.0" layoutY="20.0" mnemonicParsing="false" onAction="#imageChange" prefHeight="590.0" prefWidth="460.0" style="-fx-opacity: 0;" />
    </children>
 </AnchorPane>

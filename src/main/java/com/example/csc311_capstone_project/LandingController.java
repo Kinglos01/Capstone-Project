@@ -13,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
@@ -20,7 +22,7 @@ import java.util.ResourceBundle;
 
 public class LandingController implements Initializable{
 
-    private static ObservableList<Invoice> invoices = FXCollections.observableArrayList(new Invoice("I123", "C123", "01-01-1900", "01-01-1900", "Place", Status.unknown, "Test Invoice", "$ 0.0"));
+    private static ObservableList<Invoice> invoices = FXCollections.observableArrayList(new Invoice("I123", "C123", "01-01-1900", "01-01-1900", "Place", Status.unknown, "Test Invoice", "$ 0.0", ""));
     protected Button removeButton;
 
     @FXML
@@ -28,6 +30,9 @@ public class LandingController implements Initializable{
 
     @FXML
     private TableColumn<Invoice, String> invoiceName, invoiceNum, accountID, orderDate, deliveryDate, status, shippingAddress, price;
+
+    @FXML
+    protected ImageView invoiceDisplay;
 
     ConnDbOps db = new ConnDbOps();
 
@@ -88,6 +93,7 @@ public class LandingController implements Initializable{
      * @author Nathaniel Rivera
      */
     public void selectedInvoice(MouseEvent mouseEvent) {
-
+        Invoice invoice = invoiceTable.getSelectionModel().getSelectedItem();
+        invoiceDisplay.setImage(new Image(invoice.getImage()));
     }
 }

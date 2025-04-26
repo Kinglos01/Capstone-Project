@@ -19,7 +19,7 @@ public class ConnDbOps {
     final String MYSQL_SERVER_URL = "jdbc:mysql://jabaltariq2.database.windows.net/";
     final String DB_URL = MYSQL_SERVER_URL + "/DBname";
     final String USERNAME = "jabaltariq";
-    final String PASSWORD = "thisisouradminpassword1";
+    final String PASSWORD = "thisisouradminpassword1!";
 
     /**
      * Current username of the user.

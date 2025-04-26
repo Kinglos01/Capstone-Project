@@ -11,6 +11,7 @@ public class Invoice {
     private String name;
     private String price;
     private Item[] items;
+    private String image;
 
     /**
      * Creates an invoice with placeholder values.
@@ -38,7 +39,7 @@ public class Invoice {
      * @since 3/21/2025
      * @author Aidan Rodriguez
      */
-    public Invoice(String invoice_id, String account_id, String order_date, String delivery_date, String delivery_address, Status status, String name, String price) {
+    public Invoice(String invoice_id, String account_id, String order_date, String delivery_date, String delivery_address, Status status, String name, String price, String image) {
         this.invoice_id = invoice_id;
         this.account_id = account_id;
         this.order_date = order_date;
@@ -48,6 +49,7 @@ public class Invoice {
         this.items = new Item[999];
         this.name = name;
         this.price = price;
+        this.image = image;
     }
 
     /**
@@ -186,5 +188,13 @@ public class Invoice {
         }
         itemString = itemString.substring(0, itemString.length()-1);
         return itemString;
+    }
+
+    /**
+     * Returns the image of the given invoice
+     * @return A String with the image of the invoice.
+     */
+    public String getImage() {
+        return image;
     }
 }
