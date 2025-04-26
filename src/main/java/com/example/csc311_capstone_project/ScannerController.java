@@ -1,8 +1,11 @@
 package com.example.csc311_capstone_project;
 
+import com.example.csc311_capstone_project.db.ConnDbOps;
+import com.example.csc311_capstone_project.model.Invoice;
+import com.example.csc311_capstone_project.model.Status;
+import com.example.csc311_capstone_project.service.CurrentUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.css.Match;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -16,12 +19,17 @@ public class ScannerController {
     public TextField itemIDField;
     public Button generateButton;
     public Button addButton;
+    ConnDbOps db = new ConnDbOps();
 
     @FXML
     private TextField invoiceNumField, accountIDField, orderDateField, deliveryDateField, statusField, shippingAddressField, invoiceNameField;
 
     @FXML
     protected void addInvoice() {
+
+        db.connectToDatabase();
+        db.setCurrentUser(CurrentUser.getCurrentUsername(), CurrentUser.getCurrentEmail());
+
         boolean canCreate = true;
         String inNum = invoiceNumField.getText();
         String inAccount = accountIDField.getText();

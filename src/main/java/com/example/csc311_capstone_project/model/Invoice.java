@@ -1,6 +1,4 @@
-package com.example.csc311_capstone_project;
-
-import javafx.scene.image.Image;
+package com.example.csc311_capstone_project.model;
 
 public class Invoice {
 
