@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.ImageView?>
@@ -10,7 +13,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csc311_capstone_project.LandingController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3ffd3" height="800.0" stroke="BLACK" strokeType="INSIDE" style="-fx-arc-width: 0; -fx-arc-height: 0;" width="200.0" />
-      <TableView fx:id="invoiceTable" layoutX="200.0" onMouseClicked="#selectedInvoice" prefHeight="800.0" prefWidth="1000.0">
+      <TableView fx:id="invoiceTable" layoutX="200.0" layoutY="26.0" onMouseClicked="#selectedInvoice" prefHeight="774.0" prefWidth="1000.0">
         <columns>
             <TableColumn fx:id="invoiceName" prefWidth="131.0" text="Invoice Name" />
           <TableColumn fx:id="invoiceNum" prefWidth="100.0" text="Invoice Number" />
@@ -26,7 +29,22 @@
          </columnResizePolicy>
       </TableView>
       <Button fx:id="removeButton" layoutX="20.0" layoutY="720.0" mnemonicParsing="false" onAction="#delete" prefHeight="50.0" prefWidth="160.0" text="REMOVE INVOICE" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="750.0" layoutX="1219.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" width="563.0" />
-      <ImageView fx:id="invoiceDisplay" fitHeight="720.0" fitWidth="538.0" layoutX="1232.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="746.0" layoutX="1224.0" layoutY="40.0" stroke="BLACK" strokeType="INSIDE" width="555.0" />
+      <ImageView fx:id="invoiceDisplay" fitHeight="710.0" fitWidth="532.0" layoutX="1236.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true" />
+      <MenuBar layoutY="-1.0" prefHeight="26.0" prefWidth="1800.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem fx:id="logOut" mnemonicParsing="false" text="Log Out" />
+                  <MenuItem fx:id="closeApp" mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Items">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#openItemList" text="Item List" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
    </children>
 </AnchorPane>

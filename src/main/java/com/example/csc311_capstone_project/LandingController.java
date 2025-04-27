@@ -6,21 +6,37 @@ import com.example.csc311_capstone_project.service.CurrentUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the Landing Page of the autoCommerce application.
+ * Controls the initialization, invoice selection and deletion, and
+ * menu items for the Landing Page. The Add Invoices button is handled
+ * in Capstone Application instead of directly here.
+ * @since 4/27/2025
+ * @author Nathaniel Rivera
+ */
 public class LandingController implements Initializable{
 
     private static ObservableList<Invoice> invoices = FXCollections.observableArrayList();
+
+    @FXML
     protected Button removeButton;
 
     @FXML
@@ -37,8 +53,8 @@ public class LandingController implements Initializable{
     /**
      * Initialization method which sets up the table columns and connects
      * to and obtains the list of invoices for the current User from the DB.
-     * @param url
-     * @param resourceBundle
+     * @param url URL
+     * @param resourceBundle Resource Bundle
      * @since 4/10/2025
      * @author Nathaniel Rivera
      */
@@ -91,14 +107,37 @@ public class LandingController implements Initializable{
      * @author Nathaniel Rivera
      */
     public void selectedInvoice(MouseEvent mouseEvent) {
-        Invoice invoice = null;
+        try {
+            Invoice invoice = null;
 
-        for (Invoice value : invoices) {
-            if (Objects.equals(value.getInvoiceId(), invoiceTable.getSelectionModel().getSelectedItem().getInvoiceId())) {
-                invoice = value;
+            for (Invoice value : invoices) {
+                if (Objects.equals(value.getInvoiceId(), invoiceTable.getSelectionModel().getSelectedItem().getInvoiceId())) {
+                    invoice = value;
+                }
             }
-        }
 
-        invoiceDisplay.setImage(Objects.requireNonNull(invoice).getImage());
+
+            invoiceDisplay.setImage(Objects.requireNonNull(invoice).getImage());
+        } catch(NullPointerException _) { }
+    }
+
+    /**
+     * Launches the item importer screen.
+     * @throws IOException IOException.
+     * @since 4/27/2025
+     * @author Nathaniel Rivera
+     */
+    public void openItemList() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(LandingController.class.getResource("item-view.fxml"));
+        Stage stage = new Stage();
+        AnchorPane itemRoot = new AnchorPane();
+        itemRoot.getChildren().add(fxmlLoader.load());;
+
+        Scene scene = new Scene(itemRoot, 655, 800);
+
+        stage.setScene(scene);
+        stage.setResizable(false);
+
+        stage.show();
     }
 }
