@@ -403,6 +403,7 @@ public class CapstoneApplication extends Application {
                 loginSetup(loginRoot, loginStage);
 
                 Scene scene = new Scene(loginRoot, 650, 380);
+
                 loginStage.setScene(scene);
                 scene.getStylesheets().add(Objects.requireNonNull(CapstoneApplication.class.getResource("loginscreen.css")).toExternalForm());
                 loginStage.setResizable(false);

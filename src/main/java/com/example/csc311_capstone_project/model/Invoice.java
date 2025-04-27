@@ -1,5 +1,7 @@
 package com.example.csc311_capstone_project.model;
 
+import javafx.scene.image.Image;
+
 public class Invoice {
 
     private String invoice_id;
@@ -11,7 +13,7 @@ public class Invoice {
     private String name;
     private String price;
     private Item[] items;
-    private String image;
+    private Image image;
 
     /**
      * Creates an invoice with placeholder values.
@@ -39,7 +41,7 @@ public class Invoice {
      * @since 3/21/2025
      * @author Aidan Rodriguez
      */
-    public Invoice(String invoice_id, String account_id, String order_date, String delivery_date, String delivery_address, Status status, String name, String price, String image) {
+    public Invoice(String invoice_id, String account_id, String order_date, String delivery_date, String delivery_address, Status status, String name, String price, Image image) {
         this.invoice_id = invoice_id;
         this.account_id = account_id;
         this.order_date = order_date;
@@ -194,7 +196,7 @@ public class Invoice {
      * Returns the image of the given invoice
      * @return A String with the image of the invoice.
      */
-    public String getImage() {
+    public Image getImage() {
         return image;
     }
 }

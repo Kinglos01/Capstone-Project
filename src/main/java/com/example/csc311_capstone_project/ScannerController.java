@@ -106,10 +106,10 @@ public class ScannerController {
 
         if (canCreate) {
             switch(inStat) {
-                case "Delivered" -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.delivered, inName, "$0.00", invoiceImage.getImage().toString())); //db.insertInvoice(inNum, inAccount, inOrder, inDeliv, inAddress, "delivered", inName, );
-                case "En-Route" -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.en_route, inName, "$0.00", invoiceImage.getImage().toString()));
-                case "Not Delivered" -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.not_delivered, inName, "$0.00", invoiceImage.getImage().toString()));
-                default -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.unknown, inName, "$0.00", invoiceImage.getImage().toString()));
+                case "Delivered" -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.delivered, inName, "$0.00", invoiceImage.getImage())); //db.insertInvoice(inNum, inAccount, inOrder, inDeliv, inAddress, "delivered", inName, );
+                case "En-Route" -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.en_route, inName, "$0.00", invoiceImage.getImage()));
+                case "Not Delivered" -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.not_delivered, inName, "$0.00", invoiceImage.getImage()));
+                default -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.unknown, inName, "$0.00", invoiceImage.getImage()));
             }
         }
     }

@@ -2,8 +2,6 @@ package com.example.csc311_capstone_project;
 
 import com.example.csc311_capstone_project.db.ConnDbOps;
 import com.example.csc311_capstone_project.model.Invoice;
-import com.example.csc311_capstone_project.model.Status;
-import com.example.csc311_capstone_project.model.User;
 import com.example.csc311_capstone_project.service.CurrentUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,16 +11,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LandingController implements Initializable{
 
-    private static ObservableList<Invoice> invoices = FXCollections.observableArrayList(new Invoice("I123", "C123", "01-01-1900", "01-01-1900", "Place", Status.unknown, "Test Invoice", "$ 0.0", ""));
+    private static ObservableList<Invoice> invoices = FXCollections.observableArrayList();
     protected Button removeButton;
 
     @FXML
@@ -88,12 +86,19 @@ public class LandingController implements Initializable{
 
     /**
      * Changes the image of the invoice displayed on the right with the one of the selected invoice.
-     * @param mouseEvent
+     * @param mouseEvent The event of clicking on a specific TableView value.
      * @since 4/23/2025
      * @author Nathaniel Rivera
      */
     public void selectedInvoice(MouseEvent mouseEvent) {
-        Invoice invoice = invoiceTable.getSelectionModel().getSelectedItem();
-        invoiceDisplay.setImage(new Image(invoice.getImage()));
+        Invoice invoice = null;
+
+        for (Invoice value : invoices) {
+            if (Objects.equals(value.getInvoiceId(), invoiceTable.getSelectionModel().getSelectedItem().getInvoiceId())) {
+                invoice = value;
+            }
+        }
+
+        invoiceDisplay.setImage(Objects.requireNonNull(invoice).getImage());
     }
 }
