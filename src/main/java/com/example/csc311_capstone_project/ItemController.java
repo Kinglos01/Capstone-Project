@@ -7,11 +7,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -29,6 +31,9 @@ public class ItemController implements Initializable {
 
     @FXML
     protected TableColumn<Item, String> itemID, itemName, itemPrice;
+
+    @FXML
+    protected MenuBar addItemFile;
 
     protected ObservableList<Item> items = FXCollections.observableArrayList(new ArrayList<>());
 
@@ -130,7 +135,27 @@ public class ItemController implements Initializable {
      */
     @FXML
     protected void importForms() {
+        File file = (new FileChooser()).showOpenDialog(addItemFile.getScene().getWindow());
 
+        if(file != null) {
+            String fileString = file.toURI().toString().substring(5);
+            System.out.println(fileString);
+            BufferedReader reader;
+            String line;
+            try {
+                reader = new BufferedReader(new FileReader(fileString));
+                while((line = reader.readLine()) != null) {
+                    String[] row = line.split(",");
+
+                    String name = row[0];
+                    double price = Double.parseDouble(row[1]);
+
+                    items.add(new Item(items.size() + 1, name, price));
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
 }
