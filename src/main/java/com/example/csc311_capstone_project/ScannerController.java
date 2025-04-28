@@ -20,16 +20,24 @@ import java.util.regex.Pattern;
 
 public class ScannerController {
 
-    private final ObservableList<Invoice> invoices = FXCollections.observableArrayList();
+    protected final ObservableList<Invoice> invoices = FXCollections.observableArrayList();
+
+    @FXML
     protected TextField itemIDField;
+
+    @FXML
     protected Button generateButton;
+
+    @FXML
     protected Button addButton;
+
     ConnDbOps db = new ConnDbOps();
+
     @FXML
     protected ImageView invoiceImage;
 
     @FXML
-    private TextField invoiceNumField, accountIDField, orderDateField, deliveryDateField, statusField, shippingAddressField, invoiceNameField;
+    protected TextField invoiceNumField, accountIDField, orderDateField, deliveryDateField, statusField, shippingAddressField, invoiceNameField;
 
     @FXML
     protected void addInvoice() {

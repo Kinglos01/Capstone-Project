@@ -17,8 +17,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -34,16 +32,16 @@ import java.util.ResourceBundle;
  */
 public class LandingController implements Initializable{
 
-    private static ObservableList<Invoice> invoices = FXCollections.observableArrayList();
+    protected static ObservableList<Invoice> invoices = FXCollections.observableArrayList();
 
     @FXML
     protected Button removeButton;
 
     @FXML
-    private TableView<Invoice> invoiceTable;
+    protected TableView<Invoice> invoiceTable;
 
     @FXML
-    private TableColumn<Invoice, String> invoiceName, invoiceNum, accountID, orderDate, deliveryDate, status, shippingAddress, price;
+    protected TableColumn<Invoice, String> invoiceName, invoiceNum, accountID, orderDate, deliveryDate, status, shippingAddress, price;
 
     @FXML
     protected ImageView invoiceDisplay;
@@ -82,7 +80,7 @@ public class LandingController implements Initializable{
      * @author Nathaniel Rivera
      */
     @FXML
-    public void delete() {
+    protected void delete() {
         Invoice invoice = invoiceTable.getSelectionModel().getSelectedItem();
         int index = invoices.indexOf(invoice);
         db.removeInvoice(invoice.getInvoiceId());
@@ -96,7 +94,7 @@ public class LandingController implements Initializable{
      * @return The list of invoices for the given User.
      * @since 4/14/2025
      */
-    public static ObservableList<Invoice> addInvoices() {
+    protected static ObservableList<Invoice> addInvoices() {
         return invoices;
     }
 
@@ -106,7 +104,8 @@ public class LandingController implements Initializable{
      * @since 4/23/2025
      * @author Nathaniel Rivera
      */
-    public void selectedInvoice(MouseEvent mouseEvent) {
+    @FXML
+    protected void selectedInvoice(MouseEvent mouseEvent) {
         try {
             Invoice invoice = null;
 
@@ -127,7 +126,8 @@ public class LandingController implements Initializable{
      * @since 4/27/2025
      * @author Nathaniel Rivera
      */
-    public void openItemList() throws IOException {
+    @FXML
+    protected void openItemList() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(LandingController.class.getResource("item-view.fxml"));
         Stage stage = new Stage();
         AnchorPane itemRoot = new AnchorPane();
