@@ -23,7 +23,7 @@
             </columns>
         </TableView>
         <Button fx:id="deleteButton" layoutX="20.0" layoutY="720.0" mnemonicParsing="false" onAction="#delete" prefHeight="50.0" prefWidth="160.0" text="DELETE ITEM" />
-        <MenuBar layoutY="-1.0" prefHeight="26.0" prefWidth="656.0">
+        <MenuBar fx:id="addItemFile" layoutY="-1.0" prefHeight="26.0" prefWidth="656.0">
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
@@ -32,7 +32,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Import">
                     <items>
-                        <MenuItem fx:id="addCustomers" mnemonicParsing="false" text="Import Item CSV" />
+                        <MenuItem mnemonicParsing="false" onAction="#importForms" text="Import Item CSV" />
                     </items>
                 </Menu>
             </menus>
