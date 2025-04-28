@@ -121,4 +121,16 @@ public class ItemController implements Initializable {
         itemPriceField.setText("");
     }
 
+    /**
+     * Allows the user to import a CSV file. After importing
+     * this CSV file the data will be automatically inputted
+     * into a table.
+     * @since 4/28/2025
+     * @author Nathaniel Rivera
+     */
+    @FXML
+    protected void importForms() {
+
+    }
+
 }
