@@ -1,32 +1,136 @@
 package com.example.csc311_capstone_project;
 
+import com.example.csc311_capstone_project.db.ConnDbOps;
+import com.example.csc311_capstone_project.model.Item;
+import com.example.csc311_capstone_project.service.CurrentUser;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class ItemController {
+public class ItemController implements Initializable {
+
+    @FXML
+    protected TextField itemNameField;
+
+    @FXML
+    protected TextField itemPriceField;
+
+    @FXML
+    protected TableView<Item> itemTable;
+
+    @FXML
+    protected TableColumn<Item, String> itemID, itemName, itemPrice;
+
+    protected ObservableList<Item> items = FXCollections.observableArrayList(new ArrayList<>());
+
+    ConnDbOps db = new ConnDbOps();
 
     /**
-     * Changes the image of the invoice displayed on the right with the one of the selected invoice.
-     * @param mouseEvent The event of clicking on a specific TableView value.
-     * @since 4/23/2025
+     * Initialization method which sets up the table columns and connects
+     * to and obtains the list of items for the current User from the DB.
+     * @param url URL
+     * @param resourceBundle Resource Bundle
+     * @since 4/28/2025
      * @author Nathaniel Rivera
      */
-    public void selectedInvoice(MouseEvent mouseEvent) {
-        /*
-        try {
-            Invoice invoice = null;
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        db.connectToDatabase();
+        db.setCurrentUser(CurrentUser.getCurrentUsername(), CurrentUser.getCurrentEmail());
 
-            for (Invoice value : invoices) {
-                if (Objects.equals(value.getInvoiceId(), invoiceTable.getSelectionModel().getSelectedItem().getInvoiceId())) {
-                    invoice = value;
-                }
-            }
+        itemID.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        itemName.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        itemPrice.setCellValueFactory(new PropertyValueFactory<>("Ppi"));
 
-
-            invoiceDisplay.setImage(Objects.requireNonNull(invoice).getImage());
-        } catch(NullPointerException _) { }*/
+        itemTable.setItems(items);
     }
 
-    public void delete() {
+    /**
+     * Adds a new object to the TableView based on the currently inputted values
+     * @since 4/28/2025
+     * @author Nathaniel Rivera
+     */
+    @FXML
+    protected void addItem() {
+        items.add(new Item(items.size() + 1, itemNameField.getText(), Double.parseDouble(itemPriceField.getText())));
+        clearForm();
+    }
+
+    /**
+     * Deletes the currently selected item in the table.
+     * @since 4/28/2025
+     * @author Nathaniel Rivera
+     */
+    @FXML
+    protected void delete() {
+        Item item = itemTable.getSelectionModel().getSelectedItem();
+        int index = items.indexOf(item);
+        //db.removeInvoice(item.getInvoiceId());
+        items.remove(index);
+
+        itemTable.getSelectionModel().select(index);
+    }
+
+
+    /**
+     * Changes the text fields based on the item selected on the TableView.
+     * @param mouseEvent The event of clicking on a specific TableView value.
+     * @since 4/28/2025
+     * @author Nathaniel Rivera
+     */
+    @FXML
+    protected void selectedItem(MouseEvent mouseEvent) {
+        Item i = itemTable.getSelectionModel().getSelectedItem();
+        itemNameField.setText(i.getName());
+        itemPriceField.setText(String.valueOf(i.getPpi()));
+    }
+
+    /**
+     * Edits the currently selected Item in the TableView.
+     * @since 4/28/2025
+     * @author Nathaniel Rivera
+     */
+    @FXML
+    protected void edit() {
+        Item i = itemTable.getSelectionModel().getSelectedItem();
+        int index = items.indexOf(i);
+        Item i2 = new Item(index + 1, i.getName(), i.getPpi());
+        items.remove(i);
+        items.add(index, i2);
+        itemTable.getSelectionModel().select(index);
 
     }
+
+    /**
+     * Clears the current form.
+     * @since 4/28/2025
+     * @author Nathaniel Rivera
+     */
+    @FXML
+    protected void clearForm() {
+        itemNameField.setText("");
+        itemPriceField.setText("");
+    }
+
+    /**
+     * Allows the user to import a CSV file. After importing
+     * this CSV file the data will be automatically inputted
+     * into a table.
+     * @since 4/28/2025
+     * @author Nathaniel Rivera
+     */
+    @FXML
+    protected void importForms() {
+
+    }
+
 }
