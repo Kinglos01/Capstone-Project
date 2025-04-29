@@ -122,6 +122,12 @@ public class ScannerController {
         }
     }
 
+    /***
+     * Changes the image stored in the viewer to the picture of the invoice
+     * for the users choosing.
+     * @since 4/24/2025
+     * @author Nathaniel Rivera
+     */
     @FXML
     protected void imageChange() {
         File file = (new FileChooser()).showOpenDialog(invoiceImage.getScene().getWindow());

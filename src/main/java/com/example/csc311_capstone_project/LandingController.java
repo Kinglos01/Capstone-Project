@@ -2,6 +2,8 @@ package com.example.csc311_capstone_project;
 
 import com.example.csc311_capstone_project.db.ConnDbOps;
 import com.example.csc311_capstone_project.model.Invoice;
+import com.example.csc311_capstone_project.model.Item;
+import com.example.csc311_capstone_project.model.Status;
 import com.example.csc311_capstone_project.service.CurrentUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +21,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -140,4 +145,49 @@ public class LandingController implements Initializable{
 
         stage.show();
     }
+
+    /**
+     * Toggles the current status of the Invoice that
+     * is selected. If the status is toggled to delivered
+     * the Invoice will have its delivery date set to the
+     * current time.
+     * @since 4/26/2025
+     * @author Nathaniel Rivera
+     */
+    @FXML
+    protected void toggleStatus() {
+        StringBuilder sb = new StringBuilder();
+
+        Clock zoneClock = Clock.system(ZoneId.of("-05:00"));
+        sb.append(zoneClock.instant().toString(), 5, 7).append("-");
+        sb.append(zoneClock.instant().toString(), 8, 10).append("-");
+        sb.append(zoneClock.instant().toString(), 0, 4);
+        String time  = sb.toString();
+        System.out.println(time);
+
+        Invoice invoice = invoiceTable.getSelectionModel().getSelectedItem();
+        switch(invoice.getStatus()) {
+            case Status.delivered -> {}
+            case Status.en_route -> {
+                int index = invoices.indexOf(invoice);
+                Invoice invoice2 = new Invoice(invoice.getInvoiceId(), invoice.getAccountId(), invoice.getOrderDate(), time, invoice.getDeliveryAddress(), Status.delivered, invoice.getInvoiceName(), invoice.getPrice(), invoice.getImage());
+                invoices.remove(invoice);
+                invoices.add(index, invoice2);
+                invoiceTable.getSelectionModel().select(index);}
+            case Status.not_delivered -> {
+                int index = invoices.indexOf(invoice);
+                Invoice invoice2 = new Invoice(invoice.getInvoiceId(), invoice.getAccountId(), invoice.getOrderDate(), invoice.getDeliveryDate(), invoice.getDeliveryAddress(), Status.en_route, invoice.getInvoiceName(), invoice.getPrice(), invoice.getImage());
+                invoices.remove(invoice);
+                invoices.add(index, invoice2);
+                invoiceTable.getSelectionModel().select(index);}
+            case Status.unknown -> {invoice.setStatus(Status.not_delivered);
+                int index = invoices.indexOf(invoice);
+                Invoice invoice2 = new Invoice(invoice.getInvoiceId(), invoice.getAccountId(), invoice.getOrderDate(), invoice.getDeliveryDate(), invoice.getDeliveryAddress(), Status.not_delivered, invoice.getInvoiceName(), invoice.getPrice(), invoice.getImage());
+                invoices.remove(invoice);
+                invoices.add(index, invoice2);
+                invoiceTable.getSelectionModel().select(index);}
+        }
+    }
+
+
 }

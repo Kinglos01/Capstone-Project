@@ -43,5 +43,6 @@
           </Menu>
         </menus>
       </MenuBar>
+      <Button layoutX="20.0" layoutY="660.0" mnemonicParsing="false" onAction="#toggleStatus" prefHeight="50.0" prefWidth="160.0" text="TOGGLE STATUS" />
    </children>
 </AnchorPane>

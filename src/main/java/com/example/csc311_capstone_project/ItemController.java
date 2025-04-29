@@ -147,10 +147,12 @@ public class ItemController implements Initializable {
                 while((line = reader.readLine()) != null) {
                     String[] row = line.split(",");
 
-                    String name = row[0];
-                    double price = Double.parseDouble(row[1]);
+                    if(row.length == 2) {
+                        String name = row[0];
+                        double price = Double.parseDouble(row[1]);
 
-                    items.add(new Item(items.size() + 1, name, price));
+                        items.add(new Item(items.size() + 1, name, price));
+                    }
                 }
             } catch (Exception e) {
                 throw new RuntimeException(e);
