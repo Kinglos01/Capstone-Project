@@ -2,6 +2,9 @@ package com.example.csc311_capstone_project.model;
 
 import javafx.scene.image.Image;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 public class Invoice {
 
     private String invoice_id;
@@ -66,14 +69,16 @@ public class Invoice {
      * @author Nathaniel Rivera
      * @since 4/1/2025
      */
-    public Invoice(String invoice_id, String account_id, String order_date, String delivery_date, String delivery_address, Status status, String item) {
+    public Invoice(String invoice_id, String account_id, String order_date, String delivery_date, String delivery_address, Status status, String item, Image image) {
         this.invoice_id = invoice_id;
         this.account_id = account_id;
         this.order_date = order_date;
         this.delivery_date = delivery_date;
         this.delivery_address = delivery_address;
         this.status = status;
-        this.items = new Item[999];
+        this.image = image;
+
+        
     }
 
     public String getInvoiceId() {

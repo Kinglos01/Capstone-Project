@@ -7,7 +7,6 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,10 +14,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -45,7 +42,6 @@ public class CapstoneApplication extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
-
         FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("splash-view.fxml"));
 
         AnchorPane root = new AnchorPane();
@@ -150,9 +146,7 @@ public class CapstoneApplication extends Application {
                     loginStage.initStyle(StageStyle.UNDECORATED);
                     loginStage.getIcons().add(new Image(Objects.requireNonNull(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png"))));
                     loginStage.show();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                } catch (IOException e) { }
             }
         });
     }
@@ -429,7 +423,7 @@ public class CapstoneApplication extends Application {
         addInvoice.setPrefWidth(160);
         addInvoice.setPrefHeight(50);
         addInvoice.setLayoutX(20);
-        addInvoice.setLayoutY(640);
+        addInvoice.setLayoutY(600);
         addInvoice.setText("ADD INVOICE");
         root.getChildren().add(addInvoice);
         addInvoice.setOnMouseClicked(e -> {

@@ -2,6 +2,7 @@ package com.example.csc311_capstone_project;
 
 import com.example.csc311_capstone_project.db.ConnDbOps;
 import com.example.csc311_capstone_project.model.Invoice;
+import com.example.csc311_capstone_project.model.Status;
 import com.example.csc311_capstone_project.service.CurrentUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +20,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -139,5 +143,25 @@ public class LandingController implements Initializable{
         stage.setResizable(false);
 
         stage.show();
+    }
+
+    @FXML
+    protected void toggleStatus() {
+        StringBuilder sb = new StringBuilder();
+
+        Clock zoneClock = Clock.system(ZoneId.of("-05:00"));
+        sb.append(zoneClock.instant().toString(), 5, 7).append("-");
+        sb.append(zoneClock.instant().toString(), 8, 10).append("-");
+        sb.append(zoneClock.instant().toString(), 0, 4);
+        String time  = sb.toString();
+        System.out.println(time);
+
+        Invoice invoice = invoiceTable.getSelectionModel().getSelectedItem();
+        switch(invoice.getStatus()) {
+            case Status.delivered -> {}
+            case Status.en_route -> {invoice.setStatus(Status.delivered); invoice.setDeliveryDate(time);}
+            case Status.not_delivered -> {invoice.setStatus(Status.en_route);}
+            case Status.unknown -> {invoice.setStatus(Status.not_delivered);}
+        }
     }
 }
