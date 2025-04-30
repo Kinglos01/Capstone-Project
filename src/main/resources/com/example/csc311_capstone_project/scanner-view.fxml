@@ -28,7 +28,7 @@
       <TextField fx:id="orderDateField" layoutX="514.0" layoutY="229.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
       <TextField fx:id="deliveryDateField" layoutX="804.0" layoutY="229.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
       <TextField fx:id="statusField" layoutX="514.0" layoutY="429.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
-      <TextField fx:id="itemIDField" layoutX="514.0" layoutY="339.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
+      <TextField fx:id="itemsField" layoutX="514.0" layoutY="339.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
       <TextField fx:id="shippingAddressField" layoutX="804.0" layoutY="339.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
       <Button fx:id="addButton" layoutX="824.0" layoutY="529.0" mnemonicParsing="false" onAction="#addInvoice" prefHeight="50.0" prefWidth="230.0" style="-fx-cursor: Hand;" stylesheets="@scannerscreen.css" text="ADD INVOICE" />
       <Label layoutX="894.0" layoutY="404.0" stylesheets="@scannerscreen.css" text="Invoice Name" />

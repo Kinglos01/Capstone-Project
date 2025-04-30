@@ -1,5 +1,7 @@
 package com.example.csc311_capstone_project.model;
 
+import com.example.csc311_capstone_project.ItemController;
+import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 
 import java.io.BufferedReader;
@@ -18,11 +20,12 @@ public class Invoice {
     private Item[] items;
     private Image image;
 
+    /*
     /**
      * Creates an invoice with placeholder values.
      * @since 3/21/2025
      * @author Aidan Rodriguez
-     */
+     *
     public Invoice() {
         invoice_id = "1234";
         account_id = "123";
@@ -32,6 +35,7 @@ public class Invoice {
         status = Status.unknown;
         items = new Item[999];
     }
+    */
 
     /**
      * Creates an Invoice populated with parameter values.
@@ -57,19 +61,21 @@ public class Invoice {
         this.image = image;
     }
 
+
     /**
-     * Creates an Invoice populated with parameter values plus a populated list of Items based on a String.
+     * Creates an Invoice populated with parameter values plus it converts the list of items with their quantities into the price value.
      * @param invoice_id Assigns a String to item_id.
      * @param account_id Assigns a String to account_id.
      * @param order_date Assigns a String to the order_date.
      * @param delivery_date Assigns a String to the delivery_date
      * @param delivery_address Assigns a String to delivery_address.
      * @param status Assigns a Status to status.
-     * @param item String of items that will be added to the array
+     * @param item String of items and their quantities which will be converted into the price value.
+     * @param image Image of the invoice.
      * @author Nathaniel Rivera
      * @since 4/1/2025
      */
-    public Invoice(String invoice_id, String account_id, String order_date, String delivery_date, String delivery_address, Status status, String item, Image image) {
+    public Invoice(String invoice_id, String account_id, String order_date, String delivery_date, String delivery_address, String name, String item, Image image, Status status) {
         this.invoice_id = invoice_id;
         this.account_id = account_id;
         this.order_date = order_date;
@@ -77,8 +83,8 @@ public class Invoice {
         this.delivery_address = delivery_address;
         this.status = status;
         this.image = image;
-
-        
+        this.name = name;
+        this.price = "$" + findPrice(item);
     }
 
     public String getInvoiceId() {
@@ -203,5 +209,65 @@ public class Invoice {
      */
     public Image getImage() {
         return image;
+    }
+
+    /**
+     * Takes in a string of Items:Quantity and outputs the price
+     * of all the items in the String
+     * @param items The String of items with their quantity must be in Item:Quantity order.
+     * @return The total price of the invoice
+     * @since 4/29/2025
+     * @author Nathaniel Rivera
+     */
+    public double findPrice(String items) {
+
+        String word = null;
+        String quantity = null;
+
+        int prev = 0;
+        int mid;
+        int end;
+
+        double price = 0;
+
+        ObservableList<Item> itemList = ItemController.getItemsList();
+
+        for(int i = 0; i < items.length(); i++) {
+
+            if(items.charAt(i) == ':') {
+
+                    mid = i;
+
+                    for(int j = i; j < items.length(); j++) {
+
+                        if(items.charAt(j) == ',') {
+                            end = j;
+
+                            word = items.substring(prev, mid);
+                            quantity = items.substring(mid + 1, end);
+                            prev = end + 2;
+                            break;
+                        } else if(j == items.length() - 1) {
+                            end = j + 1;
+
+                            word = items.substring(prev, mid);
+                            quantity = items.substring(mid + 1, end);
+                            prev = end;
+                            break;
+                        }
+                    }
+
+                    for (Item item : itemList) {
+                        if (item.getName().equals(word)) {
+                            price = price + (item.getPpi() * Double.parseDouble(quantity));
+                        }
+
+                    }
+
+            }
+        }
+        int rounder = (int) price * 100;
+        price = (double) rounder / 100;
+        return price;
     }
 }

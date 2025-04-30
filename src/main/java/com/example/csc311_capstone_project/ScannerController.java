@@ -27,13 +27,12 @@ public class ScannerController {
     protected final ObservableList<Invoice> invoices = FXCollections.observableArrayList();
 
     @FXML
-    protected TextField itemIDField;
-
-    @FXML
     protected Button generateButton;
 
     @FXML
     protected Button addButton;
+
+    protected String currImage;
 
     ConnDbOps db = new ConnDbOps();
 
@@ -41,7 +40,7 @@ public class ScannerController {
     protected ImageView invoiceImage;
 
     @FXML
-    protected TextField invoiceNumField, accountIDField, orderDateField, deliveryDateField, statusField, shippingAddressField, invoiceNameField;
+    protected TextField invoiceNumField, accountIDField, orderDateField, deliveryDateField, statusField, shippingAddressField, invoiceNameField, itemsField;
 
     @FXML
     protected void addInvoice() {
@@ -57,6 +56,7 @@ public class ScannerController {
         String inAddress = shippingAddressField.getText();
         String inStat = statusField.getText();
         String inName = invoiceNameField.getText();
+        String inItems = itemsField.getText();
 
         Pattern invoicePattern = Pattern.compile("IN\\d{8}");
         Matcher invoiceMatcher = invoicePattern.matcher(inNum);
@@ -70,7 +70,7 @@ public class ScannerController {
         Pattern statusPattern = Pattern.compile("Delivered|En-Route|Not Delivered|Unknown");
         Matcher statusMatcher = statusPattern.matcher(inStat);
 
-        if (inNum.isEmpty() || inAccount.isEmpty() || inOrder.isEmpty() || inStat.isEmpty() || inAddress.isEmpty()) {
+        if (inNum.isEmpty() || inAccount.isEmpty() || inOrder.isEmpty() || inStat.isEmpty() || inAddress.isEmpty() || currImage == null || inItems.isEmpty()) {
             System.out.println("Error: One or more fields do not have inputs");
             canCreate = false;
         }
@@ -114,12 +114,42 @@ public class ScannerController {
 
         if (canCreate) {
             switch(inStat) {
-                case "Delivered" -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.delivered, inName, "$0.00", invoiceImage.getImage())); //db.insertInvoice(inNum, inAccount, inOrder, inDeliv, inAddress, "delivered", inName, );
-                case "En-Route" -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.en_route, inName, "$0.00", invoiceImage.getImage()));
-                case "Not Delivered" -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.not_delivered, inName, "$0.00", invoiceImage.getImage()));
-                default -> LandingController.addInvoices().add(new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, Status.unknown, inName, "$0.00", invoiceImage.getImage()));
+                case "Delivered" -> {
+                    Invoice invoice = new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, inName, inItems, invoiceImage.getImage(), Status.delivered);
+                    LandingController.addInvoices().add(invoice);
+                    db.insertInvoice(inNum, inOrder, inDeliv, "Delivered", inAccount, inAddress, currImage, inName, invoice.getPrice());
+                }
+                case "En-Route" -> {
+                    Invoice invoice = new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, inName, inItems, invoiceImage.getImage(), Status.en_route);
+                    LandingController.addInvoices().add(invoice);
+                    db.insertInvoice(inNum, inOrder, inDeliv, "En-Route", inAccount, inAddress, currImage, inName, invoice.getPrice());
+                }
+                case "Not Delivered" -> {
+                    Invoice invoice = new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, inName, inItems, invoiceImage.getImage(), Status.not_delivered);
+                    LandingController.addInvoices().add(invoice);
+                    db.insertInvoice(inNum, inOrder, inDeliv, "Not Delivered", inAccount, inAddress, currImage, inName, invoice.getPrice());
+                }
+                default -> {
+                    Invoice invoice = new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, inName, inItems, invoiceImage.getImage(), Status.unknown);
+                    LandingController.addInvoices().add(invoice);
+                    db.insertInvoice(inNum, inOrder, inDeliv, "Unknown", inAccount, inAddress, currImage, inName, invoice.getPrice());
+                }
+
             }
+
+            invoiceNumField.setText("");
+            invoiceNameField.setText("");
+            statusField.setText("");
+            accountIDField.setText("");
+            shippingAddressField.setText("");
+            orderDateField.setText("");
+            deliveryDateField.setText("");
+            itemsField.setText("");
+            invoiceImage.setImage(null);
+            currImage = null;
+
         }
+
     }
 
     /***
@@ -130,9 +160,13 @@ public class ScannerController {
      */
     @FXML
     protected void imageChange() {
+
         File file = (new FileChooser()).showOpenDialog(invoiceImage.getScene().getWindow());
+
         if(file != null) {
             invoiceImage.setImage(new Image(file.toURI().toString()));
         }
+
+        currImage = file.toURI().toString();
     }
 }
