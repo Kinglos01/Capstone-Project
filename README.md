@@ -1,6 +1,10 @@
-# Automated Inventory System
+# autoCommerce Application
 
-## Layouts
+## Introduction
+
+## How to Use
+
+## Layouts and Formatting
 
 ### Splash Screen
 
@@ -24,7 +28,7 @@ The first and last name of the user must be 2-25 characters long as well as only
 
 ### Scanner Screen
 
-The Scanner Screen of the auto commerce application consists of a multitude of fields for the user to enter. The fields are invoice number, customer account ID, order date, delivery date, shipping address, status, and the items.
+The Scanner Screen of the autoCommerce application consists of a multitude of fields for the user to enter. The fields are invoice number, customer account ID, order date, delivery date, shipping address, status, and the items.
 
 The invoice number must follow the following criteria, it must start with **IN followed by 8 number characters**, no two invoices that belong to the same user may share an ID, and this field is mandatory.
 
@@ -38,9 +42,17 @@ The shipping address must follow the following criteria, it must be written as *
 
 The status field must follow the following criteria, it must be one of the four terms, **Delivered, Not Delivered, En-Route, or Unknown**.
 
-The item fields must follow the following criteria, unknown as of now.
+The item fields must follow the following criteria, it must be written in the order of **ITEM NAME:QUANTITY** if there are multiple items they must be split with a comma with the final value having no comma at the end.
 
-### Contributors
+### Item Screen
+
+The Item Screen of the autoCommerce applciation is a list where users can add and remove items from their own personal list of items. The user can add, remove or edit the item's names and their prices within the field. The user is also able to import a **CSV or TXT** file which stores the items alongside their price with the **ITEM NAME,ITEM PRICE** format.
+
+The item name must follow the following criteria, it must be **2, 25 characters**.
+
+The price of the item must folllow the following criteria, it must be a **double with at most 2 significant figures after the decimal**.
+
+## Contributors
 
 Berio, Carlos
 
