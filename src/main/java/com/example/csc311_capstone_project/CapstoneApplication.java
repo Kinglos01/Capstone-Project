@@ -261,6 +261,26 @@ public class CapstoneApplication extends Application {
         usernameField.setLayoutY(70);
         usernameField.setPromptText("USERNAME");
         root.getChildren().add(usernameField);
+        Label usernameError = new Label();
+        usernameError.setTextFill(Color.RED); // Set text color to red
+        usernameError.setLayoutX(322); // Position near the input fields
+        usernameError.setLayoutY(110);
+        root.getChildren().add(usernameError);
+
+        Pattern userNamePattern = Pattern.compile("[\\w|-]{2,25}");
+        // Live border coloring while typing
+        usernameField.textProperty().addListener((obs, oldText, newText) -> {
+            boolean valid = userNamePattern.matcher(newText).matches();
+            usernameField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+        });
+        // Show/hide error message on focus loss
+        usernameField.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (!isNowFocused) {
+                boolean valid = userNamePattern.matcher(usernameField.getText()).matches();
+                usernameError.setText(valid ? "" : "2–25 characters, only letters, digits, or '-' allowed");
+                usernameField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+            }
+        });
 
         TextField emailField = new TextField();
         emailField.setPrefWidth(300);
@@ -269,6 +289,26 @@ public class CapstoneApplication extends Application {
         emailField.setLayoutY(130);
         emailField.setPromptText("EMAIL");
         root.getChildren().add(emailField);
+        Label emailError = new Label();
+        emailError.setTextFill(Color.RED);
+        emailError.setLayoutX(322);
+        emailError.setLayoutY(170);
+        root.getChildren().add(emailError);
+
+        Pattern emailPattern = Pattern.compile("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$");
+        // Live border coloring while typing
+        emailField.textProperty().addListener((obs, oldText, newText) -> {
+            boolean valid = emailPattern.matcher(newText).matches();
+            emailField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+        });
+        // Show/hide error message on focus loss
+        emailField.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (!isNowFocused) {
+                boolean valid = emailPattern.matcher(emailField.getText()).matches();
+                emailError.setText(valid ? "" : "Must be a valid email address format");
+                emailField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+            }
+        });
 
         TextField passwordField = new TextField();
         passwordField.setPrefWidth(300);
@@ -277,6 +317,26 @@ public class CapstoneApplication extends Application {
         passwordField.setLayoutY(190);
         passwordField.setPromptText("PASSWORD");
         root.getChildren().add(passwordField);
+        Label passwordError = new Label();
+        passwordError.setTextFill(Color.RED);
+        passwordError.setLayoutX(322);
+        passwordError.setLayoutY(230);
+        root.getChildren().add(passwordError);
+
+        Pattern passwordPattern = Pattern.compile("\\w{2,25}");
+        // Live border coloring while typing
+        passwordField.textProperty().addListener((obs, oldText, newText) -> {
+            boolean valid = passwordPattern.matcher(newText).matches();
+            passwordField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+        });
+        // Show/hide error message on focus loss
+        passwordField.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (!isNowFocused) {
+                boolean valid = passwordPattern.matcher(passwordField.getText()).matches();
+                passwordError.setText(valid ? "" : "2–25 characters, letters or digits only");
+                passwordField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+            }
+        });
 
         TextField firstNameField = new TextField();
         firstNameField.setPrefWidth(140);
@@ -285,6 +345,26 @@ public class CapstoneApplication extends Application {
         firstNameField.setLayoutY(250);
         firstNameField.setPromptText("F. Name");
         root.getChildren().add(firstNameField);
+        Label fNameError = new Label();
+        fNameError.setTextFill(Color.RED);
+        fNameError.setLayoutX(322);
+        fNameError.setLayoutY(290);
+        root.getChildren().add(fNameError);
+
+        Pattern namePattern = Pattern.compile("\\w{2,25}+");
+        // Live border coloring while typing
+        firstNameField.textProperty().addListener((obs, oldText, newText) -> {
+            boolean valid = namePattern.matcher(newText).matches();
+            firstNameField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+        });
+        // Show/hide error message on focus loss
+        firstNameField.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (!isNowFocused) {
+                boolean valid = namePattern.matcher(firstNameField.getText()).matches();
+                fNameError.setText(valid ? "" : "2–25 letters only");
+                firstNameField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+            }
+        });
 
         TextField lastNameField = new TextField();
         lastNameField.setPrefWidth(140);
@@ -293,23 +373,31 @@ public class CapstoneApplication extends Application {
         lastNameField.setLayoutY(250);
         lastNameField.setPromptText("L. Name");
         root.getChildren().add(lastNameField);
+        Label lNameError = new Label();
+        lNameError.setTextFill(Color.RED);
+        lNameError.setLayoutX(482);
+        lNameError.setLayoutY(290);
+        root.getChildren().add(lNameError);
+
+        // Live border coloring while typing
+        lastNameField.textProperty().addListener((obs, oldText, newText) -> {
+            boolean valid = namePattern.matcher(newText).matches();
+            lastNameField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+        });
+        // Show/hide error message on focus loss
+        lastNameField.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (!isNowFocused) {
+                boolean valid = namePattern.matcher(lastNameField.getText()).matches();
+                lNameError.setText(valid ? "" : "2–25 letters only");
+                lastNameField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+            }
+        });
 
         Label errorLabel = new Label();
         errorLabel.setTextFill(Color.RED); // Set text color to red
         errorLabel.setLayoutX(322); // Position near the input fields
-        errorLabel.setLayoutY(290);
+        errorLabel.setLayoutY(346);
         root.getChildren().add(errorLabel);
-
-        Button close = new Button();
-        close.setPrefWidth(25);
-        close.setPrefHeight(25);
-        close.setLayoutX(630);
-        close.setLayoutY(10);
-        close.setOpacity(0);
-        root.getChildren().add(close);
-        close.setOnAction(e -> {
-            stage.close();
-        });
 
         Button registerButton = new Button();
         registerButton.setPrefWidth(300);
@@ -318,6 +406,15 @@ public class CapstoneApplication extends Application {
         registerButton.setLayoutY(310);
         registerButton.setText("Register");
         root.getChildren().add(registerButton);
+
+        registerButton.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (isNowFocused) {
+                registerButton.setStyle("-fx-border-color: #039ED3;");
+            } else {
+                registerButton.setStyle(""); // Reset style
+            }
+        });
+
         registerButton.setOnAction(e -> {
             boolean canCreate = true;
             String username = usernameField.getText();
@@ -326,44 +423,57 @@ public class CapstoneApplication extends Application {
             String lastName = lastNameField.getText();
             String email = emailField.getText();
 
-            Pattern userNamePattern = Pattern.compile("[\\w|-]{2,25}");
             Matcher userNameMatcher = userNamePattern.matcher(username);
-            Pattern passwordPattern = Pattern.compile("\\w{2,25}");
             Matcher passwordMatcher = passwordPattern.matcher(password);
-            Pattern namePattern = Pattern.compile("\\w{2,25}+");
             Matcher firstNameMatcher = namePattern.matcher(firstName);
             Matcher lastNameMatcher = namePattern.matcher(lastName);
-            Pattern emailPattern = Pattern.compile("\\w+@\\w+.\\w{2,4}");
             Matcher emailMatcher = emailPattern.matcher(email);
 
             if (username.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()) {
                 System.out.println("Error: One or more fields do not have inputs");
-                errorLabel.setText("Error: All fields must be filled."); // Print error to UI
+                errorLabel.setText("All fields must be filled."); // Print error to UI
                 canCreate = false;
+
+                // Highlight empty fields with red border
+                if (username.isEmpty()) usernameField.setStyle("-fx-border-color: red;");
+                if (password.isEmpty()) passwordField.setStyle("-fx-border-color: red;");
+                if (firstName.isEmpty()) firstNameField.setStyle("-fx-border-color: red;");
+                if (lastName.isEmpty()) lastNameField.setStyle("-fx-border-color: red;");
+                if (email.isEmpty()) emailField.setStyle("-fx-border-color: red;");
             }
 
             if(!userNameMatcher.matches()){
                 System.out.println("Error: Username needs to be within 2-25 characters, no special characters besides '-'");
+                usernameError.setText("2–25 characters, only letters, digits, or '-' allowed");
+                usernameField.setStyle("-fx-border-color: red;");
                 canCreate = false;
             }
 
             if(!passwordMatcher.matches()){
                 System.out.println("Error: Password needs to be within 2-25 characters, no special characters");
+                passwordError.setText("2–25 characters, letters or digits only");
+                passwordField.setStyle("-fx-border-color: red;");
                 canCreate = false;
             }
 
             if(!firstNameMatcher.matches()){
                 System.out.println("Error: First name needs to be within 2-25 letters, no other characters");
+                fNameError.setText("2–25 letters only");
+                firstNameField.setStyle("-fx-border-color: red;");
                 canCreate = false;
             }
 
             if(!lastNameMatcher.matches()){
                 System.out.println("Error: Last name needs to be within 2-25 letters, no other characters");
+                lNameError.setText("2–25 letters only");
+                lastNameField.setStyle("-fx-border-color: red;");
                 canCreate = false;
             }
 
             if(!emailMatcher.matches()){
                 System.out.println("Error: Invalid email input.  Please use a valid email address");
+                emailError.setText("Must be a valid email address format");
+                emailField.setStyle("-fx-border-color: red;");
                 canCreate = false;
             }
 
@@ -380,6 +490,17 @@ public class CapstoneApplication extends Application {
                 db.insertUser(username, email, password, firstName, lastName);
                 stage.close();
             }
+        });
+
+        Button close = new Button();
+        close.setPrefWidth(25);
+        close.setPrefHeight(25);
+        close.setLayoutX(630);
+        close.setLayoutY(10);
+        close.setOpacity(0);
+        root.getChildren().add(close);
+        close.setOnAction(e -> {
+            stage.close();
         });
 
         Label loginButton = new Label();
