@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -50,6 +51,12 @@ public class LandingController implements Initializable{
 
     @FXML
     protected ImageView invoiceDisplay;
+
+    @FXML
+    protected MenuItem closeApp;
+
+    @FXML
+    protected MenuItem logOut;
 
     ConnDbOps db = new ConnDbOps();
 
@@ -190,5 +197,20 @@ public class LandingController implements Initializable{
         }
     }
 
+    /***
+     * closes application through the menu bar
+     * @since 4/30
+     * @author Carlos Berio
+     */
+    @FXML
+    protected void closeApplication() {
+        System.exit(0);
+    }
+
+    @FXML
+    protected void logOutClicked(){
+
+    }
 
 }
+

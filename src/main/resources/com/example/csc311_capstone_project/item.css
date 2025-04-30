@@ -1,3 +1,9 @@
+/***
+Added a consistent design throughout the entire program
+@since 4/29
+@author Carlos Berio
+ */
+
 .AnchorPane{
     -fx-background-color: linear-gradient(
             from 0% 0% to 100% 100%,
