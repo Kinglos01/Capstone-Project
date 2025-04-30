@@ -197,6 +197,11 @@ public class LandingController implements Initializable{
         }
     }
 
+    /***
+     * closes application through the menu bar
+     * @since 4/30
+     * @author Carlos Berio
+     */
     @FXML
     protected void closeApplication() {
         System.exit(0);
