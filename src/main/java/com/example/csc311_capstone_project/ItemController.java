@@ -18,6 +18,8 @@ import java.io.FileReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ItemController implements Initializable {
 
@@ -73,10 +75,36 @@ public class ItemController implements Initializable {
      */
     @FXML
     protected void addItem() {
-        Item item = new Item(items.size() + 1, itemNameField.getText(), Double.parseDouble(itemPriceField.getText()));
-        items.add(item);
-        db.insertItems(item.getId(), item.getName(), item.getPpi());
-        clearForm();
+        boolean canAdd = true;
+        String iName = itemNameField.getText();
+        String iPrice = itemPriceField.getText();
+
+        Pattern itemNamePattern = Pattern.compile(".{2,250}");
+        Matcher itemNameMatcher = itemNamePattern.matcher(iName);
+        Pattern itemPricePattern = Pattern.compile("\\d+\\.\\d{2}");
+        Matcher itemPriceMatcher = itemPricePattern.matcher(iPrice);
+
+        if( iName.isEmpty() || iPrice.isEmpty() ){
+            System.out.println("Error: One or more fields are empty");
+            canAdd = false;
+        }
+
+        if(!itemNameMatcher.matches()){
+            System.out.println("Error: The item name must be between 2 to 250 characters");
+            canAdd = false;
+        }
+
+        if(!itemPriceMatcher.matches()){
+            System.out.println("Error: The price must only be numbers an include exactly two decimals.");
+            canAdd = false;
+        }
+
+        if(canAdd) {
+            Item item = new Item(items.size() + 1, itemNameField.getText(), Double.parseDouble(itemPriceField.getText()));
+          items.add(item);
+          db.insertItems(item.getId(), item.getName(), item.getPpi());
+          clearForm();
+        }
     }
 
     /**

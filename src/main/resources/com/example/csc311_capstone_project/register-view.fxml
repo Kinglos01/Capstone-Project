@@ -13,7 +13,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="380.0" stroke="BLACK" strokeType="INSIDE" width="650.0">
+      <Rectangle fx:id="regPane" arcHeight="5.0" arcWidth="5.0" height="380.0" stroke="BLACK" strokeType="INSIDE" width="650.0">
          <fill>
             <RadialGradient centerX="0.4171270718232044" centerY="0.17298578199052134" focusDistance="-1.0" radius="1.0">
                <stops>

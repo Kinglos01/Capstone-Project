@@ -12,7 +12,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csc311_capstone_project.LandingController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3ffd3" height="800.0" stroke="BLACK" strokeType="INSIDE" style="-fx-arc-width: 0; -fx-arc-height: 0;" width="200.0" />
+      <Rectangle fx:id="leftRect" arcHeight="5.0" arcWidth="5.0" height="800.0" stroke="BLACK" strokeType="INSIDE" style="-fx-arc-width: 0; -fx-arc-height: 0;" width="200.0" />
       <TableView fx:id="invoiceTable" layoutX="200.0" layoutY="26.0" onMouseClicked="#selectedInvoice" prefHeight="774.0" prefWidth="1000.0">
         <columns>
             <TableColumn fx:id="invoiceName" prefWidth="131.0" text="Invoice Name" />
@@ -32,8 +32,8 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem fx:id="logOut" mnemonicParsing="false" text="Log Out" />
-                  <MenuItem fx:id="closeApp" mnemonicParsing="false" text="Close" />
+              <MenuItem fx:id="logOut" mnemonicParsing="false" onAction="#logOutClicked" text="Log Out" />
+                  <MenuItem fx:id="closeApp" mnemonicParsing="false" onAction="#closeApplication" text="Close" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Items">

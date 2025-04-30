@@ -4,27 +4,7 @@ Added a consistent design throughout the entire program
 @author Carlos Berio
  */
 
-.label {
-    -fx-font-family: "Berlin Sans FB";
-    -fx-font-size: 16px;
-}
-
-.text-field {
-    -fx-font-family: "Berlin Sans FB";
-    -fx-font-size: 16px;
-}
-
-#generateText {
-    -fx-font-family: "System";
-    -fx-font-size: 12px;
-}
-
-#addText {
-    -fx-font-family: "System";
-    -fx-font-size: 12px;
-}
-
-.root{
+.AnchorPane{
     -fx-background-color: linear-gradient(
             from 0% 0% to 100% 100%,
             #00ffcc 0%,
@@ -40,4 +20,13 @@ Added a consistent design throughout the entire program
 .button:hover {
     -fx-font-family: "Berlin Sans FB";
     -fx-background-color: #ec63d7;
+}
+
+#itemRect{
+    -fx-fill: linear-gradient(
+            from 0% 0% to 100% 100%,
+            #00ffcc 0%,
+            #ccffff 50%,
+            #3399ff 100%
+    );
 }

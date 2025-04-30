@@ -4,28 +4,17 @@ Added a consistent design throughout the entire program
 @author Carlos Berio
  */
 
-.label {
-    -fx-font-family: "Berlin Sans FB";
-    -fx-font-size: 16px;
-}
-
-.text-field {
-    -fx-font-family: "Berlin Sans FB";
-    -fx-font-size: 16px;
-}
-
-#generateText {
-    -fx-font-family: "System";
-    -fx-font-size: 12px;
-}
-
-#addText {
-    -fx-font-family: "System";
-    -fx-font-size: 12px;
-}
-
 .root{
     -fx-background-color: linear-gradient(
+            from 0% 0% to 100% 100%,
+            #00ffcc 0%,
+            #ccffff 50%,
+            #3399ff 100%
+    );
+}
+
+#leftRect{
+    -fx-fill: linear-gradient(
             from 0% 0% to 100% 100%,
             #00ffcc 0%,
             #ccffff 50%,
