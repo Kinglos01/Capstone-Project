@@ -1,4 +1,4 @@
-package com.example.csc311_capstone_project;
+package com.example.csc311_capstone_project.model;
 
 /**
  * This class is created to populate the Invoice class. On program start, Items that are already
@@ -95,5 +95,16 @@ public class Item {
      */
     public void setPpi(double ppi) {
         this.ppi = ppi;
+    }
+
+    /**
+     * Displays the id, name, and ppi for the Item within brackets.
+     * @return the id, name, and ppi as a String.
+     * @since 4/14/25
+     * @author Jared Mitchell
+     */
+    @Override
+    public String toString(){
+        return "[" + this.item_id + ", " + this.item_name + ", " + this.ppi + "]";
     }
 }

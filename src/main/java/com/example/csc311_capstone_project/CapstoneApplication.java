@@ -1,29 +1,26 @@
 package com.example.csc311_capstone_project;
+import com.example.csc311_capstone_project.db.ConnDbOps;
+import com.example.csc311_capstone_project.model.User;
+import com.example.csc311_capstone_project.service.CurrentUser;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * CapstoneApplication is the main handler for the Application.
@@ -32,9 +29,9 @@ import java.util.Objects;
  * @since 3/12/25
  * @author Nathaniel Rivera
  */
-public class    CapstoneApplication extends Application {
+public class CapstoneApplication extends Application {
 
-    public static ArrayList<User> userbase = new ArrayList<>();
+    public static List<User> userbase;
 
     /**
      * The initial start method for the program. Launches ands calls the setup for the splash screen.
@@ -45,7 +42,6 @@ public class    CapstoneApplication extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
-
         FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("splash-view.fxml"));
 
         AnchorPane root = new AnchorPane();
@@ -57,7 +53,7 @@ public class    CapstoneApplication extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.initStyle(StageStyle.TRANSPARENT);
-        stage.getIcons().add(new Image(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png")));
+        stage.getIcons().add(new Image(Objects.requireNonNull(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png"))));
         stage.show();
     }
 
@@ -77,6 +73,10 @@ public class    CapstoneApplication extends Application {
      * @since 3/12/2025
      */
     public static void splashSetup(AnchorPane root, Stage stage) {
+        ConnDbOps db = new ConnDbOps();
+        db.connectToDatabase();
+        userbase = db.retrieveUsers();
+
         Button launcher = new Button();
         launcher.setPrefWidth(300); launcher.setPrefHeight(100); launcher.setLayoutX(850); launcher.setLayoutY(550);
         launcher.setText("Launch");
@@ -89,12 +89,13 @@ public class    CapstoneApplication extends Application {
                 landingRoot.getChildren().add(fxmlLoader.load());
                 landingSetup(landingRoot, landingStage);
 
-                Scene scene = new Scene(landingRoot, 1200, 800);
+                Scene scene = new Scene(landingRoot, 1800, 800);
                 landingStage.setScene(scene);
                 landingStage.setResizable(false);
 
                 stage.close();
-                landingStage.getIcons().add(new Image(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png")));
+                landingStage.getIcons().add(new Image(Objects.requireNonNull(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png"))));
+                scene.getStylesheets().add(CapstoneApplication.class.getResource("/com/example/csc311_capstone_project/landing.css").toExternalForm());
                 landingStage.show();
             } catch(IOException _) {
 
@@ -144,11 +145,9 @@ public class    CapstoneApplication extends Application {
                     scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("loginscreen.css")).toExternalForm());
                     loginStage.setResizable(false);
                     loginStage.initStyle(StageStyle.UNDECORATED);
-                    loginStage.getIcons().add(new Image(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png")));
+                    loginStage.getIcons().add(new Image(Objects.requireNonNull(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png"))));
                     loginStage.show();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                } catch (IOException e) { }
             }
         });
     }
@@ -197,18 +196,21 @@ public class    CapstoneApplication extends Application {
         loginRoot.getChildren().add(loginButton);
         loginButton.setOnAction(e -> {
             boolean canLogin = false;
+            User currUser = null;
             String username = usernameField.getText();
             String email = emailField.getText();
             String password = passwordField.getText();
 
             for(User user : userbase) {
                 if(user.getUsername().equals(username) && user.getPassword().equals(password) && user.getEmail().equals(email)) {
+                    currUser = user;
                     canLogin = true;
                     break;
                 }
             }
 
             if(canLogin) {
+                CurrentUser.setCurrentUser(currUser.getUsername(), currUser.getPassword());
                 stage.close();
             } else {
                 System.out.println("One of the following fields: Username, password, or email is incorrect");
@@ -250,6 +252,8 @@ public class    CapstoneApplication extends Application {
      * @since 3/13/2025
      */
     public static void registerSetup(AnchorPane root, Stage stage) {
+        ConnDbOps db = new ConnDbOps();
+        db.connectToDatabase();
         TextField usernameField = new TextField();
         usernameField.setPrefWidth(300);
         usernameField.setPrefHeight(40);
@@ -322,11 +326,44 @@ public class    CapstoneApplication extends Application {
             String lastName = lastNameField.getText();
             String email = emailField.getText();
 
-
+            Pattern userNamePattern = Pattern.compile("[\\w|-]{2,25}");
+            Matcher userNameMatcher = userNamePattern.matcher(username);
+            Pattern passwordPattern = Pattern.compile("\\w{2,25}");
+            Matcher passwordMatcher = passwordPattern.matcher(password);
+            Pattern namePattern = Pattern.compile("\\w{2,25}+");
+            Matcher firstNameMatcher = namePattern.matcher(firstName);
+            Matcher lastNameMatcher = namePattern.matcher(lastName);
+            Pattern emailPattern = Pattern.compile("\\w+@\\w+.\\w{2,4}");
+            Matcher emailMatcher = emailPattern.matcher(email);
 
             if (username.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()) {
                 System.out.println("Error: One or more fields do not have inputs");
                 errorLabel.setText("Error: All fields must be filled."); // Print error to UI
+                canCreate = false;
+            }
+
+            if(!userNameMatcher.matches()){
+                System.out.println("Error: Username needs to be within 2-25 characters, no special characters besides '-'");
+                canCreate = false;
+            }
+
+            if(!passwordMatcher.matches()){
+                System.out.println("Error: Password needs to be within 2-25 characters, no special characters");
+                canCreate = false;
+            }
+
+            if(!firstNameMatcher.matches()){
+                System.out.println("Error: First name needs to be within 2-25 letters, no other characters");
+                canCreate = false;
+            }
+
+            if(!lastNameMatcher.matches()){
+                System.out.println("Error: Last name needs to be within 2-25 letters, no other characters");
+                canCreate = false;
+            }
+
+            if(!emailMatcher.matches()){
+                System.out.println("Error: Invalid email input.  Please use a valid email address");
                 canCreate = false;
             }
 
@@ -340,6 +377,7 @@ public class    CapstoneApplication extends Application {
 
             if(canCreate) {
                 userbase.add(new User(firstName, lastName, username, email, password));
+                db.insertUser(username, email, password, firstName, lastName);
                 stage.close();
             }
         });
@@ -360,6 +398,7 @@ public class    CapstoneApplication extends Application {
                 loginSetup(loginRoot, loginStage);
 
                 Scene scene = new Scene(loginRoot, 650, 380);
+
                 loginStage.setScene(scene);
                 scene.getStylesheets().add(Objects.requireNonNull(CapstoneApplication.class.getResource("loginscreen.css")).toExternalForm());
                 loginStage.setResizable(false);
@@ -385,7 +424,7 @@ public class    CapstoneApplication extends Application {
         addInvoice.setPrefWidth(160);
         addInvoice.setPrefHeight(50);
         addInvoice.setLayoutX(20);
-        addInvoice.setLayoutY(640);
+        addInvoice.setLayoutY(600);
         addInvoice.setText("ADD INVOICE");
         root.getChildren().add(addInvoice);
         addInvoice.setOnMouseClicked(e -> {
@@ -400,7 +439,7 @@ public class    CapstoneApplication extends Application {
                 scene.getStylesheets().add(Objects.requireNonNull(CapstoneApplication.class.getResource("scannerscreen.css")).toExternalForm());
                 stage.setScene(scene);
                 stage.setResizable(false);
-                stage.getIcons().add(new Image(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png")));
+                stage.getIcons().add(new Image(Objects.requireNonNull(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png"))));
 
                 stage.show();
             }  catch (IOException ex) {
@@ -427,6 +466,7 @@ public class    CapstoneApplication extends Application {
      * @author Nathaniel Rivera
      */
     public static void scannerSetup(AnchorPane root, Stage stage) {
+
         /*
         TextField invoiceNumberField = new TextField();
         invoiceNumberField.setPrefWidth(270); invoiceNumberField.setPrefHeight(30); invoiceNumberField.setLayoutX(430); invoiceNumberField.setLayoutY(120);
@@ -462,14 +502,16 @@ public class    CapstoneApplication extends Application {
         statusField.setPrefWidth(270); statusField.setPrefHeight(30); statusField.setLayoutX(575); statusField.setLayoutY(430);
         statusField.setPromptText("STATUS");
         root.getChildren().add(statusField);
-        */
 
+
+        ImageView invoicePic = new ImageView(new Image("C:\\Users\\nycpu\\IdeaProjects\\CSC311_Capstone_Project\\src\\main\\resources\\com\\example\\csc311_capstone_project\\images\\close_symbol.png"));
         ImageView invoicePic = new ImageView();
         invoicePic.setFitWidth(465);
         invoicePic.setFitHeight(600);
         invoicePic.setLayoutX(15);
         invoicePic.setLayoutY(15);
         root.getChildren().add(invoicePic);
+
 
         Button imageChanger = new Button();
         imageChanger.setPrefWidth(465);
@@ -486,7 +528,7 @@ public class    CapstoneApplication extends Application {
             }
         });
 
-        /*
+
         Button addInvoice = new Button();
         addInvoice.setPrefWidth(230);
         addInvoice.setPrefHeight(50);
@@ -494,6 +536,6 @@ public class    CapstoneApplication extends Application {
         addInvoice.setLayoutY(530);
         addInvoice.setText("ADD INVOICE");
         root.getChildren().add(addInvoice);
-         */
+        */
     }
 }

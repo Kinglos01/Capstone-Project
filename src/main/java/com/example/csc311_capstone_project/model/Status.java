@@ -1,4 +1,4 @@
-package com.example.csc311_capstone_project;
+package com.example.csc311_capstone_project.model;
 
 /**
  * The Status enum is to easier specify the current status of an Invoice. The values for Status include

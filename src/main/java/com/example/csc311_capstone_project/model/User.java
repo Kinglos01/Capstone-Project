@@ -1,4 +1,4 @@
-package com.example.csc311_capstone_project;
+package com.example.csc311_capstone_project.model;
 
 /**
  * This class is being created to collect the user information from the sign-in page
@@ -39,7 +39,7 @@ public class User {
      * @since 3/20/25
      * @author Nathaniel Rivera
      */
-    User() {
+    public User() {
         firstName = "";
         lastName = "";
         id = 0;
@@ -58,7 +58,7 @@ public class User {
      * @since 3/20/25
      * @author Nathaniel Rivera
      */
-    User(String inFirst, String inLast, String inUser, String inEmail, String inPass) {
+    public User(String inFirst, String inLast, String inUser, String inEmail, String inPass) {
         firstName = inFirst;
         lastName = inLast;
         username = inUser;
