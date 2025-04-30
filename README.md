@@ -1,4 +1,4 @@
-# Automated Inventory System
+# autoCommerce Application
 
 ## Introduction
 
