@@ -24,6 +24,7 @@ import java.net.URL;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -37,7 +38,7 @@ import java.util.ResourceBundle;
  */
 public class LandingController implements Initializable{
 
-    protected static ObservableList<Invoice> invoices = FXCollections.observableArrayList();
+    public static ObservableList<Invoice> invoices = FXCollections.observableArrayList(new ArrayList<>());
 
     @FXML
     protected Button removeButton;
@@ -66,6 +67,7 @@ public class LandingController implements Initializable{
 
         db.connectToDatabase();
         db.setCurrentUser(CurrentUser.getCurrentUsername(), CurrentUser.getCurrentEmail());
+        invoices = db.retrieveInvoices();
 
         invoiceName.setCellValueFactory(new PropertyValueFactory<>("InvoiceName"));
         invoiceNum.setCellValueFactory(new PropertyValueFactory<>("InvoiceId"));
@@ -148,7 +150,7 @@ public class LandingController implements Initializable{
 
     /**
      * Toggles the current status of the Invoice that
-     * is selected. If the status is toggled to delivered
+     * is selected. If the status is toggled to 'Delivered'
      * the Invoice will have its delivery date set to the
      * current time.
      * @since 4/26/2025
@@ -173,18 +175,21 @@ public class LandingController implements Initializable{
                 Invoice invoice2 = new Invoice(invoice.getInvoiceId(), invoice.getAccountId(), invoice.getOrderDate(), time, invoice.getDeliveryAddress(), Status.delivered, invoice.getInvoiceName(), invoice.getPrice(), invoice.getImage());
                 invoices.remove(invoice);
                 invoices.add(index, invoice2);
+                db.editInvoice(invoice.getInvoiceId(), "Delivered", time);
                 invoiceTable.getSelectionModel().select(index);}
             case Status.not_delivered -> {
                 int index = invoices.indexOf(invoice);
                 Invoice invoice2 = new Invoice(invoice.getInvoiceId(), invoice.getAccountId(), invoice.getOrderDate(), invoice.getDeliveryDate(), invoice.getDeliveryAddress(), Status.en_route, invoice.getInvoiceName(), invoice.getPrice(), invoice.getImage());
                 invoices.remove(invoice);
                 invoices.add(index, invoice2);
+                db.editInvoice(invoice.getInvoiceId(), "En-Route", invoice.getDeliveryDate());
                 invoiceTable.getSelectionModel().select(index);}
             case Status.unknown -> {invoice.setStatus(Status.not_delivered);
                 int index = invoices.indexOf(invoice);
                 Invoice invoice2 = new Invoice(invoice.getInvoiceId(), invoice.getAccountId(), invoice.getOrderDate(), invoice.getDeliveryDate(), invoice.getDeliveryAddress(), Status.not_delivered, invoice.getInvoiceName(), invoice.getPrice(), invoice.getImage());
                 invoices.remove(invoice);
                 invoices.add(index, invoice2);
+                db.editInvoice(invoice.getInvoiceId(), "Not Delivered", invoice.getDeliveryDate());
                 invoiceTable.getSelectionModel().select(index);}
         }
     }

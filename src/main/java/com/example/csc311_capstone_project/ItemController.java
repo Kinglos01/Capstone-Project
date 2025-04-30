@@ -1,6 +1,7 @@
 package com.example.csc311_capstone_project;
 
 import com.example.csc311_capstone_project.db.ConnDbOps;
+import com.example.csc311_capstone_project.model.Invoice;
 import com.example.csc311_capstone_project.model.Item;
 import com.example.csc311_capstone_project.service.CurrentUser;
 import javafx.collections.FXCollections;
@@ -23,6 +24,8 @@ public class ItemController implements Initializable {
     @FXML
     protected TextField itemNameField;
 
+    protected static boolean init = false;
+
     @FXML
     protected TextField itemPriceField;
 
@@ -35,9 +38,9 @@ public class ItemController implements Initializable {
     @FXML
     protected MenuBar addItemFile;
 
-    protected ObservableList<Item> items = FXCollections.observableArrayList(new ArrayList<>());
+    public static ObservableList<Item> items = FXCollections.observableArrayList(new ArrayList<>());
 
-    ConnDbOps db = new ConnDbOps();
+    static ConnDbOps db = new ConnDbOps();
 
     /**
      * Initialization method which sets up the table columns and connects
@@ -49,8 +52,12 @@ public class ItemController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        db.connectToDatabase();
-        db.setCurrentUser(CurrentUser.getCurrentUsername(), CurrentUser.getCurrentEmail());
+        if(!init) {
+            db.connectToDatabase();
+            db.setCurrentUser(CurrentUser.getCurrentUsername(), CurrentUser.getCurrentEmail());
+            items = db.retrieveItems();
+            init = true;
+        }
 
         itemID.setCellValueFactory(new PropertyValueFactory<>("Id"));
         itemName.setCellValueFactory(new PropertyValueFactory<>("Name"));
@@ -66,7 +73,9 @@ public class ItemController implements Initializable {
      */
     @FXML
     protected void addItem() {
-        items.add(new Item(items.size() + 1, itemNameField.getText(), Double.parseDouble(itemPriceField.getText())));
+        Item item = new Item(items.size() + 1, itemNameField.getText(), Double.parseDouble(itemPriceField.getText()));
+        items.add(item);
+        db.insertItems(item.getId(), item.getName(), item.getPpi());
         clearForm();
     }
 
@@ -79,7 +88,7 @@ public class ItemController implements Initializable {
     protected void delete() {
         Item item = itemTable.getSelectionModel().getSelectedItem();
         int index = items.indexOf(item);
-        //db.removeInvoice(item.getInvoiceId());
+        db.removeItem(item.getId());
         items.remove(index);
 
         itemTable.getSelectionModel().select(index);
@@ -108,11 +117,11 @@ public class ItemController implements Initializable {
     protected void edit() {
         Item i = itemTable.getSelectionModel().getSelectedItem();
         int index = items.indexOf(i);
-        Item i2 = new Item(index + 1, i.getName(), i.getPpi());
+        Item i2 = new Item(index + 1, itemNameField.getText(), Double.parseDouble(itemPriceField.getText()));
+        db.editItem(i.getId(), itemNameField.getText(), Double.parseDouble(itemPriceField.getText()));
         items.remove(i);
         items.add(index, i2);
         itemTable.getSelectionModel().select(index);
-
     }
 
     /**
@@ -151,13 +160,30 @@ public class ItemController implements Initializable {
                         String name = row[0];
                         double price = Double.parseDouble(row[1]);
 
-                        items.add(new Item(items.size() + 1, name, price));
+                        Item item = new Item(items.size() + 1, name, price);
+                        items.add(item);
+                        db.insertItems(item.getId(), item.getName(), item.getPpi());
                     }
                 }
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    /**
+     * A static method which returns the items list so that the Invoice class can calculate the current price.
+     * @return The list of items for the given User.
+     * @since 4/14/2025
+     */
+    public static ObservableList<Item> getItemsList() {
+        if(!init) {
+            db.connectToDatabase();
+            db.setCurrentUser(CurrentUser.getCurrentUsername(), CurrentUser.getCurrentEmail());
+            items = db.retrieveItems();
+            init = true;
+        }
+        return items;
     }
 
 }
