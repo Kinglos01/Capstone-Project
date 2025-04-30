@@ -48,9 +48,9 @@ The item fields must follow the following criteria, it must be written in the or
 
 The Item Screen of the autoCommerce applciation is a list where users can add and remove items from their own personal list of items. The user can add, remove or edit the item's names and their prices within the field. The user is also able to import a **CSV or TXT** file which stores the items alongside their price with the **ITEM NAME,ITEM PRICE** format.
 
-The item name must follow the following criteria, it must be **2, 25 characters**
+The item name must follow the following criteria, it must be **2, 25 characters**.
 
-The price of the item must folllow the following criteria, it must be a **double with at most 2 siginficant figures after the decimal**.
+The price of the item must folllow the following criteria, it must be a **double with at most 2 significant figures after the decimal**.
 
 ## Contributors
 
