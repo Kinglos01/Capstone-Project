@@ -13,13 +13,14 @@
     -fx-font-size: 16px;
 }
 
-.button {
-    -fx-font-family: "Berlin Sans FB";
-    -fx-background-color: #ffffff;
+.button{
+    -fx-background-color: black;
+    -fx-text-fill: white;
 }
 .button:hover {
     -fx-font-family: "Berlin Sans FB";
-    -fx-background-color: #2fd47c;
+    -fx-background-color: white;
+    -fx-text-fill: black;
 }
 
 #loginPane{
