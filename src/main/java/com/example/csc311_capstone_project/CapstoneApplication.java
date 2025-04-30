@@ -95,6 +95,7 @@ public class CapstoneApplication extends Application {
 
                 stage.close();
                 landingStage.getIcons().add(new Image(Objects.requireNonNull(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png"))));
+                scene.getStylesheets().add(CapstoneApplication.class.getResource("/com/example/csc311_capstone_project/landing.css").toExternalForm());
                 landingStage.show();
             } catch(IOException _) {
 

@@ -141,6 +141,7 @@ public class LandingController implements Initializable{
         Scene scene = new Scene(itemRoot, 655, 800);
 
         stage.setScene(scene);
+        scene.getStylesheets().add(LandingController.class.getResource("/com/example/csc311_capstone_project/item.css").toExternalForm());
         stage.setResizable(false);
 
         stage.show();
