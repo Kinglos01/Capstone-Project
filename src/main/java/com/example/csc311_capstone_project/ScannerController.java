@@ -4,21 +4,17 @@ import com.example.csc311_capstone_project.db.ConnDbOps;
 import com.example.csc311_capstone_project.model.Invoice;
 import com.example.csc311_capstone_project.model.Status;
 import com.example.csc311_capstone_project.service.CurrentUser;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.css.Match;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-
 import java.io.File;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,20 +23,105 @@ public class ScannerController {
     protected final ObservableList<Invoice> invoices = FXCollections.observableArrayList();
 
     @FXML
-    protected Button generateButton;
-
+    protected Label errorLabel, invoiceNumError, accountIDError, orderDateError, deliveryDateError, statusError, shippingAddressError, invoiceNameError, itemsError, imageError;
     @FXML
-    protected Button addButton;
-
+    protected Button generateButton, addButton;
+    @FXML
     protected String currImage;
+    @FXML
+    protected ImageView invoiceImage;
+    @FXML
+    protected TextField invoiceNumField, accountIDField, orderDateField, deliveryDateField, statusField, shippingAddressField, invoiceNameField, itemsField;
 
     ConnDbOps db = new ConnDbOps();
 
     @FXML
-    protected ImageView invoiceImage;
+    protected void initialize() {
+        Pattern invoicePattern = Pattern.compile("IN\\d{8}");
+        Pattern customerPattern = Pattern.compile("CUS\\d{7}");
+        Pattern datePattern = Pattern.compile("\\d{2}-\\d{2}-\\d{4}");
+        Pattern addressPattern = Pattern.compile("[^,]+,[^,]+,\\s?[A-Z]{2},\\s?\\d{5}");
+        Pattern statusPattern = Pattern.compile("Delivered|En-Route|Not Delivered|Unknown");
 
-    @FXML
-    protected TextField invoiceNumField, accountIDField, orderDateField, deliveryDateField, statusField, shippingAddressField, invoiceNameField, itemsField;
+        // Invoice Number Field, Error Messages
+        invoiceNumField.textProperty().addListener((obs, oldText, newText) -> {
+            boolean valid = invoicePattern.matcher(newText).matches();
+            invoiceNumField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+        });
+        invoiceNumField.focusedProperty().addListener((obs, oldFocus, newFocus) -> {
+            if (!newFocus) {
+                boolean valid = invoicePattern.matcher(invoiceNumField.getText()).matches();
+                invoiceNumError.setText(valid ? "" : "Must be 'IN' followed by 8 digits");
+                invoiceNumField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+            }
+        });
+
+        // Account ID Field, Error Messages
+        accountIDField.textProperty().addListener((obs, oldText, newText) -> {
+            boolean valid = customerPattern.matcher(newText).matches();
+            accountIDField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+        });
+        accountIDField.focusedProperty().addListener((obs, oldFocus, newFocus) -> {
+            if (!newFocus) {
+                boolean valid = customerPattern.matcher(accountIDField.getText()).matches();
+                accountIDError.setText(valid ? "" : "Must be 'CUS' followed by 7 digits");
+                accountIDField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+            }
+        });
+
+        // Delivery Date Field, Error Messages
+        deliveryDateField.textProperty().addListener((obs, oldText, newText) -> {
+            boolean valid = datePattern.matcher(newText).matches();
+            deliveryDateField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+        });
+        deliveryDateField.focusedProperty().addListener((obs, oldFocus, newFocus) -> {
+            if (!newFocus) {
+                boolean valid = datePattern.matcher(deliveryDateField.getText()).matches();
+                deliveryDateError.setText(valid ? "" : "Date must be in MM-DD-YYYY format.");
+                deliveryDateField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+            }
+        });
+
+        // Order Date Field, Error Messages
+        orderDateField.textProperty().addListener((obs, oldText, newText) -> {
+            boolean valid = datePattern.matcher(newText).matches();
+            orderDateField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+        });
+        orderDateField.focusedProperty().addListener((obs, oldFocus, newFocus) -> {
+            if (!newFocus) {
+                boolean valid = datePattern.matcher(orderDateField.getText()).matches();
+                orderDateError.setText(valid ? "" : "Date must be in MM-DD-YYYY format.");
+                orderDateField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+            }
+        });
+
+        // Shipping Address Field, Error Messages
+        shippingAddressField.textProperty().addListener((obs, oldText, newText) -> {
+            boolean valid = addressPattern.matcher(newText).matches();
+            shippingAddressField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+        });
+        shippingAddressField.focusedProperty().addListener((obs, oldFocus, newFocus) -> {
+            if (!newFocus) {
+                boolean valid = addressPattern.matcher(shippingAddressField.getText()).matches();
+                shippingAddressError.setText(valid ? "" : "Enter full address as: Street, City, ST, ZIP.");
+                shippingAddressField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+            }
+        });
+
+        // Shipping Status Field, Error Messages
+        statusField.textProperty().addListener((obs, oldText, newText) -> {
+            boolean valid = statusPattern.matcher(newText).matches();
+            statusField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+        });
+        statusField.focusedProperty().addListener((obs, oldFocus, newFocus) -> {
+            if (!newFocus) {
+                boolean valid = statusPattern.matcher(statusField.getText()).matches();
+                statusError.setText(valid ? "" : "Must be one of: Delivered, En-Route,\nNot Delivered, or Unknown.");
+                statusField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+            }
+        });
+    }
+
 
     @FXML
     protected void addInvoice() {
@@ -72,42 +153,62 @@ public class ScannerController {
 
         if (inNum.isEmpty() || inAccount.isEmpty() || inOrder.isEmpty() || inStat.isEmpty() || inAddress.isEmpty() || currImage == null || inItems.isEmpty()) {
             System.out.println("Error: One or more fields do not have inputs");
+            errorLabel.setText("All fields must be filled."); // Print error to UI
             canCreate = false;
         }
 
+        if (currImage == null) {
+            imageError.setText("Please add an image of the invoice.");
+        }
+        else imageError.setText("");
+
         if(!invoiceMatcher.matches()){
             System.out.println("Error: The invoice id must be 'IN' followed by 8 digits");
+            invoiceNumError.setText("Must be 'IN' followed by 8 digits");
+            invoiceNumField.setStyle("-fx-border-color: red;");
             canCreate = false;
         }
 
         if(!customerMatcher.matches()){
             System.out.println("Error: The customer id must be 'CUS' followed by 7 digits");
+            accountIDError.setText("Must be 'CUS' followed by 7 digits");
+            accountIDField.setStyle("-fx-border-color: red;");
             canCreate = false;
         }
 
         if(!orderDateMatcher.matches()){
             System.out.println("Error: The order date must follow the MM-DD-YYYY format, dashes included");
+            orderDateError.setText("Date must be in MM-DD-YYYY format.");
+            orderDateField.setStyle("-fx-border-color: red;");
             canCreate = false;
         }
 
-        if(!deliveryDateMatcher.matches() && !inDeliv.isEmpty()){
+        if(!deliveryDateMatcher.matches()){
             System.out.println("Error: Any delivery date must follow the MM-DD-YYYY format, dashes included");
+            deliveryDateError.setText("Date must be in MM-DD-YYYY format.");
+            deliveryDateField.setStyle("-fx-border-color: red;");
             canCreate = false;
         }
 
         if(!addressMatcher.matches()){
             System.out.println("Error: Address must be a street address, a city name, a state abbreviation, and a 5 digit zip code");
+            shippingAddressError.setText("Enter full address as: Street, City, ST, ZIP.");
+            shippingAddressField.setStyle("-fx-border-color: red;");
             canCreate = false;
         }
 
         if(!statusMatcher.matches()){
             System.out.println("Error: Status must be 'Delivered', 'En-Route', 'Not Delivered', or 'Unknown', exactly");
+            statusError.setText("Must be one of: Delivered, En-Route,\nNot Delivered, or Unknown.");
+            statusField.setStyle("-fx-border-color: red;");
             canCreate = false;
         }
 
         for (Invoice invoice : invoices) {
             if (invoice.getInvoiceId().equals(inNum)) {
                 System.out.println("Error: An invoice with this id already exists");
+                invoiceNumError.setText("An invoice with this id already exists");
+                invoiceNumField.setStyle("-fx-border-color: red;");
                 canCreate = false;
             }
         }
@@ -138,15 +239,24 @@ public class ScannerController {
             }
 
             invoiceNumField.setText("");
+            invoiceNumField.setStyle("");
             invoiceNameField.setText("");
+            invoiceNameField.setStyle("");
             statusField.setText("");
+            statusField.setStyle("");
             accountIDField.setText("");
+            accountIDField.setStyle("");
             shippingAddressField.setText("");
+            shippingAddressField.setStyle("");
             orderDateField.setText("");
+            orderDateField.setStyle("");
             deliveryDateField.setText("");
+            deliveryDateField.setStyle("");
             itemsField.setText("");
+            itemsField.setStyle("");
             invoiceImage.setImage(null);
             currImage = null;
+            errorLabel.setText("");
 
         }
 

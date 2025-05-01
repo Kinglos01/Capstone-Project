@@ -27,11 +27,14 @@ Added a consistent design throughout the entire program
     -fx-font-family: "Berlin Sans FB";
     -fx-background-color: white;
     -fx-text-fill: black;
+    -fx-cursor: hand;
 }
 
 #loginPane{
     -fx-fill: linear-gradient(to bottom, black, #ff99cc);
 }
 
-
-
+#register-label:hover {
+    -fx-text-fill: #3399ff; /* A nice shade of blue */
+    -fx-cursor: hand;
+}

@@ -30,3 +30,7 @@ Added a consistent design throughout the entire program
             #3399ff 100%
     );
 }
+
+.button:focused {
+    -fx-border-color: #039ED3;
+}
