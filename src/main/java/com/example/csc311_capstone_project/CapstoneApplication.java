@@ -176,18 +176,31 @@ public class CapstoneApplication extends Application {
         passwordField.setPromptText("PASSWORD");
         loginRoot.getChildren().add(passwordField);
 
-        Button close = new Button();
-        close.setPrefWidth(25); close.setPrefHeight(25); close.setLayoutX(630); close.setLayoutY(10);
-        close.setOpacity(0);
-        loginRoot.getChildren().add(close);
-        close.setOnAction(e -> {
-            stage.close();
+        // Clear red border when user types in usernameField
+        usernameField.textProperty().addListener((obs, oldText, newText) -> {
+            if (!newText.isEmpty()) {
+                usernameField.setStyle(""); // Reset to default
+            }
+        });
+
+        // Clear red border when user types in emailField
+        emailField.textProperty().addListener((obs, oldText, newText) -> {
+            if (!newText.isEmpty()) {
+                emailField.setStyle(""); // Reset to default
+            }
+        });
+
+        // Clear red border when user types in passwordField
+        passwordField.textProperty().addListener((obs, oldText, newText) -> {
+            if (!newText.isEmpty()) {
+                passwordField.setStyle(""); // Reset to default
+            }
         });
 
         Label errorLabel = new Label();
         errorLabel.setTextFill(Color.RED); // Set text color to red
         errorLabel.setLayoutX(322); // Position near the input fields
-        errorLabel.setLayoutY(240);
+        errorLabel.setLayoutY(300);
         loginRoot.getChildren().add(errorLabel);
 
         Button loginButton = new Button();
@@ -214,11 +227,38 @@ public class CapstoneApplication extends Application {
                 stage.close();
             } else {
                 System.out.println("One of the following fields: Username, password, or email is incorrect");
-                errorLabel.setText("Error: Username, email, or password are incorrect."); // print error to UI
+                errorLabel.setText("Username, email, or password are incorrect."); // print error to UI
+            }
+
+            if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
+                System.out.println("Error: One or more fields do not have inputs");
+                errorLabel.setText("All fields must be filled."); // Print error to UI
+
+                // Highlight empty fields with a red border
+                if (username.isEmpty()) usernameField.setStyle("-fx-border-color: red;");
+                if (password.isEmpty()) passwordField.setStyle("-fx-border-color: red;");
+                if (email.isEmpty()) emailField.setStyle("-fx-border-color: red;");
             }
         });
 
+        loginButton.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (isNowFocused) {
+                loginButton.setStyle("-fx-border-color: #039ED3;");
+            } else {
+                loginButton.setStyle(""); // Reset style
+            }
+        });
+
+        Button close = new Button();
+        close.setPrefWidth(25); close.setPrefHeight(25); close.setLayoutX(630); close.setLayoutY(10);
+        close.setOpacity(0);
+        loginRoot.getChildren().add(close);
+        close.setOnAction(e -> {
+            stage.close();
+        });
+
         Label registerButton = new Label();
+        registerButton.setId("register-label");
         registerButton.setLayoutX(502); registerButton.setLayoutY(324);
         loginRoot.getChildren().add(registerButton);
         registerButton.setText("Register here.");
@@ -504,6 +544,7 @@ public class CapstoneApplication extends Application {
         });
 
         Label loginButton = new Label();
+        loginButton.setId("login-label");
         loginButton.setLayoutX(539);
         loginButton.setLayoutY(356);
         root.getChildren().add(loginButton);

@@ -32,3 +32,8 @@ Added a consistent design throughout the entire program
     -fx-background-color: white;
     -fx-text-fill: black;
 }
+
+#login-label:hover {
+    -fx-text-fill: #3399ff; /* A nice shade of blue */
+    -fx-cursor: hand;
+}
