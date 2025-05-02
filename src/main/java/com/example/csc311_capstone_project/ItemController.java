@@ -12,6 +12,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -197,6 +199,17 @@ public class ItemController implements Initializable {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    /**
+     * Closes the items page through the menu bar.
+     * @since 5/2/2025
+     * @author Nathaniel Rivera
+     */
+    @FXML
+    protected void closeApp() {
+        Stage stage = (Stage) itemTable.getScene().getWindow();
+        stage.close();
     }
 
     /**

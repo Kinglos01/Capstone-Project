@@ -16,10 +16,13 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
 import java.io.IOException;
 import java.net.URL;
 import java.time.Clock;
@@ -202,8 +205,8 @@ public class LandingController implements Initializable{
     }
 
     /***
-     * closes application through the menu bar
-     * @since 4/30
+     * Closes application through the menu bar
+     * @since 4/30/2025
      * @author Carlos Berio
      */
     @FXML
@@ -211,9 +214,35 @@ public class LandingController implements Initializable{
         System.exit(0);
     }
 
+    /**
+     * Logs out of the application returning the user to the home screen
+     * @since 5/2/2025
+     * @author Nathaniel Rivera
+     */
     @FXML
     protected void logOutClicked(){
 
+        Stage landingStage = (Stage) invoiceTable.getScene().getWindow();
+        landingStage.close();
+        CurrentUser.logOut();
+
+        try {
+            Stage stage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("splash-view.fxml"));
+            AnchorPane root = new AnchorPane();
+            root.getChildren().add(fxmlLoader.load());
+            CapstoneApplication.splashSetup(root, stage);
+
+            Scene scene = new Scene(root, 1200, 700);
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("splashscreen.css")).toExternalForm());
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.initStyle(StageStyle.TRANSPARENT);
+            stage.getIcons().add(new Image(Objects.requireNonNull(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png"))));
+            stage.show();
+        } catch(IOException _) {
+
+        }
     }
 
 }

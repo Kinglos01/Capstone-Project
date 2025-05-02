@@ -13,6 +13,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.10.2</junit.version>
     </properties>
+
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -29,6 +31,7 @@
                 <groupId>com.google.cloud</groupId>
                 <artifactId>google-cloud-document-ai</artifactId>
             </dependency>
+
             <dependency>
                 <groupId>com.itextpdf</groupId>
                 <artifactId>itextpdf</artifactId>
