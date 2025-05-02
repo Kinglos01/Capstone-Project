@@ -22,6 +22,7 @@ public class ScannerController {
 
     protected final ObservableList<Invoice> invoices = FXCollections.observableArrayList();
 
+    protected File file;
     @FXML
     protected Label errorLabel, invoiceNumError, accountIDError, orderDateError, deliveryDateError, statusError, shippingAddressError, invoiceNameError, itemsError, imageError;
     @FXML
@@ -271,9 +272,9 @@ public class ScannerController {
     @FXML
     protected void imageChange() {
 
-        File file = (new FileChooser()).showOpenDialog(invoiceImage.getScene().getWindow());
+        file = (new FileChooser()).showOpenDialog(invoiceImage.getScene().getWindow());
 
-        if(file != null) {
+        if (file != null) {
             invoiceImage.setImage(new Image(file.toURI().toString()));
         }
 
@@ -282,7 +283,7 @@ public class ScannerController {
 
     @FXML
     protected void addFromScanner() {
-        FileReader fileReader = new FileReader("C:\\Users\\rodra\\Documents\\invoice3.pdf");
+        FileReader fileReader = new FileReader(file.getPath());
         String fullText = fileReader.getTextFromFile();
         System.out.println(fullText);
         Pattern invoicePattern = Pattern.compile("IN\\d{8}");
