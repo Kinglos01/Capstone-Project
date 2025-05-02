@@ -33,7 +33,7 @@ public class ScannerController {
     @FXML
     protected TextField invoiceNumField, accountIDField, orderDateField, deliveryDateField, statusField, shippingAddressField, invoiceNameField, itemsField;
 
-    ConnDbOps db = new ConnDbOps();
+    static ConnDbOps db = new ConnDbOps();
 
     @FXML
     protected void initialize() {
@@ -278,5 +278,37 @@ public class ScannerController {
         }
 
         currImage = file.toURI().toString();
+    }
+
+    @FXML
+    protected void addFromScanner() {
+        FileReader fileReader = new FileReader("C:\\Users\\rodra\\Documents\\invoice3.pdf");
+        String fullText = fileReader.getTextFromFile();
+        System.out.println(fullText);
+        Pattern invoicePattern = Pattern.compile("IN\\d{8}");
+        Matcher invoiceMatcher = invoicePattern.matcher(fullText);
+        Pattern customerPattern = Pattern.compile("CUS\\d{7}");
+        Matcher customerMatcher = customerPattern.matcher(fullText);
+        Pattern datePattern = Pattern.compile("\\d{2}-\\d{2}-\\d{4}");
+        Matcher orderDateMatcher = datePattern.matcher(fullText);
+        Matcher deliveryDateMatcher = datePattern.matcher(fullText);
+        Pattern addressPattern = Pattern.compile("\\s[1-9]+ [^,]+,[^,]+,\\s?[A-Z]{2},\\s?\\d{5}");
+        Matcher addressMatcher = addressPattern.matcher(fullText);
+        Pattern statusPattern = Pattern.compile("Delivered|En-Route|Not Delivered|Unknown");
+        Matcher statusMatcher = statusPattern.matcher(fullText);
+
+        invoiceMatcher.find();
+        invoiceNumField.setText(String.valueOf(invoiceMatcher.group(0)));
+        customerMatcher.find();
+        accountIDField.setText(customerMatcher.group(0));
+        orderDateMatcher.find();
+        orderDateField.setText(orderDateMatcher.group(0));
+        deliveryDateMatcher.find();
+        deliveryDateField.setText(deliveryDateMatcher.group(0));
+        addressMatcher.find();
+        shippingAddressField.setText(addressMatcher.group(0));
+        statusMatcher.find();
+        statusField.setText(statusMatcher.group(0));
+
     }
 }

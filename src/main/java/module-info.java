@@ -6,6 +6,7 @@ module com.example.csc311_capstone_project {
     requires com.google.protobuf;
     requires java.sql;
     requires org.checkerframework.checker.qual;
+    requires itextpdf;
 
 
     opens com.example.csc311_capstone_project to javafx.fxml;

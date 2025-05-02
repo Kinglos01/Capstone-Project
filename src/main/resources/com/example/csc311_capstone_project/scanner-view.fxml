@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csc311_capstone_project.ScannerController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csc311_capstone_project.ScannerController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="610.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="475.0" />
       <Label layoutX="756.0" layoutY="14.0" stylesheets="@scannerscreen.css" text="Input Fields" />
@@ -46,7 +46,7 @@
       <TextField fx:id="shippingAddressField" layoutX="804.0" layoutY="339.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
       <TextField fx:id="statusField" layoutX="514.0" layoutY="449.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
       <TextField fx:id="invoiceNameField" layoutX="804.0" layoutY="449.0" prefHeight="30.0" prefWidth="270.0" stylesheets="@scannerscreen.css" />
-      <Button fx:id="generateButton" layoutX="534.0" layoutY="529.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="230.0" style="-fx-cursor: Hand;" stylesheets="@scannerscreen.css" text="GENERATE FIELDS">
+      <Button fx:id="generateButton" layoutX="534.0" layoutY="529.0" mnemonicParsing="false" onAction="#addFromScanner" prefHeight="50.0" prefWidth="230.0" style="-fx-cursor: Hand;" stylesheets="@scannerscreen.css" text="GENERATE FIELDS">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
