@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
  * It controls the startup of the program as well as the setup for
  * the login, register and landing pages.
  * @since 3/12/25
- * @author Nathaniel Rivera
+ * @author Nathaniel Rivera, Anthony Costa, Carlos Berios
  */
 public class CapstoneApplication extends Application {
 
@@ -158,7 +158,7 @@ public class CapstoneApplication extends Application {
      * These elements include the input fields for username and password, and the buttons for login and register.
      * @param loginRoot The AnchorPane for the login screen.
      * @param stage The stage the login scene is set in.
-     * @author Nathaniel Rivera
+     * @author Nathaniel Rivera, Anthony Costa
      * @since 3/12/2025
      */
     public static void loginSetup(AnchorPane loginRoot, Stage stage) {
@@ -289,7 +289,7 @@ public class CapstoneApplication extends Application {
      * These elements include the input fields for username, password, firstName, lastName and email, and the button to register.
      * @param root The AnchorPane for the register screen.
      * @param stage The stage the resister scene is set in.
-     * @author Nathaniel Rivera
+     * @author Nathaniel Rivera, Anthony Costa
      * @since 3/13/2025
      */
     public static void registerSetup(AnchorPane root, Stage stage) {

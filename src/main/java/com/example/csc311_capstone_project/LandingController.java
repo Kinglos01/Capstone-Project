@@ -37,7 +37,7 @@ import java.util.ResourceBundle;
  * menu items for the Landing Page. The Add Invoices button is handled
  * in Capstone Application instead of directly here.
  * @since 4/27/2025
- * @author Nathaniel Rivera
+ * @author Nathaniel Rivera, Carlos Berios
  */
 public class LandingController implements Initializable{
 
@@ -69,7 +69,7 @@ public class LandingController implements Initializable{
      * @param url URL
      * @param resourceBundle Resource Bundle
      * @since 4/10/2025
-     * @author Nathaniel Rivera
+     * @author Nathaniel Rivera, Jared Mitchell
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -140,7 +140,7 @@ public class LandingController implements Initializable{
      * Launches the item importer screen.
      * @throws IOException IOException.
      * @since 4/27/2025
-     * @author Nathaniel Rivera
+     * @author Nathaniel Rivera, Carlos Berios
      */
     @FXML
     protected void openItemList() throws IOException {

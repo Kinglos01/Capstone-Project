@@ -26,6 +26,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Controller object for the Scanner controller class.
+ * @since 4/1/25
+ * @author Nathaniel Rivera, Jared Mitchell, Aidan Rodriguez, Anthony Costa
+ */
 public class ScannerController {
 
     protected final ObservableList<Invoice> invoices = FXCollections.observableArrayList();
@@ -44,6 +49,12 @@ public class ScannerController {
 
     static ConnDbOps db = new ConnDbOps();
 
+    /**
+     * Initialization for the Scanner controller page. Sets up the RegEx
+     * and error messages for the page.
+     * @since 4/26/25
+     * @author Jared Mitchell,Anthony Costa
+     */
     @FXML
     protected void initialize() {
         Pattern invoicePattern = Pattern.compile("IN\\d{8}");
@@ -131,7 +142,11 @@ public class ScannerController {
         });
     }
 
-
+    /**
+     * Adds an invoice into the table of invoices
+     * @since 4/1/2025
+     * @author Nathaniel Rivera, Anthony Costa
+     */
     @FXML
     protected void addInvoice() {
 
@@ -273,7 +288,7 @@ public class ScannerController {
 
     /***
      * Changes the image stored in the viewer to the picture of the invoice
-     * for the users choosing.
+     * for the users choosing. Takes in a PDF and converts it to a PNG.
      * @since 4/24/2025
      * @author Nathaniel Rivera
      */

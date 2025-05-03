@@ -5,7 +5,7 @@ package com.example.csc311_capstone_project.model;
  * stored in the database are imported to allow for the invoices to populate. New items created
  * by the user are stored internally, as well as uploaded to the database for future use.
  * @since 3/21/2025
- * @author Aidan Rodriguez
+ * @author Aidan Rodriguez, Jared Mitchell
  */
 public class Item {
     private int item_id;

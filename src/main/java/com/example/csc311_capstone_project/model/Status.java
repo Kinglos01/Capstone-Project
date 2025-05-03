@@ -3,6 +3,8 @@ package com.example.csc311_capstone_project.model;
 /**
  * The Status enum is to easier specify the current status of an Invoice. The values for Status include
  * delivered, en_route, and not_delivered.
+ * @since 5/3/2025
+ * @author Aiden Rodriguez
  */
 public enum Status {
     delivered,
