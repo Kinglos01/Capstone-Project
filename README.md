@@ -2,6 +2,8 @@
 
 ## Introduction
 
+The autoCommerce application is a application
+
 ## How to Use
 
 ## Layouts and Formatting
@@ -51,6 +53,10 @@ The Item Screen of the autoCommerce applciation is a list where users can add an
 The item name must follow the following criteria, it must be **2, 25 characters**.
 
 The price of the item must folllow the following criteria, it must be a **double with at most 2 significant figures after the decimal**.
+
+### Dependencies
+
+This project uses the dependencies Apache PDFBox and iTextPdf.
 
 ## Contributors
 
