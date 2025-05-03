@@ -23,6 +23,11 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Controls the item page of the application
+ * @since 4/28/2025
+ * @author Nathaniel Rivera, Jared Mitchell
+ */
 public class ItemController implements Initializable {
 
     @FXML
@@ -73,7 +78,7 @@ public class ItemController implements Initializable {
     /**
      * Adds a new object to the TableView based on the currently inputted values
      * @since 4/28/2025
-     * @author Nathaniel Rivera
+     * @author Nathaniel Rivera, Jared Mitchell
      */
     @FXML
     protected void addItem() {

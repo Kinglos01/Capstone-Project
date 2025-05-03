@@ -7,6 +7,13 @@ import javafx.scene.image.Image;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+/**
+ * This class is created to store the Invoices. On program start, Invoices that are already
+ * stored in the database are imported. New invoices created by the user are stored internally,
+ * as well as uploaded to the database for future use.
+ * @since 3/21/2025
+ * @author Nathaniel Rivera, Aiden Rodriguez
+ */
 public class Invoice {
 
     private String invoice_id;
@@ -38,15 +45,18 @@ public class Invoice {
     */
 
     /**
-     * Creates an Invoice populated with parameter values.
+     * Creates an Invoice populated with parameter values. Used for invoices with predefined price values.
      * @param invoice_id Assigns a String to item_id.
      * @param account_id Assigns a String to account_id.
      * @param order_date Assigns a String to the order_date.
      * @param delivery_date Assigns a String to the delivery_date
      * @param delivery_address Assigns a String to delivery_address.
      * @param status Assigns a Status to status.
+     * @param name Assigns a String to name.
+     * @param price Assigns a String to price.
+     * @param image Assigns a Image to image.
      * @since 3/21/2025
-     * @author Aidan Rodriguez
+     * @author Aidan Rodriguez, Nathaniel Rivera
      */
     public Invoice(String invoice_id, String account_id, String order_date, String delivery_date, String delivery_address, Status status, String name, String price, Image image) {
         this.invoice_id = invoice_id;
@@ -70,6 +80,7 @@ public class Invoice {
      * @param delivery_date Assigns a String to the delivery_date
      * @param delivery_address Assigns a String to delivery_address.
      * @param status Assigns a Status to status.
+     * @param name Assigns a String to name.
      * @param item String of items and their quantities which will be converted into the price value.
      * @param image Image of the invoice.
      * @author Nathaniel Rivera
@@ -266,6 +277,7 @@ public class Invoice {
 
             }
         }
+        price = price * .08875;
         int rounder = (int) price * 100;
         price = (double) rounder / 100;
         return price;
