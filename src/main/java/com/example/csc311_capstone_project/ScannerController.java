@@ -357,7 +357,6 @@ public class ScannerController {
 
 
         StringBuilder itemsFullString = new StringBuilder();
-        int counter = 1;
         for (String itemString : itemsAsString) {
             StringBuilder nameBuilder = new StringBuilder();
             Matcher nameMatcher = itemName.matcher(itemString);
@@ -370,8 +369,7 @@ public class ScannerController {
             quantMatcher.find();
             String quantity = quantMatcher.group().substring(1, quantMatcher.group().length() - 1);
 
-            itemsFullString.append(counter).append(":").append(name).append(":").append(quantity).append(",");
-            counter++;
+            itemsFullString.append(name).append(":").append(quantity).append(", ");
         }
 
         itemsFullString.deleteCharAt(itemsFullString.length() - 1);
