@@ -2,6 +2,7 @@ package com.example.csc311_capstone_project;
 
 import com.example.csc311_capstone_project.db.ConnDbOps;
 import com.example.csc311_capstone_project.model.Invoice;
+import com.example.csc311_capstone_project.model.Item;
 import com.example.csc311_capstone_project.model.Status;
 import com.example.csc311_capstone_project.service.CurrentUser;
 
@@ -14,7 +15,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -298,6 +306,8 @@ public class ScannerController {
         Pattern statusPattern = Pattern.compile("Delivered|En-Route|Not Delivered|Unknown");
         Matcher statusMatcher = statusPattern.matcher(fullText);
 
+
+        // build Invoice parameters from values found in the input pdf.
         invoiceMatcher.find();
         invoiceNumField.setText(String.valueOf(invoiceMatcher.group(0)));
         customerMatcher.find();
@@ -311,5 +321,58 @@ public class ScannerController {
         statusMatcher.find();
         statusField.setText(statusMatcher.group(0));
 
+        // build a list of Items for the Invoice.
+        Pattern itemFinder = Pattern.compile("Total");
+        Pattern itemFinderEnd = Pattern.compile("Subtotal");
+        Matcher findEnd = itemFinder.matcher(fullText);
+        Matcher findEnd2 = itemFinderEnd.matcher(fullText);
+        Pattern newLineFinder = Pattern.compile("\\n");
+
+        findEnd.find();
+        findEnd2.find();
+        int startingIndex = findEnd.end(0);
+        int endingIndex = findEnd2.start(0);
+        String itemsText = fullText.substring(startingIndex, endingIndex);
+        Matcher newLineMatcher = newLineFinder.matcher(itemsText);
+        List<String> itemsAsString = new ArrayList<String>();
+
+        while (newLineMatcher.find()) {
+            int startIndex = newLineMatcher.end();
+            if (!newLineMatcher.find()) {
+                //itemsAsString.add(itemsText.substring(startIndex));
+                break;
+            }
+            else {
+                int endIndex = newLineMatcher.start();
+                itemsAsString.add(itemsText.substring(startIndex, endIndex));
+                itemsText = itemsText.substring(endIndex - 1);
+                newLineMatcher.reset(itemsText);
+            }
+        }
+
+        Pattern itemName = Pattern.compile("[A-Za-z ()0-9-]+");
+        Pattern quant = Pattern.compile(" \\d+ ");
+
+
+        StringBuilder itemsFullString = new StringBuilder();
+        int counter = 1;
+        for (String itemString : itemsAsString) {
+            StringBuilder nameBuilder = new StringBuilder();
+            Matcher nameMatcher = itemName.matcher(itemString);
+            nameMatcher.find();
+            nameBuilder.append(nameMatcher.group());
+            nameBuilder.deleteCharAt(nameMatcher.group().length() - 1);
+            String name = String.valueOf(nameBuilder);
+
+            Matcher quantMatcher = quant.matcher(itemString);
+            quantMatcher.find();
+            String quantity = quantMatcher.group().substring(1, quantMatcher.group().length() - 1);
+
+            itemsFullString.append(counter).append(":").append(name).append(":").append(quantity).append(",");
+            counter++;
+        }
+
+        itemsFullString.deleteCharAt(itemsFullString.length() - 1);
+        itemsField.setText(String.valueOf(itemsFullString));
     }
 }
