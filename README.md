@@ -2,9 +2,13 @@
 
 ## Introduction
 
-The autoCommerce application is a application
+The autoCommerce application is an application which allows uses to store invoices quickly and effiently. autoCommerce's main feature is an auto invoice parser, where the user is able to automatically scan an invoice into the system without having to do any of the text storing on their own.
 
 ## How to Use
+
+autoCommerece allows users to store their lists of invoices and items and therefore requires the user to create and use an account. If the user does not possess an account it is important that they go to the register page to make one. After creating an acccount the user can log in and startup the main applciation.
+
+Before parsing an invoice the values of the items on the invoice must be inputted into the system. On the items page the user can either import and CSV or TXT file see item screen for the format. Once the items are inputted into the item list the user is ready to use the automatic invoice scanner. The following is a [Link Text](###item-screen)
 
 ## Layouts and Formatting
 
@@ -30,7 +34,7 @@ The first and last name of the user must be 2-25 characters long as well as only
 
 ### Scanner Screen
 
-The Scanner Screen of the autoCommerce application consists of a multitude of fields for the user to enter. The fields are invoice number, customer account ID, order date, delivery date, shipping address, status, and the items.
+The Scanner Screen of the autoCommerce application consists of a multitude of fields for the user to enter. The fields are invoice number, customer account ID, order date, delivery date, shipping address, status, and the items. The user can also use the Generate Fields button to allow the invoice to be automatically parsed by the application.
 
 The invoice number must follow the following criteria, it must start with **IN followed by 8 number characters**, no two invoices that belong to the same user may share an ID, and this field is mandatory.
 
@@ -40,7 +44,7 @@ The order date must follow the following criteria, it must be in **MM-DD-YYYY** 
 
 The delivery date must follow the following criteria, it must be in **MM-DD-YYYY** format separated by dashes, and this field is not mandatory.
 
-The shipping address must follow the following criteria, it must be written as **STREET ADDRESS(Allows all characters), CITY(Allows all characters), STATE(2 letter characters), ZIPCODE(5 number digits)**, this field is currently mandatory but may change in later versions.
+The shipping address must follow the following criteria, it must be written as **STREET ADDRESS(Allows all characters), CITY(Allows all characters), STATE(2 letter characters), ZIPCODE(5 number digits)**, this field is mandatory.
 
 The status field must follow the following criteria, it must be one of the four terms, **Delivered, Not Delivered, En-Route, or Unknown**.
 
