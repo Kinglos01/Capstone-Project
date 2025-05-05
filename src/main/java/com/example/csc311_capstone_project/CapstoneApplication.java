@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
  * It controls the startup of the program as well as the setup for
  * the login, register and landing pages.
  * @since 3/12/25
- * @author Nathaniel Rivera, Anthony Costa, Carlos Berios
+ * @author Nathaniel Rivera, Anthony Costa, Carlos Berio
  */
 public class CapstoneApplication extends Application {
 
