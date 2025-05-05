@@ -13,7 +13,6 @@ Before parsing an invoice the values of the items on the invoice must be inputte
 ## Layouts and Formatting
 
 ### Splash Screen
-![image](https://github.com/user-attachments/assets/ce295922-740b-42fb-854b-f702756a6728)
 
 The Splash Screen of the autoCommerce application acts as a hub that allows one to access the other portions of the program. The Splash Screen showcases a slick design that has its own customized taskbar. The taskbar consists of three options, a custom Close button, which closes the application normally but sports a nice and clean design. The Minimize button serves a similar function as it replaces the standard minimize with a cleaner-looking button. The last button on the new taskbar is the Login button which opens the Login pages where users are able to make sure they are using their account to save their data. All of this is accompanied by a custom splash art which adds charm to the splash page. The most important function of the Splash Screen is the launch button which closes the Splash Screen but sends the user to the application with the account of their choosing.
 
@@ -32,6 +31,10 @@ The email of the user must follow the following criteria, it must be a valid ema
 The password of the user must follow the following criteria, it must be 2-25 characters long, and it must consist of only word characters.
 
 The first and last name of the user must be 2-25 characters long as well as only consisting of letters and 's. 
+
+### Landing Screen
+
+The Landing Screen acts as a hub for the functional portitions of the applciation. It contains the feature log out and a close button which shuts down the application as a whole. The landing page allows users to delete invoices and mark previously non-delivered invoices as delivered. The Landing Page contains the branches to the Scanner and Item Screen and allows users to go straight to those pages.
 
 ### Scanner Screen
 
