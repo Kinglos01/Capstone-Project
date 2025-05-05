@@ -289,6 +289,14 @@ public class ScannerController {
         currImage = file.toURI().toString();
     }
 
+    /**
+     * This will take the file path of the Invoice specified in the Scanner and parse it for all it's information.
+     * All the fields contained within the Invoice such as the invoice number, the account id, etc. will be filled out
+     * automatically within the form, with the user able to fill out their own name for the Invoice.
+     *
+     * @author Aidan Rodriguez
+     * @author Jared Mitchel
+     */
     @FXML
     protected void addFromScanner() {
         FileReader fileReader = new FileReader(file.getPath());

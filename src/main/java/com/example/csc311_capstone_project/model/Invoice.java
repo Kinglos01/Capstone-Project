@@ -87,14 +87,26 @@ public class Invoice {
         this.price = "$" + findPrice(item);
     }
 
+    /**
+     * Gets the invoice_Id of the specified Invoice.
+     * @return The invoice_Id of the invoice instance as an String.
+     */
     public String getInvoiceId() {
         return this.invoice_id;
     }
 
+    /**
+     * Sets the invoice_Id of the specified Invoice.
+     * @param invoice_id The new invoice_Id of the invoice, specified as a String.
+     */
     public void setInvoiceId(String invoice_id) {
         this.invoice_id = invoice_id;
     }
 
+    /**
+     * Gets the account_Id of the specified Invoice.
+     * @return The account_Id of the specified Invoice
+     */
     public String getAccountId() {
         return this.account_id;
     }
