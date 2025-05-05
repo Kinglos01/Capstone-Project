@@ -40,6 +40,8 @@ The Landing Screen acts as a hub for the functional portitions of the applciatio
 
 ### Scanner Screen
 
+![image](https://github.com/user-attachments/assets/5aa0f7e0-6aac-440a-8cd3-e095e3d9c4d4)
+
 The Scanner Screen of the autoCommerce application consists of a multitude of fields for the user to enter. The fields are invoice number, customer account ID, order date, delivery date, shipping address, status, and the items. The user can also use the Generate Fields button to allow the invoice to be automatically parsed by the application.
 
 The invoice number must follow the following criteria, it must start with **IN followed by 8 number characters**, no two invoices that belong to the same user may share an ID, and this field is mandatory.
@@ -61,15 +63,23 @@ Scanner Screen with filled fields.
 
 ### Item Screen
 
+![image](https://github.com/user-attachments/assets/e2e820bf-c1a0-4d08-b67f-af6c953f454d)
+
 The Item Screen of the autoCommerce applciation is a list where users can add and remove items from their own personal list of items. The user can add, remove or edit the item's names and their prices within the field. The user is also able to import a **CSV or TXT** file which stores the items alongside their price with the **ITEM NAME,ITEM PRICE** format.
 
 The item name must follow the following criteria, it must be **2, 25 characters**.
 
 The price of the item must folllow the following criteria, it must be a **double with at most 2 significant figures after the decimal**.
 
-### Dependencies
+### Technology
 
-This project uses the dependencies Apache PDFBox and iTextPdf.
+IntelliJ IDEA Community Edition
+
+Java 24
+
+Apache PDFBox
+
+iTextPdf.
 
 ## Contributors
 
