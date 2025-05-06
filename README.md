@@ -16,13 +16,13 @@
 
 ## Introduction
 
-The autoCommerce application is an application which allows uses to store invoices quickly and effiently. autoCommerce's main feature is an auto invoice parser, where the user is able to automatically scan an invoice into the system without having to do any of the text storing on their own.
+The autoCommerce application allows users to store invoices quickly and efficiently. Its main feature is an auto invoice parser, which allows the user to automatically scan an invoice into the system without having to store any of the text on their own.
 
 ## How to Use
 
-autoCommerece allows users to store their lists of invoices and items and therefore requires the user to create and use an account. If the user does not possess an account it is important that they go to the register page to make one. After creating an acccount the user can log in and startup the main applciation.
+autoCommerece allows users to store their lists of invoices and items and, therefore, requires them to create and use an account. If the user does not possess an account, it is important that they go to the register page to make one. After creating an account, the user can log in and start up the main application.
 
-Before parsing an invoice the values of the items on the invoice must be inputted into the system. On the items page the user can either import and CSV or TXT file see item screen for the format. Once the items are inputted into the item list the user is ready to use the automatic invoice scanner. If the user desires to use the automatic field generate, the invoice must follow the following [template invoice's](https://mega.nz/file/tlggXDaT#HUWvAdF_WVcEwoSpare4bWBUpwnBVXPC8IvbkNwrBVI) format. The invoice must also be a PDF file. Once all these requirements are met the user can begin to automatically scan invoices into the system for storage.
+Before parsing an invoice the values of the items on the invoice must be inputted into the system. On the items page, the user can either import and CSV or TXT file see the item screen for the format. Once the items are inputted into the item list the user is ready to use the automatic invoice scanner. If the user desires to use the automatic field generate, the invoice must follow the following [template invoices](https://mega.nz/file/tlggXDaT#HUWvAdF_WVcEwoSpare4bWBUpwnBVXPC8IvbkNwrBVI) format. The invoice must also be a PDF file. Once all these requirements are met the user can begin to automatically scan invoices into the system for storage.
 
 ## Layouts and Formatting
 
@@ -54,6 +54,8 @@ The first and last name of the user must be 2-25 characters long as well as only
 
 ### Landing Screen
 
+![image](https://github.com/user-attachments/assets/4ae4c752-c74a-403d-a86b-79695b3d0f92)
+
 The Landing Screen acts as a hub for the functional portitions of the applciation. It contains the feature log out and a close button which shuts down the application as a whole. The landing page allows users to delete invoices and mark previously non-delivered invoices as delivered. The Landing Page contains the branches to the Scanner and Item Screen and allows users to go straight to those pages.
 
 ### Scanner Screen
@@ -74,7 +76,7 @@ The shipping address must follow the following criteria, it must be written as *
 
 The status field must follow the following criteria, it must be one of the four terms, **Delivered, Not Delivered, En-Route, or Unknown**.
 
-The item fields must follow the following criteria, it must be written in the order of **ITEM NAME:QUANTITY** if there are multiple items they must be split with a comma with the final value having no comma at the end.
+The item fields must follow the following criteria, they must be written in the order of **ITEM NAME:QUANTITY** if there are multiple items they must be split with a comma with the final value having no comma at the end.
 
 ![image](https://github.com/user-attachments/assets/3fd049df-5709-47d9-a5eb-eb6c4447663f)
 Scanner Screen with filled fields.
@@ -83,7 +85,7 @@ Scanner Screen with filled fields.
 
 ![image](https://github.com/user-attachments/assets/e2e820bf-c1a0-4d08-b67f-af6c953f454d)
 
-The Item Screen of the autoCommerce applciation is a list where users can add and remove items from their own personal list of items. The user can add, remove or edit the item's names and their prices within the field. The user is also able to import a **CSV or TXT** file which stores the items alongside their price with the **ITEM NAME,ITEM PRICE** format.
+The Item Screen of the autoCommerce applciation is a list where users can add and remove items from their list of items. The user can add, remove, or edit the item's names and their prices within the field. The user is also able to import a **CSV or TXT** file which stores the items alongside their price with the **ITEM NAME,ITEM PRICE** format.
 
 The item name must follow the following criteria, it must be **2, 25 characters**.
 
