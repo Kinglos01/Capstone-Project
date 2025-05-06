@@ -1,5 +1,19 @@
 # autoCommerce Application
 
+## Table of Contents
+
+[Introduction](#introduction)
+[How to Use](#how-to-use)
+[Layouts and Formatting](#layouts-and-formatting)
+  [Splash Screen](#splash-screen)
+  [Login Screen](#login-screen)
+  [Register Screen](#register-screen)
+  [Landing Screen](#landing-screen)
+  [Scanner Screen](#scanner-screen)
+  [Item Screen](#item-screen)
+[Technology](#technology)
+[Contributors](#contributors)
+
 ## Introduction
 
 The autoCommerce application is an application which allows uses to store invoices quickly and effiently. autoCommerce's main feature is an auto invoice parser, where the user is able to automatically scan an invoice into the system without having to do any of the text storing on their own.
@@ -20,9 +34,13 @@ The Splash Screen of the autoCommerce application acts as a hub that allows one 
 
 ### Login Screen
 
+![image](https://github.com/user-attachments/assets/62df0940-31a1-48d5-9601-7a3384820920)
+
 The Login Screen of the autoCommerce application is a standard login screen for an application. The login screen has a refreshing design with its own customized taskbar. The taskbar consists only of a close button but with a cleaner more refreshing design. The Login Screen has three required fields which represent the user's username, email, and password. The login screen has two buttons other than the taskbar, the login button and the Register button. The Log button exactly as stated logs in checks the email, username, and password of the user, and checks them against the users entered into the database. If the user is not in the database, the login will be rejected and the user will stay on the login screen with an error message displayed. If the user is already located within the database the user will be logged in and sent back to the Splash Screen. The other button on the Login screen is the register button. The button appears as a text label saying "Create an Account Here." When clicked on the Login will be closed and the Register screen will be opened in its place.
 
 ### Register Screen
+
+![image](https://github.com/user-attachments/assets/e8fff275-3896-4cfb-b2c1-9a4394e45df9)
 
 The Register Screen of the autoCommerce application is a standard register screen for an application. The Register Screen possesses 5 necessary text fields for the user to fill out username, email, password, first name, and last name.
 
@@ -73,13 +91,19 @@ The price of the item must folllow the following criteria, it must be a **double
 
 ### Technology
 
-IntelliJ IDEA Community Edition
+1. IntelliJ IDEA Community Edition
 
-Java 24
+2. Java
 
-Apache PDFBox
+3. JavaFX
 
-iTextPdf.
+5. Maven
+
+6. Apache PDFBox
+
+7. iTextPdf.
+
+8. Microsoft Azure
 
 ## Contributors
 
