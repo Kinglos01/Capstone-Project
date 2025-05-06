@@ -176,7 +176,7 @@ public class LandingController implements Initializable{
         sb.append(zoneClock.instant().toString(), 8, 10).append("-");
         sb.append(zoneClock.instant().toString(), 0, 4);
         String time  = sb.toString();
-        System.out.println(time);
+        //System.out.println(time);
 
         Invoice invoice = invoiceTable.getSelectionModel().getSelectedItem();
         switch(invoice.getStatus()) {

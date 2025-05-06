@@ -357,12 +357,12 @@ public class ConnDbOps {
     public void editItem(int item_id, String item_name, double price) {
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "UPDATE FROM items"
+            String sql = "UPDATE items"
                     + " SET item_name = '" + item_name
                     + "', price = " + price
                     + " WHERE item_id = " + item_id
                     + " AND username = '" + currUsername
-                    + "' AND email = '" + currEmail + "'";
+                    + "' AND email = '" + currEmail + "';";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
             preparedStatement.executeUpdate();
@@ -430,9 +430,12 @@ public class ConnDbOps {
     public void editInvoice(String invoice_id, String status, String delivery_date) {
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "UPDATE FROM invoice WHERE invoice_id = '" + invoice_id + "' and username = '" + currUsername + "'" + " and email = '" + currEmail + "'"
-                    + "SET status = '" + status
-                    + "', delivery_date = '" + delivery_date + "'";
+            String sql = "UPDATE invoice"
+                    + " SET status = '" + status
+                    + "', delivery_date = '" + delivery_date
+                    + "' WHERE invoice_id = '" + invoice_id
+                    + "' and username = '" + currUsername + "'"
+                    + " and email = '" + currEmail + "';";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
             preparedStatement.executeUpdate();
