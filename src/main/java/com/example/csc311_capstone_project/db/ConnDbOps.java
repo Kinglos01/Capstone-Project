@@ -4,7 +4,6 @@
  */
 package com.example.csc311_capstone_project.db;
 
-import com.example.csc311_capstone_project.LandingController;
 import com.example.csc311_capstone_project.model.Invoice;
 import com.example.csc311_capstone_project.model.Item;
 import com.example.csc311_capstone_project.model.Status;
@@ -12,8 +11,12 @@ import com.example.csc311_capstone_project.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +27,10 @@ import java.util.List;
  * @author Nathaniel Rivera
  */
 public class ConnDbOps {
-    final String MYSQL_SERVER_URL = "jdbc:mysql://jabaltariq2.database.windows.net/";
-    final String DB_URL = MYSQL_SERVER_URL + "/DBname";
-    final String USERNAME = "jabaltariq";
-    final String PASSWORD = "thisisouradminpassword1!";
+    final String MYSQL_SERVER_URL = "jdbc:mysql://csc311capstone.mysql.database.azure.com/";
+    final String DB_URL = MYSQL_SERVER_URL + "DBname";
+    final String USERNAME = "costa18";
+    final String PASSWORD = "FARM123$";
 
     /**
      * Current username of the user.
@@ -46,6 +49,7 @@ public class ConnDbOps {
     public void connectToDatabase() {
 
         try {
+
             //First, connect to MYSQL server and create the database if not created
             Connection conn = DriverManager.getConnection(MYSQL_SERVER_URL, USERNAME, PASSWORD);
             Statement statement = conn.createStatement();
@@ -59,13 +63,14 @@ public class ConnDbOps {
             String sql = "CREATE TABLE IF NOT EXISTS users ("
                     + "username VARCHAR(50) NOT NULL,"
                     + "email VARCHAR(50) NOT NULL,"
-                    + "[password] VARCHAR(50) NOT NULL,"
+                    + "password VARCHAR(50) NOT NULL,"
                     + "first_name VARCHAR(50),"
                     + "last_name VARCHAR(50),"
                     + "CONSTRAINT pk_users PRIMARY KEY (username, email)"
                     + ")";
             statement.executeUpdate(sql);
 
+            conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             statement = conn.createStatement();
             String sql2 = "CREATE TABLE IF NOT EXISTS invoice ("
                     + "invoice_id VARCHAR(50) NOT NULL,"
@@ -73,17 +78,19 @@ public class ConnDbOps {
                     + "email VARCHAR(50) NOT NULL,"
                     + "order_date VARCHAR(50),"
                     + "delivery_date VARCHAR(50),"
-                    + "[status] VARCHAR(50),"
+                    + "status VARCHAR(50),"
                     + "account_id VARCHAR(50),"
                     + "address VARCHAR(250),"
                     + "invoice_image VARCHAR(250),"
                     + "invoice_name VARCHAR(50),"
-                    + "total_price VARCHAR(50)"
-                    + "CONSTRAINT pk_invoice PRIMARY KEY (invoice_id, username, email),"
-                    + "CONSTRAINT fk_invoice_users FOREIGN KEY (username, email) REFERENCES users(username, email)"
+                    + "total_price VARCHAR(50),"
+                    + "CONSTRAINT fk_invoice_user FOREIGN KEY(username, email) REFERENCES users(username, email),"
+                    + "CONSTRAINT pk_invoices PRIMARY KEY (invoice_id, username, email)"
                     + ")";
             statement.executeUpdate(sql2);
 
+
+            conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             statement = conn.createStatement();
             String sql4 = "CREATE TABLE IF NOT EXISTS items ("
                     + "item_id INT NOT NULL,"
@@ -156,7 +163,7 @@ public class ConnDbOps {
 
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "INSERT INTO invoice (invoice_id, username, email, order_date, delivery_date, status, account_id, address, invoice_image, invoice_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO invoice (invoice_id, username, email, order_date, delivery_date, status, account_id, address, invoice_image, invoice_name, total_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, invoice_id);
             preparedStatement.setString(2, currUsername);
@@ -196,7 +203,7 @@ public class ConnDbOps {
 
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "INSERT INTO items (item_id, item_name, price, username, password) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO items (item_id, item_name, price, username, email) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setInt(1, itemId);
             preparedStatement.setString(2, itemName);
@@ -206,12 +213,13 @@ public class ConnDbOps {
             int row = preparedStatement.executeUpdate();
 
             if (row > 0) {
-                System.out.println("A new invoice was inserted successfully.");
+                System.out.println("A new item was inserted successfully.");
             }
 
             preparedStatement.close();
             conn.close();
         } catch (SQLException e) {
+            System.out.println(itemId + itemName + price + currUsername + currEmail);
             e.printStackTrace();
         }
     }
@@ -349,9 +357,12 @@ public class ConnDbOps {
     public void editItem(int item_id, String item_name, double price) {
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "UPDATE FROM items WHERE item_id = " + item_id + " and username = '" + currUsername + "'" + " and email = '" + currEmail + "'"
-                    + "SET item_name = '" + item_name
-                    + "', price = " + price;
+            String sql = "UPDATE FROM items"
+                    + " SET item_name = '" + item_name
+                    + "', price = " + price
+                    + " WHERE item_id = " + item_id
+                    + " AND username = '" + currUsername
+                    + "' AND email = '" + currEmail + "'";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
             preparedStatement.executeUpdate();
@@ -373,7 +384,7 @@ public class ConnDbOps {
 
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "SELECT invoice_id, order_date, delivery_date, status, account_id, address, invoice_image, invoice_name FROM invoice";
+            String sql = "SELECT invoice_id, order_date, delivery_date, status, account_id, address, invoice_image, invoice_name, total_price FROM invoice";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -421,7 +432,7 @@ public class ConnDbOps {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             String sql = "UPDATE FROM invoice WHERE invoice_id = '" + invoice_id + "' and username = '" + currUsername + "'" + " and email = '" + currEmail + "'"
                     + "SET status = '" + status
-                    + "', delivery_date = " + delivery_date;
+                    + "', delivery_date = '" + delivery_date + "'";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
             preparedStatement.executeUpdate();

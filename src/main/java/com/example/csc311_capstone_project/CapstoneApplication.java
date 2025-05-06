@@ -34,8 +34,11 @@ public class CapstoneApplication extends Application {
 
     public static List<User> userbase;
 
+    public static boolean loggedIn;
+
     /**
      * The initial start method for the program. Launches ands calls the setup for the splash screen.
+     *
      * @param stage The stage in which the splash screen is held
      * @throws IOException Throws an exception
      * @author Nathaniel Rivera
@@ -68,7 +71,8 @@ public class CapstoneApplication extends Application {
     /**
      * Sets up the interactable parts of the Splash page.
      * These elements include the system tray replacements, the login button and the launcher.
-     * @param root The AnchorPane for the splash screen.
+     *
+     * @param root  The AnchorPane for the splash screen.
      * @param stage The stage the splash scene is set in.
      * @author Nathaniel Rivera
      * @since 3/12/2025
@@ -79,53 +83,68 @@ public class CapstoneApplication extends Application {
         userbase = db.retrieveUsers();
 
         Button launcher = new Button();
-        launcher.setPrefWidth(300); launcher.setPrefHeight(100); launcher.setLayoutX(850); launcher.setLayoutY(550);
+        launcher.setPrefWidth(300);
+        launcher.setPrefHeight(100);
+        launcher.setLayoutX(850);
+        launcher.setLayoutY(550);
         launcher.setText("Launch");
         root.getChildren().add(launcher);
         launcher.setOnAction(e -> {
-            FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("landing-view.fxml"));
-            try {
-                Stage landingStage = new Stage();
-                AnchorPane landingRoot = new AnchorPane();
-                landingRoot.getChildren().add(fxmlLoader.load());
-                landingSetup(landingRoot, landingStage);
+            if (loggedIn) {
+                FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("landing-view.fxml"));
+                try {
+                    Stage landingStage = new Stage();
+                    AnchorPane landingRoot = new AnchorPane();
+                    landingRoot.getChildren().add(fxmlLoader.load());
+                    landingSetup(landingRoot, landingStage);
 
-                Scene scene = new Scene(landingRoot, 1800, 800);
-                landingStage.setScene(scene);
-                landingStage.setResizable(false);
+                    Scene scene = new Scene(landingRoot, 1800, 800);
+                    landingStage.setScene(scene);
+                    landingStage.setResizable(false);
 
-                stage.close();
-                landingStage.getIcons().add(new Image(Objects.requireNonNull(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png"))));
-                scene.getStylesheets().add(CapstoneApplication.class.getResource("/com/example/csc311_capstone_project/landing.css").toExternalForm());
-                landingStage.show();
-            } catch(IOException _) {
-
+                    stage.close();
+                    landingStage.getIcons().add(new Image(Objects.requireNonNull(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png"))));
+                    scene.getStylesheets().add(CapstoneApplication.class.getResource("/com/example/csc311_capstone_project/landing.css").toExternalForm());
+                    landingStage.show();
+                } catch (IOException _) {
+                }
             }
         });
 
         /*------------------------------------------System Tray Replacement Buttons------------------------------------------*/
 
         Button close = new Button();
-        close.setPrefWidth(25); close.setPrefHeight(25); close.setLayoutX(1160); close.setLayoutY(15);
+        close.setPrefWidth(25);
+        close.setPrefHeight(25);
+        close.setLayoutX(1160);
+        close.setLayoutY(15);
         close.setOpacity(0);
         root.getChildren().add(close);
 
-        close.setOnAction(e-> { stage.close(); });
+        close.setOnAction(e -> {
+            stage.close();
+        });
 
         Button minimize = new Button();
-        minimize.setPrefWidth(25); minimize.setPrefHeight(25); minimize.setLayoutX(1120); minimize.setLayoutY(15);
+        minimize.setPrefWidth(25);
+        minimize.setPrefHeight(25);
+        minimize.setLayoutX(1120);
+        minimize.setLayoutY(15);
         minimize.setOpacity(0);
         root.getChildren().add(minimize);
 
         minimize.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                ((Stage)((Button)actionEvent.getSource()).getScene().getWindow()).setIconified(true);
+                ((Stage) ((Button) actionEvent.getSource()).getScene().getWindow()).setIconified(true);
             }
         });
 
         Button login = new Button();
-        login.setPrefWidth(25); login.setPrefHeight(25); login.setLayoutX(1080); login.setLayoutY(15);
+        login.setPrefWidth(25);
+        login.setPrefHeight(25);
+        login.setLayoutX(1080);
+        login.setLayoutY(15);
         login.setOpacity(0);
         root.getChildren().add(login);
 
@@ -148,7 +167,8 @@ public class CapstoneApplication extends Application {
                     loginStage.initStyle(StageStyle.UNDECORATED);
                     loginStage.getIcons().add(new Image(Objects.requireNonNull(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png"))));
                     loginStage.show();
-                } catch (IOException e) { }
+                } catch (IOException e) {
+                }
             }
         });
     }
@@ -156,24 +176,34 @@ public class CapstoneApplication extends Application {
     /**
      * Sets up the interactable parts of the Login page.
      * These elements include the input fields for username and password, and the buttons for login and register.
+     *
      * @param loginRoot The AnchorPane for the login screen.
-     * @param stage The stage the login scene is set in.
+     * @param stage     The stage the login scene is set in.
      * @author Nathaniel Rivera, Anthony Costa
      * @since 3/12/2025
      */
     public static void loginSetup(AnchorPane loginRoot, Stage stage) {
         TextField usernameField = new TextField();
-        usernameField.setPrefWidth(300); usernameField.setPrefHeight(40); usernameField.setLayoutX(322); usernameField.setLayoutY(80);
+        usernameField.setPrefWidth(300);
+        usernameField.setPrefHeight(40);
+        usernameField.setLayoutX(322);
+        usernameField.setLayoutY(80);
         usernameField.setPromptText("USERNAME");
         loginRoot.getChildren().add(usernameField);
 
         TextField emailField = new TextField();
-        emailField.setPrefWidth(300); emailField.setPrefHeight(40); emailField.setLayoutX(322); emailField.setLayoutY(140);
+        emailField.setPrefWidth(300);
+        emailField.setPrefHeight(40);
+        emailField.setLayoutX(322);
+        emailField.setLayoutY(140);
         emailField.setPromptText("EMAIL");
         loginRoot.getChildren().add(emailField);
 
         TextField passwordField = new TextField();
-        passwordField.setPrefWidth(300); passwordField.setPrefHeight(40); passwordField.setLayoutX(322); passwordField.setLayoutY(200);
+        passwordField.setPrefWidth(300);
+        passwordField.setPrefHeight(40);
+        passwordField.setLayoutX(322);
+        passwordField.setLayoutY(200);
         passwordField.setPromptText("PASSWORD");
         loginRoot.getChildren().add(passwordField);
 
@@ -205,7 +235,10 @@ public class CapstoneApplication extends Application {
         loginRoot.getChildren().add(errorLabel);
 
         Button loginButton = new Button();
-        loginButton.setPrefWidth(300); loginButton.setPrefHeight(40); loginButton.setLayoutX(322); loginButton.setLayoutY(260);
+        loginButton.setPrefWidth(300);
+        loginButton.setPrefHeight(40);
+        loginButton.setLayoutX(322);
+        loginButton.setLayoutY(260);
         loginButton.setText("LOGIN");
         loginRoot.getChildren().add(loginButton);
         loginButton.setOnAction(e -> {
@@ -215,16 +248,17 @@ public class CapstoneApplication extends Application {
             String email = emailField.getText();
             String password = passwordField.getText();
 
-            for(User user : userbase) {
-                if(user.getUsername().equals(username) && user.getPassword().equals(password) && user.getEmail().equals(email)) {
+            for (User user : userbase) {
+                if (user.getUsername().equals(username) && user.getPassword().equals(password) && user.getEmail().equals(email)) {
                     currUser = user;
                     canLogin = true;
                     break;
                 }
             }
 
-            if(canLogin) {
-                CurrentUser.setCurrentUser(currUser.getUsername(), currUser.getPassword());
+            if (canLogin) {
+                CurrentUser.setCurrentUser(currUser.getUsername(), currUser.getEmail());
+                loggedIn = true;
                 stage.close();
             } else {
                 System.out.println("One of the following fields: Username, password, or email is incorrect");
@@ -251,7 +285,10 @@ public class CapstoneApplication extends Application {
         });
 
         Button close = new Button();
-        close.setPrefWidth(25); close.setPrefHeight(25); close.setLayoutX(630); close.setLayoutY(10);
+        close.setPrefWidth(25);
+        close.setPrefHeight(25);
+        close.setLayoutX(630);
+        close.setLayoutY(10);
         close.setOpacity(0);
         loginRoot.getChildren().add(close);
         close.setOnAction(e -> {
@@ -260,7 +297,8 @@ public class CapstoneApplication extends Application {
 
         Label registerButton = new Label();
         registerButton.setId("register-label");
-        registerButton.setLayoutX(502); registerButton.setLayoutY(324);
+        registerButton.setLayoutX(502);
+        registerButton.setLayoutY(324);
         loginRoot.getChildren().add(registerButton);
         registerButton.setText("Register here.");
         registerButton.setTextFill(Color.WHITE);
@@ -278,7 +316,7 @@ public class CapstoneApplication extends Application {
                 stage.setResizable(false);
 
                 stage.show();
-            }  catch (IOException ex) {
+            } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
         });
@@ -287,7 +325,8 @@ public class CapstoneApplication extends Application {
     /**
      * Sets up the interactable parts of the Login page.
      * These elements include the input fields for username, password, firstName, lastName and email, and the button to register.
-     * @param root The AnchorPane for the register screen.
+     *
+     * @param root  The AnchorPane for the register screen.
      * @param stage The stage the resister scene is set in.
      * @author Nathaniel Rivera, Anthony Costa
      * @since 3/13/2025
@@ -483,35 +522,35 @@ public class CapstoneApplication extends Application {
                 if (email.isEmpty()) emailField.setStyle("-fx-border-color: red;");
             }
 
-            if(!userNameMatcher.matches()){
+            if (!userNameMatcher.matches()) {
                 System.out.println("Error: Username needs to be within 2-25 characters, no special characters besides '-'");
                 usernameError.setText("2–25 characters, only letters, digits, or '-' allowed");
                 usernameField.setStyle("-fx-border-color: red;");
                 canCreate = false;
             }
 
-            if(!passwordMatcher.matches()){
+            if (!passwordMatcher.matches()) {
                 System.out.println("Error: Password needs to be within 2-25 characters, no special characters");
                 passwordError.setText("2–25 characters, letters or digits only");
                 passwordField.setStyle("-fx-border-color: red;");
                 canCreate = false;
             }
 
-            if(!firstNameMatcher.matches()){
+            if (!firstNameMatcher.matches()) {
                 System.out.println("Error: First name needs to be within 2-25 letters, no other characters");
                 fNameError.setText("2–25 letters only");
                 firstNameField.setStyle("-fx-border-color: red;");
                 canCreate = false;
             }
 
-            if(!lastNameMatcher.matches()){
+            if (!lastNameMatcher.matches()) {
                 System.out.println("Error: Last name needs to be within 2-25 letters, no other characters");
                 lNameError.setText("2–25 letters only");
                 lastNameField.setStyle("-fx-border-color: red;");
                 canCreate = false;
             }
 
-            if(!emailMatcher.matches()){
+            if (!emailMatcher.matches()) {
                 System.out.println("Error: Invalid email input.  Please use a valid email address");
                 emailError.setText("Must be a valid email address format");
                 emailField.setStyle("-fx-border-color: red;");
@@ -526,7 +565,7 @@ public class CapstoneApplication extends Application {
                 }
             }
 
-            if(canCreate) {
+            if (canCreate) {
                 userbase.add(new User(firstName, lastName, username, email, password));
                 db.insertUser(username, email, password, firstName, lastName);
                 stage.close();
@@ -551,7 +590,7 @@ public class CapstoneApplication extends Application {
         root.getChildren().add(loginButton);
         loginButton.setText("Log in.");
         loginButton.setTextFill(Color.WHITE);
-        loginButton.setOnMouseClicked(e-> {
+        loginButton.setOnMouseClicked(e -> {
             stage.close();
             FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("login-view.fxml"));
             try {
@@ -577,10 +616,10 @@ public class CapstoneApplication extends Application {
     /**
      * Sets ups the interactable parts of the landing page as well as the observable lists and
      * pathway to the scanner.
-     * @param root The AnchorPane for the landing page.
+     * @param root         The AnchorPane for the landing page.
      * @param landingStage The stage the landing page is set in
-     * @since 3/26/2025
      * @author Nathaniel Rivera
+     * @since 3/26/2025
      */
     public static void landingSetup(AnchorPane root, Stage landingStage) {
         Button addInvoice = new Button();
@@ -605,7 +644,7 @@ public class CapstoneApplication extends Application {
                 stage.getIcons().add(new Image(Objects.requireNonNull(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png"))));
 
                 stage.show();
-            }  catch (IOException ex) {
+            } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
         });
@@ -623,10 +662,11 @@ public class CapstoneApplication extends Application {
 
     /**
      * Sets ups the interactable parts of the scanner page.
-     * @param root The AnchorPane for the scanner page.
+     *
+     * @param root  The AnchorPane for the scanner page.
      * @param stage The stage the scanner page is set in
-     * @since 3/26/2025
      * @author Nathaniel Rivera
+     * @since 3/26/2025
      */
     public static void scannerSetup(AnchorPane root, Stage stage) {
 

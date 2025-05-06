@@ -62,7 +62,7 @@ public class ItemController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(!init) {
-            db.connectToDatabase();
+            //db.connectToDatabase();
             db.setCurrentUser(CurrentUser.getCurrentUsername(), CurrentUser.getCurrentEmail());
             items = db.retrieveItems();
             init = true;
@@ -91,6 +91,13 @@ public class ItemController implements Initializable {
         Pattern itemPricePattern = Pattern.compile("\\d+\\.\\d{2}");
         Matcher itemPriceMatcher = itemPricePattern.matcher(iPrice);
 
+        for (Item value : items) {
+            if (value.getName().equals(iName)) {
+                canAdd = false;
+                break;
+            }
+        }
+
         if( iName.isEmpty() || iPrice.isEmpty() ){
             System.out.println("Error: One or more fields are empty");
             canAdd = false;
@@ -107,10 +114,10 @@ public class ItemController implements Initializable {
         }
 
         if(canAdd) {
-            Item item = new Item(items.size() + 1, itemNameField.getText(), Double.parseDouble(itemPriceField.getText()));
-          items.add(item);
-          db.insertItems(item.getId(), item.getName(), item.getPpi());
-          clearForm();
+            Item item = new Item(items.getLast().getId() + 1, itemNameField.getText(), Double.parseDouble(itemPriceField.getText()));
+            items.add(item);
+            db.insertItems(item.getId(), item.getName(), item.getPpi());
+            clearForm();
         }
     }
 
@@ -224,7 +231,7 @@ public class ItemController implements Initializable {
      */
     public static ObservableList<Item> getItemsList() {
         if(!init) {
-            db.connectToDatabase();
+            //db.connectToDatabase();
             db.setCurrentUser(CurrentUser.getCurrentUsername(), CurrentUser.getCurrentEmail());
             items = db.retrieveItems();
             init = true;
