@@ -289,8 +289,8 @@ public class Invoice {
 
             }
         }
-        price = price * .08875;
-        int rounder = (int) price * 100;
+        price = price * 1.08875;
+        int rounder = (int) (price * 100);
         price = (double) rounder / 100;
         return price;
     }

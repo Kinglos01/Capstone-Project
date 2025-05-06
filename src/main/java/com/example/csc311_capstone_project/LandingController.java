@@ -37,7 +37,7 @@ import java.util.ResourceBundle;
  * menu items for the Landing Page. The Add Invoices button is handled
  * in Capstone Application instead of directly here.
  * @since 4/27/2025
- * @author Nathaniel Rivera, Carlos Berios
+ * @author Nathaniel Rivera, Carlos Berio
  */
 public class LandingController implements Initializable{
 
@@ -140,7 +140,7 @@ public class LandingController implements Initializable{
      * Launches the item importer screen.
      * @throws IOException IOException.
      * @since 4/27/2025
-     * @author Nathaniel Rivera, Carlos Berios
+     * @author Nathaniel Rivera, Carlos Berio
      */
     @FXML
     protected void openItemList() throws IOException {
@@ -151,6 +151,7 @@ public class LandingController implements Initializable{
 
         Scene scene = new Scene(itemRoot, 655, 800);
 
+        stage.getIcons().add(new Image(Objects.requireNonNull(LandingController.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png"))));
         stage.setScene(scene);
         scene.getStylesheets().add(LandingController.class.getResource("/com/example/csc311_capstone_project/item.css").toExternalForm());
         stage.setResizable(false);
