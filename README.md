@@ -2,17 +2,17 @@
 
 ## Table of Contents
 
--[Introduction](#introduction)
--[How to Use](#how-to-use)
--[Layouts and Formatting](#layouts-and-formatting)
-  -[Splash Screen](#splash-screen)
-  -[Login Screen](#login-screen)
-  -[Register Screen](#register-screen)
-  -[Landing Screen](#landing-screen)
-  -[Scanner Screen](#scanner-screen)
-  -[Item Screen](#item-screen)
--[Technology](#technology)
--[Contributors](#contributors)
+- [Introduction](#introduction)
+- [How to Use](#how-to-use)
+- [Layouts and Formatting](#layouts-and-formatting)
+  - [Splash Screen](#splash-screen)
+  - [Login Screen](#login-screen)
+  - [Register Screen](#register-screen)
+  - [Landing Screen](#landing-screen)
+  - [Scanner Screen](#scanner-screen)
+  - [Item Screen](#item-screen)
+- [Technology](#technology)
+- [Contributors](#contributors)
 
 ## Introduction
 
