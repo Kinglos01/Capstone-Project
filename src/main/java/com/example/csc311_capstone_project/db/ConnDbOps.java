@@ -99,7 +99,7 @@ public class ConnDbOps {
                     + "username VARCHAR(50) NOT NULL,"
                     + "email VARCHAR(50) NOT NULL,"
                     + "CONSTRAINT pk_user PRIMARY KEY (item_id),"
-                    + "CONSTRAINT fk_invoice_users FOREIGN KEY (username, email) REFERENCES users(username, email)"
+                    + "CONSTRAINT fk_users FOREIGN KEY (username, email) REFERENCES users(username, email)"
                     + ")";
             statement.executeUpdate(sql4);
 
