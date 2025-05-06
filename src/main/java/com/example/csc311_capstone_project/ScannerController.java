@@ -297,7 +297,7 @@ public class ScannerController {
 
         file = (new FileChooser()).showOpenDialog(invoiceImage.getScene().getWindow());
 
-        System.out.println("File" + file);
+        //System.out.println("File" + file);
 
         if (file != null) {
             invoiceImage.setImage(new Image(PDFConverter.convertPDF(file.toURI().toString()).toURI().toString()));
