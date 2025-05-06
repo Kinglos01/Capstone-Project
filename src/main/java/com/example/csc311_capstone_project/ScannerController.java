@@ -2,6 +2,7 @@ package com.example.csc311_capstone_project;
 
 import com.example.csc311_capstone_project.db.ConnDbOps;
 import com.example.csc311_capstone_project.model.Invoice;
+import com.example.csc311_capstone_project.model.Item;
 import com.example.csc311_capstone_project.model.Status;
 import com.example.csc311_capstone_project.service.CurrentUser;
 
@@ -14,10 +15,22 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Controller object for the Scanner controller class.
+ * @since 4/1/25
+ * @author Nathaniel Rivera, Jared Mitchell, Aidan Rodriguez, Anthony Costa
+ */
 public class ScannerController {
 
     protected final ObservableList<Invoice> invoices = FXCollections.observableArrayList();
@@ -36,6 +49,12 @@ public class ScannerController {
 
     static ConnDbOps db = new ConnDbOps();
 
+    /**
+     * Initialization for the Scanner controller page. Sets up the RegEx
+     * and error messages for the page.
+     * @since 4/26/25
+     * @author Jared Mitchell,Anthony Costa
+     */
     @FXML
     protected void initialize() {
         Pattern invoicePattern = Pattern.compile("IN\\d{8}");
@@ -123,7 +142,11 @@ public class ScannerController {
         });
     }
 
-
+    /**
+     * Adds an invoice into the table of invoices
+     * @since 4/1/2025
+     * @author Nathaniel Rivera, Anthony Costa
+     */
     @FXML
     protected void addInvoice() {
 
@@ -265,7 +288,7 @@ public class ScannerController {
 
     /***
      * Changes the image stored in the viewer to the picture of the invoice
-     * for the users choosing.
+     * for the users choosing. Takes in a PDF and converts it to a PNG.
      * @since 4/24/2025
      * @author Nathaniel Rivera
      */
@@ -274,13 +297,23 @@ public class ScannerController {
 
         file = (new FileChooser()).showOpenDialog(invoiceImage.getScene().getWindow());
 
+        System.out.println("File" + file);
+
         if (file != null) {
-            invoiceImage.setImage(new Image(file.toURI().toString()));
+            invoiceImage.setImage(new Image(PDFConverter.convertPDF(file.toURI().toString()).toURI().toString()));
         }
 
         currImage = file.toURI().toString();
     }
 
+    /**
+     * This will take the file path of the Invoice specified in the Scanner and parse it for all it's information.
+     * All the fields contained within the Invoice such as the invoice number, the account id, etc. will be filled out
+     * automatically within the form, with the user able to fill out their own name for the Invoice.
+     *
+     * @author Aidan Rodriguez
+     * @author Jared Mitchel
+     */
     @FXML
     protected void addFromScanner() {
         FileReader fileReader = new FileReader(file.getPath());
@@ -298,6 +331,8 @@ public class ScannerController {
         Pattern statusPattern = Pattern.compile("Delivered|En-Route|Not Delivered|Unknown");
         Matcher statusMatcher = statusPattern.matcher(fullText);
 
+
+        // build Invoice parameters from values found in the input pdf.
         invoiceMatcher.find();
         invoiceNumField.setText(String.valueOf(invoiceMatcher.group(0)));
         customerMatcher.find();
@@ -311,5 +346,56 @@ public class ScannerController {
         statusMatcher.find();
         statusField.setText(statusMatcher.group(0));
 
+        // build a list of Items for the Invoice.
+        Pattern itemFinder = Pattern.compile("Total");
+        Pattern itemFinderEnd = Pattern.compile("Subtotal");
+        Matcher findEnd = itemFinder.matcher(fullText);
+        Matcher findEnd2 = itemFinderEnd.matcher(fullText);
+        Pattern newLineFinder = Pattern.compile("\\n");
+
+        findEnd.find();
+        findEnd2.find();
+        int startingIndex = findEnd.end(0);
+        int endingIndex = findEnd2.start(0);
+        String itemsText = fullText.substring(startingIndex, endingIndex);
+        Matcher newLineMatcher = newLineFinder.matcher(itemsText);
+        List<String> itemsAsString = new ArrayList<String>();
+
+        while (newLineMatcher.find()) {
+            int startIndex = newLineMatcher.end();
+            if (!newLineMatcher.find()) {
+                //itemsAsString.add(itemsText.substring(startIndex));
+                break;
+            }
+            else {
+                int endIndex = newLineMatcher.start();
+                itemsAsString.add(itemsText.substring(startIndex, endIndex));
+                itemsText = itemsText.substring(endIndex - 1);
+                newLineMatcher.reset(itemsText);
+            }
+        }
+
+        Pattern itemName = Pattern.compile("[A-Za-z ()0-9-]+");
+        Pattern quant = Pattern.compile(" \\d+ ");
+
+
+        StringBuilder itemsFullString = new StringBuilder();
+        for (String itemString : itemsAsString) {
+            StringBuilder nameBuilder = new StringBuilder();
+            Matcher nameMatcher = itemName.matcher(itemString);
+            nameMatcher.find();
+            nameBuilder.append(nameMatcher.group());
+            nameBuilder.deleteCharAt(nameMatcher.group().length() - 1);
+            String name = String.valueOf(nameBuilder);
+
+            Matcher quantMatcher = quant.matcher(itemString);
+            quantMatcher.find();
+            String quantity = quantMatcher.group().substring(1, quantMatcher.group().length() - 1);
+
+            itemsFullString.append(name).append(":").append(quantity).append(", ");
+        }
+
+        itemsFullString.deleteCharAt(itemsFullString.length() - 1);
+        itemsField.setText(String.valueOf(itemsFullString));
     }
 }

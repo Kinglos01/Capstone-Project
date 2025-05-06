@@ -1,12 +1,11 @@
 module com.example.csc311_capstone_project {
     requires javafx.controls;
     requires javafx.fxml;
-    //requires proto.google.cloud.document.ai.v1;
-    requires google.cloud.document.ai;
-    requires com.google.protobuf;
     requires java.sql;
-    requires org.checkerframework.checker.qual;
+    //requires org.checkerframework.checker.qual;
     requires itextpdf;
+    requires org.apache.pdfbox;
+    requires java.desktop;
 
 
     opens com.example.csc311_capstone_project to javafx.fxml;

@@ -48,4 +48,14 @@ public class CurrentUser {
     public static String getCurrentEmail() {
         return currEmail;
     }
+
+    /**
+     * Logs the current user out by setting the currUsername and currEmail to null.
+     * @since 5/2/2025
+     * @author Nathaniel Rivera
+     */
+    public static void logOut() {
+        currUsername = null;
+        currEmail = null;
+    }
 }
