@@ -4,7 +4,6 @@
  */
 package com.example.csc311_capstone_project.db;
 
-import com.example.csc311_capstone_project.LandingController;
 import com.example.csc311_capstone_project.model.Invoice;
 import com.example.csc311_capstone_project.model.Item;
 import com.example.csc311_capstone_project.model.Status;
@@ -24,10 +23,10 @@ import java.util.List;
  * @author Nathaniel Rivera
  */
 public class ConnDbOps {
-    final String MYSQL_SERVER_URL = "jdbc:mysql://jabaltariq2.database.windows.net/";
-    final String DB_URL = MYSQL_SERVER_URL + "/DBname";
-    final String USERNAME = "jabaltariq";
-    final String PASSWORD = "thisisouradminpassword1!";
+    final String MYSQL_SERVER_URL = "jdbc:mysql://csc311capstone.mysql.database.azure.com/";
+    final String DB_URL = MYSQL_SERVER_URL + "DBname";
+    final String USERNAME = "costa18";
+    final String PASSWORD = "FARM123$";
 
     /**
      * Current username of the user.
@@ -59,7 +58,7 @@ public class ConnDbOps {
             String sql = "CREATE TABLE IF NOT EXISTS users ("
                     + "username VARCHAR(50) NOT NULL,"
                     + "email VARCHAR(50) NOT NULL,"
-                    + "[password] VARCHAR(50) NOT NULL,"
+                    + "password VARCHAR(50) NOT NULL,"
                     + "first_name VARCHAR(50),"
                     + "last_name VARCHAR(50),"
                     + "CONSTRAINT pk_users PRIMARY KEY (username, email)"
@@ -73,12 +72,12 @@ public class ConnDbOps {
                     + "email VARCHAR(50) NOT NULL,"
                     + "order_date VARCHAR(50),"
                     + "delivery_date VARCHAR(50),"
-                    + "[status] VARCHAR(50),"
+                    + "status VARCHAR(50),"
                     + "account_id VARCHAR(50),"
                     + "address VARCHAR(250),"
                     + "invoice_image VARCHAR(250),"
                     + "invoice_name VARCHAR(50),"
-                    + "total_price VARCHAR(50)"
+                    + "total_price VARCHAR(50),"
                     + "CONSTRAINT pk_invoice PRIMARY KEY (invoice_id, username, email),"
                     + "CONSTRAINT fk_invoice_users FOREIGN KEY (username, email) REFERENCES users(username, email)"
                     + ")";
@@ -92,7 +91,7 @@ public class ConnDbOps {
                     + "username VARCHAR(50) NOT NULL,"
                     + "email VARCHAR(50) NOT NULL,"
                     + "CONSTRAINT pk_user PRIMARY KEY (item_id),"
-                    + "CONSTRAINT fk_invoice_users FOREIGN KEY (username, email) REFERENCES users(username, email)"
+                    + "CONSTRAINT fk_users FOREIGN KEY (username, email) REFERENCES users(username, email)"
                     + ")";
             statement.executeUpdate(sql4);
 
