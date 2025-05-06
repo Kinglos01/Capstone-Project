@@ -4,6 +4,7 @@ Added a consistent design throughout the entire program
 @author Carlos Berio
  */
 
+
 .label {
     -fx-font-family: "Berlin Sans FB";
     -fx-font-size: 16px;
@@ -29,11 +30,11 @@ Added a consistent design throughout the entire program
     -fx-text-fill: black;
     -fx-cursor: hand;
 }
-
+/*
 #loginPane{
     -fx-fill: linear-gradient(to bottom, black, #ff99cc);
 }
-
+*/
 #register-label:hover {
     -fx-text-fill: #3399ff; /* A nice shade of blue */
     -fx-cursor: hand;

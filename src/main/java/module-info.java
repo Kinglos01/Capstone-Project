@@ -2,7 +2,7 @@ module com.example.csc311_capstone_project {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
-    requires org.checkerframework.checker.qual;
+    //requires org.checkerframework.checker.qual;
     requires itextpdf;
     requires org.apache.pdfbox;
     requires java.desktop;
