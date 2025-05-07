@@ -103,7 +103,7 @@ The price of the item must folllow the following criteria, it must be a **double
 
 6. Apache PDFBox
 
-7. iTextPdf.
+7. iTextPDF.
 
 8. Microsoft Azure
 
