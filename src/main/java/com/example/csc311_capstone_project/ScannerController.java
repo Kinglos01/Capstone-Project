@@ -370,8 +370,8 @@ public class ScannerController {
             nameBuilder.append(nameMatcher.group());
             nameBuilder.deleteCharAt(nameMatcher.group().length() - 1);
             String name = String.valueOf(nameBuilder);
-
-            Matcher quantMatcher = quant.matcher(itemString);
+            String numbersArea = itemString.substring(nameMatcher.end());
+            Matcher quantMatcher = quant.matcher(numbersArea);
             quantMatcher.find();
             String quantity = quantMatcher.group().substring(1, quantMatcher.group().length() - 1);
 
