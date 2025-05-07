@@ -107,6 +107,8 @@ The price of the item must folllow the following criteria, it must be a **double
 
 8. Microsoft Azure
 
+9. MySQL
+    
 ## Contributors
 
 Berio, Carlos
