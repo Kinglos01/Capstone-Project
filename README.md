@@ -20,7 +20,7 @@ The autoCommerce application allows users to store invoices quickly and efficien
 
 ## How to Use
 
-autoCommerece allows users to store their lists of invoices and items and, therefore, requires them to create and use an account. If the user does not possess an account, it is important that they go to the register page to make one. After creating an account, the user can log in and start up the main application.
+autoCommerce allows users to store their lists of invoices and items and, therefore, requires them to create and use an account. If the user does not possess an account, it is important that they go to the register page to make one. After creating an account, the user can log in and start up the main application.
 
 Before parsing an invoice the values of the items on the invoice must be inputted into the system. On the items page, the user can either import and CSV or TXT file see the item screen for the format. Once the items are inputted into the item list the user is ready to use the automatic invoice scanner. If the user desires to use the automatic field generate, the invoice must follow the following [template invoices](https://mega.nz/file/tlggXDaT#HUWvAdF_WVcEwoSpare4bWBUpwnBVXPC8IvbkNwrBVI) format. The invoice must also be a PDF file. Once all these requirements are met the user can begin to automatically scan invoices into the system for storage (see requirements in the Scanner Screen section).
 
