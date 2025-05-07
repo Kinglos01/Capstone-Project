@@ -47,6 +47,9 @@ public class ItemController implements Initializable {
     @FXML
     protected MenuBar addItemFile;
 
+    @FXML
+    protected Label nameError, priceError, errorLabel;
+
     public static ObservableList<Item> items = FXCollections.observableArrayList(new ArrayList<>());
 
     static ConnDbOps db = new ConnDbOps();
@@ -73,6 +76,35 @@ public class ItemController implements Initializable {
         itemPrice.setCellValueFactory(new PropertyValueFactory<>("Ppi"));
 
         itemTable.setItems(items);
+
+        Pattern itemNamePattern = Pattern.compile(".{2,250}");
+        Pattern itemPricePattern = Pattern.compile("\\d+\\.\\d{2}");
+
+        // Item Name Field, Error Messages
+        itemNameField.textProperty().addListener((obs, oldText, newText) -> {
+            boolean valid = itemNamePattern.matcher(newText).matches();
+            itemNameField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+        });
+        itemNameField.focusedProperty().addListener((obs, oldFocus, newFocus) -> {
+            if (!newFocus) {
+                boolean valid = itemNamePattern.matcher(itemNameField.getText()).matches();
+                nameError.setText(valid ? "" : "Must be 2 to 250 characters");
+                itemNameField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+            }
+        });
+
+        // Item Price Field, Error Messages
+        itemPriceField.textProperty().addListener((obs, oldText, newText) -> {
+            boolean valid = itemPricePattern.matcher(newText).matches();
+            itemPriceField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+        });
+        itemPriceField.focusedProperty().addListener((obs, oldFocus, newFocus) -> {
+            if (!newFocus) {
+                boolean valid = itemPricePattern.matcher(itemPriceField.getText()).matches();
+                priceError.setText(valid ? "" : "Price must be a number \nwith 2 decimal places.");
+                itemPriceField.setStyle(valid ? "-fx-border-color: Lime;" : "-fx-border-color: red;");
+            }
+        });
     }
 
     /**
@@ -100,16 +132,23 @@ public class ItemController implements Initializable {
 
         if( iName.isEmpty() || iPrice.isEmpty() ){
             System.out.println("Error: One or more fields are empty");
+            errorLabel.setText("All fields must be filled."); // Print error to UI
             canAdd = false;
+
+            // Highlight empty fields with a red border
+            if (iName.isEmpty()) itemNameField.setStyle("-fx-border-color: red;");
+            if (iPrice.isEmpty()) itemPriceField.setStyle("-fx-border-color: red;");
         }
 
         if(!itemNameMatcher.matches()){
             System.out.println("Error: The item name must be between 2 to 250 characters");
+            nameError.setText("Must be 2 to 250 characters");
             canAdd = false;
         }
 
         if(!itemPriceMatcher.matches()){
             System.out.println("Error: The price must only be numbers an include exactly two decimals.");
+            priceError.setText("Price must be a number \nwith 2 decimal places.");
             canAdd = false;
         }
 
@@ -174,7 +213,12 @@ public class ItemController implements Initializable {
     @FXML
     protected void clearForm() {
         itemNameField.setText("");
+        itemNameField.setStyle("");
         itemPriceField.setText("");
+        itemPriceField.setStyle("");
+        errorLabel.setText("");
+        nameError.setText("");
+        priceError.setText("");
     }
 
     /**
