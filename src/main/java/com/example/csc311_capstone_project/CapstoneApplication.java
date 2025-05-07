@@ -82,6 +82,13 @@ public class CapstoneApplication extends Application {
         db.connectToDatabase();
         userbase = db.retrieveUsers();
 
+        Label errorLabel = new Label();
+        errorLabel.setLayoutX(850);
+        errorLabel.setLayoutY(660); // Below the launch button
+        errorLabel.setStyle("-fx-text-fill: red; -fx-font-size: 14;");
+        errorLabel.setVisible(false);
+        root.getChildren().add(errorLabel);
+
         Button launcher = new Button();
         launcher.setPrefWidth(300);
         launcher.setPrefHeight(100);
@@ -108,6 +115,9 @@ public class CapstoneApplication extends Application {
                     landingStage.show();
                 } catch (IOException _) {
                 }
+            } else {
+                errorLabel.setText("You must log in before launching the app.");
+                errorLabel.setVisible(true);
             }
         });
 
@@ -252,6 +262,7 @@ public class CapstoneApplication extends Application {
                 if (user.getUsername().equals(username) && user.getPassword().equals(password) && user.getEmail().equals(email)) {
                     currUser = user;
                     canLogin = true;
+                    System.out.println("Successfully Logged into: " + username);
                     break;
                 }
             }

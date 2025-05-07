@@ -88,6 +88,7 @@ public class LandingController implements Initializable{
         price.setCellValueFactory(new PropertyValueFactory<>("Price"));
 
         invoiceTable.setItems(invoices);
+        System.out.println("Loaded " + invoices.size() + " invoices.");
     }
 
     /**
