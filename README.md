@@ -12,6 +12,7 @@
   - [Scanner Screen](#scanner-screen)
   - [Item Screen](#item-screen)
 - [Technology](#technology)
+- [Presentation](#presentation)
 - [Contributors](#contributors)
 
 ## Introduction
@@ -91,7 +92,7 @@ The item name must follow the following criteria, it must be **2, 25 characters*
 
 The price of the item must folllow the following criteria, it must be a **double with at most 2 significant figures after the decimal**.
 
-### Technology
+## Technology
 
 1. IntelliJ IDEA Community Edition
 
@@ -110,6 +111,8 @@ The price of the item must folllow the following criteria, it must be a **double
 9. MySQL
 
 10. OpenCSV
+
+##Presentation
     
 ## Contributors
 
