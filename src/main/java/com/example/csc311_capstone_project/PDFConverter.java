@@ -26,6 +26,9 @@ public class PDFConverter {
         String pdfFilePath = filepath.substring(5);
         String outputPngPrefix = filepath.substring(5, filepath.length() - 4);
         File pngFile = null;
+
+        pdfFilePath = pdfFilePath.replaceAll("%20", " ");
+
         System.out.println("File path: " +  pdfFilePath);
 
         try {
