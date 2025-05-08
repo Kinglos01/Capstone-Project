@@ -45,7 +45,7 @@ public class PDFConverter {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(pngFile);
+
         return pngFile;
     }
 }

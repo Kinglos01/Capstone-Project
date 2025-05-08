@@ -23,7 +23,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.time.Clock;
 import java.time.ZoneId;
@@ -245,6 +248,31 @@ public class LandingController implements Initializable{
         } catch(IOException _) {
 
         }
+    }
+
+    /**
+     * Exports the invoices into a csv file that is downloaded into the users download folder.
+     * @throws FileNotFoundException Throw FileNotFound if there is no file in the print writer.
+     * @since 5/7/2025
+     * @author Nathaniel Rivera
+     */
+    @FXML
+    public void exportInvoices() throws FileNotFoundException {
+        String home = System.getProperty("user.home");
+        File csvFile = new File(home + "/Downloads/" + "InvoiceList" + ".csv");
+
+        PrintWriter out = new PrintWriter(csvFile);
+
+        for(Invoice invoice: invoices) {
+            out.println(invoice.getInvoiceName() + "," + invoice.getInvoiceId() + "," + invoice.getAccountId()
+                    + "," + invoice.getOrderDate()+ "," + invoice.getDeliveryDate()
+                    + "," + invoice.getDeliveryAddress() + "," + invoice.getStatus()
+                    + "," + invoice.getPrice());
+        }
+
+        out.close();
+
+        System.out.println("Invoice CSV Exported");
     }
 
 }
