@@ -47,7 +47,7 @@ public class LandingController implements Initializable{
     public static ObservableList<Invoice> invoices = FXCollections.observableArrayList(new ArrayList<>());
 
     @FXML
-    protected Button removeButton;
+    protected Button removeButton, addButton;
 
     @FXML
     protected TableView<Invoice> invoiceTable;
