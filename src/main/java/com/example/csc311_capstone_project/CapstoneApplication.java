@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -98,22 +99,24 @@ public class CapstoneApplication extends Application {
         root.getChildren().add(launcher);
         launcher.setOnAction(e -> {
             if (loggedIn) {
-                FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("landing-view.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("landing-view2.fxml"));
                 try {
+                    Parent landingRoot = fxmlLoader.load(); // Directly load the FXML as the root
                     Stage landingStage = new Stage();
-                    AnchorPane landingRoot = new AnchorPane();
-                    landingRoot.getChildren().add(fxmlLoader.load());
-                    landingSetup(landingRoot, landingStage);
+                    landingSetup((AnchorPane) landingRoot, landingStage); // Only if needed
 
-                    Scene scene = new Scene(landingRoot, 1800, 800);
+                    Scene scene = new Scene(landingRoot);
                     landingStage.setScene(scene);
-                    landingStage.setResizable(false);
+                    landingStage.setResizable(true);
 
                     stage.close();
-                    landingStage.getIcons().add(new Image(Objects.requireNonNull(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png"))));
+                    landingStage.getIcons().add(new Image(Objects.requireNonNull(
+                            CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png")
+                    )));
                     scene.getStylesheets().add(CapstoneApplication.class.getResource("/com/example/csc311_capstone_project/landing.css").toExternalForm());
                     landingStage.show();
                 } catch (IOException _) {
+                    // Handle the error properly if needed
                 }
             } else {
                 errorLabel.setText("You must log in before launching the app.");
@@ -633,12 +636,14 @@ public class CapstoneApplication extends Application {
      * @since 3/26/2025
      */
     public static void landingSetup(AnchorPane root, Stage landingStage) {
-        Button addInvoice = new Button();
+        Button addInvoice = new Button("ADD INVOICE");
         addInvoice.setPrefWidth(160);
         addInvoice.setPrefHeight(50);
-        addInvoice.setLayoutX(20);
-        addInvoice.setLayoutY(600);
-        addInvoice.setText("ADD INVOICE");
+
+        // Anchor to bottom-left corner with margin
+        AnchorPane.setBottomAnchor(addInvoice, 140.0); // 140 px from bottom
+        AnchorPane.setLeftAnchor(addInvoice, 7.0);   // 7 px from left
+
         root.getChildren().add(addInvoice);
         addInvoice.setOnMouseClicked(e -> {
             FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("scanner-view.fxml"));
@@ -651,7 +656,7 @@ public class CapstoneApplication extends Application {
                 Scene scene = new Scene(scannerRoot, 1100, 630);
                 scene.getStylesheets().add(Objects.requireNonNull(CapstoneApplication.class.getResource("scannerscreen.css")).toExternalForm());
                 stage.setScene(scene);
-                stage.setResizable(false);
+                stage.setResizable(true);
                 stage.getIcons().add(new Image(Objects.requireNonNull(CapstoneApplication.class.getResourceAsStream("/com/example/csc311_capstone_project/images/colored_icon.png"))));
 
                 stage.show();
