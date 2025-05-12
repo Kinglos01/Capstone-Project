@@ -89,7 +89,6 @@ public class ConnDbOps {
                     + ")";
             statement.executeUpdate(sql2);
 
-
             conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             statement = conn.createStatement();
             String sql4 = "CREATE TABLE IF NOT EXISTS items ("
@@ -98,7 +97,7 @@ public class ConnDbOps {
                     + "price DOUBLE,"
                     + "username VARCHAR(50) NOT NULL,"
                     + "email VARCHAR(50) NOT NULL,"
-                    + "CONSTRAINT pk_user PRIMARY KEY (item_id),"
+                    + "CONSTRAINT pk_user PRIMARY KEY (item_id, username, email),"
                     + "CONSTRAINT fk_users FOREIGN KEY (username, email) REFERENCES users(username, email)"
                     + ")";
             statement.executeUpdate(sql4);

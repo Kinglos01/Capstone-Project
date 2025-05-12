@@ -63,8 +63,8 @@ public class ItemController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //db.connectToDatabase();
         if(!init) {
-            //db.connectToDatabase();
             db.setCurrentUser(CurrentUser.getCurrentUsername(), CurrentUser.getCurrentEmail());
             items = db.retrieveItems();
             init = true;
