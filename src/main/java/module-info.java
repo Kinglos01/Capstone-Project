@@ -6,6 +6,7 @@ module com.example.csc311_capstone_project {
     requires itextpdf;
     requires org.apache.pdfbox;
     requires java.desktop;
+    requires com.azure.storage.blob;
 
 
     opens com.example.csc311_capstone_project to javafx.fxml;
