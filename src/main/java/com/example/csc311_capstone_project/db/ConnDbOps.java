@@ -384,7 +384,7 @@ public class ConnDbOps {
 
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "SELECT invoice_id, order_date, delivery_date, status, account_id, address, invoice_image, invoice_name, total_price FROM invoice";
+            String sql = "SELECT invoice_id, order_date, delivery_date, status, account_id, address, invoice_image, invoice_name, total_price FROM invoice WHERE username = '" + currUsername + "'" + " and email = '" + currEmail + "'";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
             ResultSet resultSet = preparedStatement.executeQuery();
