@@ -55,7 +55,6 @@ The first and last name of the user must be 2-25 characters long as well as only
 
 ### Landing Screen
 
-![image](https://github.com/user-attachments/assets/4ae4c752-c74a-403d-a86b-79695b3d0f92)
 ![color change landing](https://github.com/user-attachments/assets/9b3741e4-af5c-4070-b080-9549fee32bf7)
 
 
@@ -63,10 +62,10 @@ The Landing Screen acts as a hub for the functional portitions of the applciatio
 
 ![color change landing full screen](https://github.com/user-attachments/assets/837c4bd6-d58c-4a83-a5be-b34f9b777595)
 Full Screen Landing Screen
+
 ### Scanner Screen
 
 ![image](https://github.com/user-attachments/assets/5aa0f7e0-6aac-440a-8cd3-e095e3d9c4d4)
-![Color change scanner](https://github.com/user-attachments/assets/720a8039-b43d-4cc1-82db-676b24ad2661)
 
 The Scanner Screen of the autoCommerce application consists of a multitude of fields for the user to enter. The fields are invoice number, customer account ID, order date, delivery date, shipping address, status, and the items. The user can also use the Generate Fields button to allow the invoice to be automatically parsed by the application.
 
@@ -89,7 +88,6 @@ Scanner Screen in with filled fields.
 ### Item Screen
 
 ![image](https://github.com/user-attachments/assets/e2e820bf-c1a0-4d08-b67f-af6c953f454d)
-![color change](https://github.com/user-attachments/assets/679b0653-479b-4edb-9041-21c2b601a879)
 
 The Item Screen of the autoCommerce applciation is a list where users can add and remove items from their list of items. The user can add, remove, or edit the item's names and their prices within the field. The user is also able to import a **CSV or TXT** file which stores the items alongside their price with the **ITEM NAME,ITEM PRICE** format.
 
