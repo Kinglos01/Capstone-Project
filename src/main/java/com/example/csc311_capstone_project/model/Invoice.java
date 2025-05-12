@@ -12,7 +12,7 @@ import java.io.FileReader;
  * stored in the database are imported. New invoices created by the user are stored internally,
  * as well as uploaded to the database for future use.
  * @since 3/21/2025
- * @author Nathaniel Rivera, Aiden Rodriguez
+ * @author Nathaniel Rivera, Aidan Rodriguez
  */
 public class Invoice {
 
@@ -122,6 +122,10 @@ public class Invoice {
         return this.account_id;
     }
 
+    /**
+     * Sets the account_Id of the specified invoice.
+     * @param account_id The new account_Id of the specified invoice, as a String.
+     */
     public void setAccountId(String account_id) {
         this.account_id = account_id;
     }
@@ -166,22 +170,42 @@ public class Invoice {
         this.delivery_date = delivery_date;
     }
 
+    /**
+     * Returns the delivery address of the Invoice.
+     * @return The delivery addres of the Invoice, as a String.
+     */
     public String getDeliveryAddress() {
         return this.delivery_address;
     }
 
+    /**
+     * Sets the delivery address of the Invoice.
+     * @param delivery_address The new delivery address of the Invoice, as a String.
+     */
     public void setDeliveryAddress(String delivery_address) {
         this.delivery_address = delivery_address;
     }
 
+    /**
+     * Gets the Status of the Invoice object.
+     * @return The Status of the Invoice object, returned as a Status enum.
+     */
     public Status getStatus() {
         return this.status;
     }
 
+    /**
+     * Sets the Status of the Invoice.
+     * @param status A Status enum to be changed in the Invoice object.
+     */
     public void setStatus(Status status) {
         this.status = status;
     }
 
+    /**
+     * Adds an Item to the list of Items contained within the Invoice object.
+     * @param item The Item object to be added.
+     */
     public void addItem(Item item) {
         int counter = 0;
         while (items[counter] != null) {
