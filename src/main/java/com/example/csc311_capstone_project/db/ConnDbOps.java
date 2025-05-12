@@ -27,8 +27,8 @@ import java.util.List;
  * @author Nathaniel Rivera
  */
 public class ConnDbOps {
-    final String MYSQL_SERVER_URL = "jdbc:mysql://csc311capstone.mysql.database.azure.com/";
-    final String DB_URL = MYSQL_SERVER_URL + "DBname";
+    final String MYSQL_SERVER_URL = "jdbc:mysql://csc311capstone.mysql.database.azure.com";
+    final String DB_URL = MYSQL_SERVER_URL + "/DBname";
     final String USERNAME = "costa18";
     final String PASSWORD = "FARM123$";
 
@@ -81,7 +81,7 @@ public class ConnDbOps {
                     + "status VARCHAR(50),"
                     + "account_id VARCHAR(50),"
                     + "address VARCHAR(250),"
-                    + "invoice_image VARCHAR(250),"
+                    + "invoice_image LONGBLOB,"//changed from VARCHAR(250)
                     + "invoice_name VARCHAR(50),"
                     + "total_price VARCHAR(50),"
                     + "CONSTRAINT fk_invoice_user FOREIGN KEY(username, email) REFERENCES users(username, email),"
@@ -103,6 +103,18 @@ public class ConnDbOps {
                     + ")";
             statement.executeUpdate(sql4);
 
+            /*
+            conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            statement = conn.createStatement();
+            String sql5 = "CREATE TABLE IF NOT EXISTS image_store ("
+                    + "image_id INT PRIMARY KEY"
+                    + "image_name VARCHAR(255) NOT NULL,"
+                    + "image_data LONGBLOB NOT NULL"
+                    + ")";
+            statement.executeUpdate(sql5);
+
+
+             */
             statement.close();
             conn.close();
 

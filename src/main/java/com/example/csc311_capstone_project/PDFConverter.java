@@ -25,22 +25,25 @@ public class PDFConverter {
      * @author Nathaniel Rivera
      */
     public static File convertPDF(String filepath) {
-        String pdfFilePath = filepath.substring(5);
-        String outputPngPrefix = filepath.substring(5, filepath.length() - 4);
+        String fileEnd = filepath.substring(filepath.lastIndexOf('/'), filepath.length());
         File pngFile = null;
 
-        pdfFilePath = pdfFilePath.replaceAll("%20", " ");
+        Pattern spacePattern = Pattern.compile("%20");
+        Matcher spaceMatcher = spacePattern.matcher(fileEnd);
+        fileEnd = spaceMatcher.replaceAll(" ");
 
-        System.out.println("File path: " +  pdfFilePath);
+        filepath = filepath.substring(5, filepath.lastIndexOf('/')) + fileEnd;
+
+        System.out.println("File path: " +  filepath);
 
         try {
-            PDDocument document = PDDocument.load(new File(pdfFilePath));
+            PDDocument document = PDDocument.load(new File(filepath));
             PDFRenderer pdfRenderer = new PDFRenderer(document);
 
             for (int page = 0; page < document.getNumberOfPages(); ++page) {
                 BufferedImage bim = pdfRenderer.renderImageWithDPI(
                         page, 300, org.apache.pdfbox.rendering.ImageType.RGB);
-                pngFile = new File(outputPngPrefix + "_" + (page + 1) + ".png");
+                pngFile = new File(filepath + "_" + (page + 1) + ".png");
                 ImageIO.write(bim, "png", pngFile);
             }
             document.close();
