@@ -55,9 +55,13 @@ The first and last name of the user must be 2-25 characters long as well as only
 
 ### Landing Screen
 
-![image](https://github.com/user-attachments/assets/4ae4c752-c74a-403d-a86b-79695b3d0f92)
+![color change landing](https://github.com/user-attachments/assets/9b3741e4-af5c-4070-b080-9549fee32bf7)
+
 
 The Landing Screen acts as a hub for the functional portitions of the applciation. It contains the feature log out and a close button which shuts down the application as a whole. The landing page allows users to delete invoices and mark previously non-delivered invoices as delivered. The Landing Page contains the branches to the Scanner and Item Screen and allows users to go straight to those pages.
+
+![color change landing full screen](https://github.com/user-attachments/assets/837c4bd6-d58c-4a83-a5be-b34f9b777595)
+Full Screen Landing Screen
 
 ### Scanner Screen
 
@@ -80,7 +84,7 @@ The status field must follow the following criteria, it must be one of the four 
 The item fields must follow the following criteria, they must be written in the order of **ITEM NAME:QUANTITY** if there are multiple items they must be split with a comma with the final value having no comma at the end. For items in the scanner to be blank, the user can insert None into the item section with 0 as its price. This will allow the scanner to flow freely and allow the user to input a range of items. 
 
 ![image](https://github.com/user-attachments/assets/3fd049df-5709-47d9-a5eb-eb6c4447663f)
-Scanner Screen with filled fields.
+Scanner Screen in with filled fields.
 
 ### Item Screen
 
