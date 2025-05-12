@@ -88,7 +88,7 @@ Scanner Screen in with filled fields.
 
 ### Item Screen
 
-![image](https://github.com/user-attachments/assets/e2e820bf-c1a0-4d08-b67f-af6c953f454d)
+![image](https://github.com/user-attachments/assets/9d60ac11-07b7-421b-ba59-69c86817db3e)
 
 The Item Screen of the autoCommerce applciation is a list where users can add and remove items from their list of items. The user can add, remove, or edit the item's names and their prices within the field. The user is also able to import a **CSV or TXT** file which stores the items alongside their price with the **ITEM NAME,ITEM PRICE** format.
 
