@@ -231,6 +231,9 @@ public class LandingController implements Initializable{
         landingStage.close();
         CurrentUser.logOut();
 
+        CapstoneApplication.loggedIn = false;
+        ItemController.init = false;
+
         try {
             Stage stage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader(CapstoneApplication.class.getResource("splash-view.fxml"));
