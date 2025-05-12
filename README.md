@@ -58,7 +58,7 @@ The first and last name of the user must be 2-25 characters long as well as only
 ![color change landing](https://github.com/user-attachments/assets/9b3741e4-af5c-4070-b080-9549fee32bf7)
 
 
-The Landing Screen acts as a hub for the functional portitions of the applciation. It contains the feature log out and a close button which shuts down the application as a whole. The landing page allows users to delete invoices and mark previously non-delivered invoices as delivered. The Landing Page contains the branches to the Scanner and Item Screen and allows users to go straight to those pages.
+The Landing Screen acts as a hub for the functional portitions of the applciation. It contains the feature log out and a close button which shuts down the application as a whole. The landing page allows users to delete invoices and mark previously non-delivered invoices as delivered. The Landing Page contains the branches to the Scanner and Item Screen and allows users to go straight to those pages. The user is able to export their own invoice lists into a CSV file.
 
 ![color change landing full screen](https://github.com/user-attachments/assets/837c4bd6-d58c-4a83-a5be-b34f9b777595)
 Full Screen Landing Screen
@@ -90,7 +90,7 @@ Scanner Screen in with filled fields.
 
 ![image](https://github.com/user-attachments/assets/9d60ac11-07b7-421b-ba59-69c86817db3e)
 
-The Item Screen of the autoCommerce applciation is a list where users can add and remove items from their list of items. The user can add, remove, or edit the item's names and their prices within the field. The user is also able to import a **CSV or TXT** file which stores the items alongside their price with the **ITEM NAME,ITEM PRICE** format.
+The Item Screen of the autoCommerce applciation is a list where users can add and remove items from their list of items. The user can add, remove, or edit the item's names and their prices within the field. The user is also able to import a **CSV or TXT** file which stores the items alongside their price with the **ITEM NAME,ITEM PRICE** format. The user is able to export their own item lists into a CSV file.
 
 The item name must follow the following criteria, it must be **2, 25 characters**.
 
