@@ -114,8 +114,6 @@ The price of the item must folllow the following criteria, it must be a **double
 
 9. MySQL
 
-10. OpenCSV
-
 ## Presentation
     
 ## Contributors
