@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csc311_capstone_project.LandingController">
+
+    <!-- Menu Bar at Top -->
+    <MenuBar fx:id="menuBar" prefHeight="26.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+            <Menu mnemonicParsing="false" text="File">
+                <items>
+                    <MenuItem fx:id="logOut" mnemonicParsing="false" onAction="#logOutClicked" text="Log Out" />
+                    <MenuItem fx:id="closeApp" mnemonicParsing="false" onAction="#closeApplication" text="Close" />
+                </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Items">
+                <items>
+                    <MenuItem mnemonicParsing="false" onAction="#openItemList" text="Item List" />
+                </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Export">
+                <items>
+                    <MenuItem mnemonicParsing="false" onAction="#exportInvoices" text="Export Invoice CSV" />
+                </items>
+            </Menu>
+        </menus>
+    </MenuBar>
+    <!-- Invoice Table -->
+    <TableView fx:id="invoiceTable" layoutX="174.33333333333334" layoutY="26.0" onMouseClicked="#selectedInvoice" prefHeight="754.0" prefWidth="991.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="174.33333333333334" AnchorPane.rightAnchor="570.0" AnchorPane.topAnchor="26.0">
+        <columns>
+            <TableColumn fx:id="invoiceName" prefWidth="131.0" text="Invoice Name" />
+            <TableColumn fx:id="invoiceNum" prefWidth="104.0" text="Invoice Number" />
+            <TableColumn fx:id="accountID" prefWidth="104.8" text="Account ID" />
+            <TableColumn fx:id="orderDate" prefWidth="79.2" text="Order Date" />
+            <TableColumn fx:id="deliveryDate" prefWidth="84.8" text="Delivery Date" />
+            <TableColumn fx:id="shippingAddress" prefWidth="255.0" text="Shipping Address" />
+            <TableColumn fx:id="status" prefWidth="100.8" text="Status" />
+            <TableColumn fx:id="price" prefWidth="127.2" text="Total Price" />
+        </columns>
+    </TableView>
+
+    <!-- Invoice Preview Background -->
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="746.0" layoutX="1173.666666666667" layoutY="29.333333333333332" stroke="BLACK" strokeType="INSIDE" width="555.0" AnchorPane.rightAnchor="7.33333333333303" />
+
+    <!-- Invoice Image -->
+    <ImageView fx:id="invoiceDisplay" fitHeight="710.0" fitWidth="532.0" layoutX="1189.0000000000002" layoutY="47.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="14.999999999999773" />
+
+    <!-- Remove Button -->
+    <Button fx:id="removeButton" layoutX="7.0" layoutY="709.3333333333334" mnemonicParsing="false" onAction="#delete" prefHeight="50.0" prefWidth="160.0" text="REMOVE INVOICE" AnchorPane.bottomAnchor="20.66666666666663" AnchorPane.leftAnchor="7.0" />
+
+    <!-- Toggle Button -->
+    <Button fx:id="toggleStatusButton" layoutX="7.0" layoutY="650.6666666666666" mnemonicParsing="false" onAction="#toggleStatus" prefHeight="50.0" prefWidth="160.0" text="TOGGLE STATUS" AnchorPane.bottomAnchor="79.33333333333337" AnchorPane.leftAnchor="7.0" />
+
+</AnchorPane>

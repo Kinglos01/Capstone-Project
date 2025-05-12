@@ -14,8 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.File;
+import java.io.*;
 import java.io.FileReader;
 import java.net.URL;
 import java.util.ArrayList;
@@ -281,6 +280,28 @@ public class ItemController implements Initializable {
             init = true;
         }
         return items;
+    }
+
+    /**
+     * Exports the items into a csv file that is downloaded into the users download folder.
+     * @throws FileNotFoundException Throw FileNotFound if there is no file in the print writer.
+     * @since 5/7/2025
+     * @author Nathaniel Rivera
+     */
+    @FXML
+    public void exportItems() throws FileNotFoundException {
+        String home = System.getProperty("user.home");
+        File csvFile = new File(home + "/Downloads/" + "ItemsList" + ".csv");
+
+        PrintWriter out = new PrintWriter(csvFile);
+
+        for(Item item: items) {
+            out.println(item.getName() + "," + item.getPpi());
+        }
+
+        out.close();
+
+        System.out.println("Item CSV Exported");
     }
 
 }
