@@ -8,6 +8,7 @@ import com.example.csc311_capstone_project.model.Invoice;
 import com.example.csc311_capstone_project.model.Item;
 import com.example.csc311_capstone_project.model.Status;
 import com.example.csc311_capstone_project.model.User;
+import com.example.csc311_capstone_project.photos.photoOps;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
@@ -407,16 +408,17 @@ public class ConnDbOps {
                 String status = resultSet.getString("status");
                 String account_id = resultSet.getString("account_id");
                 String address = resultSet.getString("address");
-                Image invoice_image = new Image(resultSet.getString("invoice_image"));
+                String imageBlobName = resultSet.getString("invoice_image");
+                Image invoice_image = photoOps.getAzureImage(imageBlobName);
                 String invoice_name = resultSet.getString("invoice_name");
                 String total_price = resultSet.getString("total_price");
 
 
                 switch(status) {
-                    case "Delivered" -> invoices.add(new Invoice(invoice_id, account_id, order_date, delivery_date, address, Status.delivered, invoice_name, total_price, invoice_image)); //db.insertInvoice(inNum, inAccount, inOrder, inDeliv, inAddress, "delivered", inName, );
-                    case "En-Route" -> invoices.add(new Invoice(invoice_id, account_id, order_date, delivery_date, address, Status.en_route, invoice_name, total_price, invoice_image));
-                    case "Not Delivered" -> invoices.add(new Invoice(invoice_id, account_id, order_date, delivery_date, address, Status.not_delivered, invoice_name, total_price, invoice_image));
-                    default -> invoices.add(new Invoice(invoice_id, account_id, order_date, delivery_date, address, Status.unknown, invoice_name, total_price, invoice_image));
+                    case "Delivered" -> invoices.add(new Invoice(invoice_id, account_id, order_date, delivery_date, address, Status.delivered, invoice_name, total_price, invoice_image, imageBlobName)); //db.insertInvoice(inNum, inAccount, inOrder, inDeliv, inAddress, "delivered", inName, );
+                    case "En-Route" -> invoices.add(new Invoice(invoice_id, account_id, order_date, delivery_date, address, Status.en_route, invoice_name, total_price, invoice_image, imageBlobName));
+                    case "Not Delivered" -> invoices.add(new Invoice(invoice_id, account_id, order_date, delivery_date, address, Status.not_delivered, invoice_name, total_price, invoice_image, imageBlobName));
+                    default -> invoices.add(new Invoice(invoice_id, account_id, order_date, delivery_date, address, Status.unknown, invoice_name, total_price, invoice_image, imageBlobName));
                 }
             }
 

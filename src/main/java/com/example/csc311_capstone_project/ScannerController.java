@@ -4,6 +4,7 @@ import com.example.csc311_capstone_project.db.ConnDbOps;
 import com.example.csc311_capstone_project.model.Invoice;
 import com.example.csc311_capstone_project.model.Item;
 import com.example.csc311_capstone_project.model.Status;
+import com.example.csc311_capstone_project.photos.photoOps;
 import com.example.csc311_capstone_project.service.CurrentUser;
 
 import javafx.collections.FXCollections;
@@ -17,7 +18,10 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
 import java.io.*;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -50,7 +54,7 @@ public class ScannerController {
      * Initialization for the Scanner controller page. Sets up the RegEx
      * and error messages for the page.
      * @since 4/26/25
-     * @author Jared Mitchell,Anthony Costa
+     * @author Jared Mitchell, Anthony Costa
      */
     @FXML
     protected void initialize() {
@@ -235,31 +239,38 @@ public class ScannerController {
         }
 
         if (canCreate) {
-            switch(inStat) {
+            String blobName = inNum + "_" + CurrentUser.getCurrentUsername() + "_" + CurrentUser.getCurrentEmail() + ".png";
+            Path imagePath = Paths.get(URI.create(currImage));  // ✅ Convert URI string safely
+            File imageFile = imagePath.toFile();
+
+            Status status;
+            String statusStr;
+
+            switch (inStat) {
                 case "Delivered" -> {
-                    Invoice invoice = new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, inName, inItems, invoiceImage.getImage(), Status.delivered);
-                    LandingController.addInvoices().add(invoice);
-                    db.insertInvoice(inNum, inOrder, inDeliv, "Delivered", inAccount, inAddress, currImage, inName, invoice.getPrice());
+                    status = Status.delivered;
+                    statusStr = "Delivered";
                 }
                 case "En-Route" -> {
-                    Invoice invoice = new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, inName, inItems, invoiceImage.getImage(), Status.en_route);
-                    LandingController.addInvoices().add(invoice);
-                    db.insertInvoice(inNum, inOrder, inDeliv, "En-Route", inAccount, inAddress, currImage, inName, invoice.getPrice());
+                    status = Status.en_route;
+                    statusStr = "En-Route";
                 }
                 case "Not Delivered" -> {
-                    Invoice invoice = new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, inName, inItems, invoiceImage.getImage(), Status.not_delivered);
-                    LandingController.addInvoices().add(invoice);
-                    db.insertInvoice(inNum, inOrder, inDeliv, "Not Delivered", inAccount, inAddress, currImage, inName, invoice.getPrice());
+                    status = Status.not_delivered;
+                    statusStr = "Not Delivered";
                 }
                 default -> {
-                    Invoice invoice = new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, inName, inItems, invoiceImage.getImage(), Status.unknown);
-                    LandingController.addInvoices().add(invoice);
-                    db.insertInvoice(inNum, inOrder, inDeliv, "Unknown", inAccount, inAddress, currImage, inName, invoice.getPrice());
+                    status = Status.unknown;
+                    statusStr = "Unknown";
                 }
-
             }
 
-            invoiceNumField.setText("");
+            Invoice invoice = new Invoice(inNum, inAccount, inOrder, inDeliv, inAddress, inName, inItems, invoiceImage.getImage(), status);
+            LandingController.addInvoices().add(invoice);
+            photoOps.uploadImage(imageFile, blobName);
+            db.insertInvoice(inNum, inOrder, inDeliv, statusStr, inAccount, inAddress, blobName, inName, invoice.getPrice());
+
+        invoiceNumField.setText("");
             invoiceNumField.setStyle("");
             invoiceNameField.setText("");
             invoiceNameField.setStyle("");

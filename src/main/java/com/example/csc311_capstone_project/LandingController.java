@@ -3,6 +3,7 @@ package com.example.csc311_capstone_project;
 import com.example.csc311_capstone_project.db.ConnDbOps;
 import com.example.csc311_capstone_project.model.Invoice;
 import com.example.csc311_capstone_project.model.Status;
+import com.example.csc311_capstone_project.photos.photoOps;
 import com.example.csc311_capstone_project.service.CurrentUser;
 
 import javafx.collections.FXCollections;
@@ -78,6 +79,7 @@ public class LandingController implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         db.connectToDatabase();
+        photoOps.connectToClient();
         db.setCurrentUser(CurrentUser.getCurrentUsername(), CurrentUser.getCurrentEmail());
         invoices = db.retrieveInvoices();
 
@@ -127,18 +129,34 @@ public class LandingController implements Initializable{
     @FXML
     protected void selectedInvoice(MouseEvent mouseEvent) {
         try {
-            Invoice invoice = null;
+            Invoice selected = invoiceTable.getSelectionModel().getSelectedItem();
 
-            for (Invoice value : invoices) {
-                if (Objects.equals(value.getInvoiceId(), invoiceTable.getSelectionModel().getSelectedItem().getInvoiceId())) {
-                    invoice = value;
-                }
+            if (selected != null) {
+                // Debug check
+                System.out.println("Selected blob name: " + selected.getBlobName());
+
+                // Construct the blob image URL
+                String imageUrl = photoOps.getBlobUrl(selected.getBlobName());  // MUST return a proper SAS URL
+                System.out.println("Generated image URL: " + imageUrl);
+
+                // Load the image from Azure Blob Storage
+                Image image = new Image(imageUrl, true);
+
+                // Add error handling
+                image.errorProperty().addListener((obs, wasError, isError) -> {
+                    if (isError) {
+                        System.out.println("Image load failed: " + image.getException());
+                    }
+                });
+
+                invoiceDisplay.setImage(image);
             }
-
-
-            invoiceDisplay.setImage(Objects.requireNonNull(invoice).getImage());
-        } catch(NullPointerException _) { }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+
 
     /**
      * Launches the item importer screen.
@@ -187,21 +205,21 @@ public class LandingController implements Initializable{
             case Status.delivered -> {}
             case Status.en_route -> {
                 int index = invoices.indexOf(invoice);
-                Invoice invoice2 = new Invoice(invoice.getInvoiceId(), invoice.getAccountId(), invoice.getOrderDate(), time, invoice.getDeliveryAddress(), Status.delivered, invoice.getInvoiceName(), invoice.getPrice(), invoice.getImage());
+                Invoice invoice2 = new Invoice(invoice.getInvoiceId(), invoice.getAccountId(), invoice.getOrderDate(), time, invoice.getDeliveryAddress(), Status.delivered, invoice.getInvoiceName(), invoice.getPrice(), invoice.getImage(), invoice.getBlobName());
                 invoices.remove(invoice);
                 invoices.add(index, invoice2);
                 db.editInvoice(invoice.getInvoiceId(), "Delivered", time);
                 invoiceTable.getSelectionModel().select(index);}
             case Status.not_delivered -> {
                 int index = invoices.indexOf(invoice);
-                Invoice invoice2 = new Invoice(invoice.getInvoiceId(), invoice.getAccountId(), invoice.getOrderDate(), invoice.getDeliveryDate(), invoice.getDeliveryAddress(), Status.en_route, invoice.getInvoiceName(), invoice.getPrice(), invoice.getImage());
+                Invoice invoice2 = new Invoice(invoice.getInvoiceId(), invoice.getAccountId(), invoice.getOrderDate(), invoice.getDeliveryDate(), invoice.getDeliveryAddress(), Status.en_route, invoice.getInvoiceName(), invoice.getPrice(), invoice.getImage(), invoice.getBlobName());
                 invoices.remove(invoice);
                 invoices.add(index, invoice2);
                 db.editInvoice(invoice.getInvoiceId(), "En-Route", invoice.getDeliveryDate());
                 invoiceTable.getSelectionModel().select(index);}
             case Status.unknown -> {invoice.setStatus(Status.not_delivered);
                 int index = invoices.indexOf(invoice);
-                Invoice invoice2 = new Invoice(invoice.getInvoiceId(), invoice.getAccountId(), invoice.getOrderDate(), invoice.getDeliveryDate(), invoice.getDeliveryAddress(), Status.not_delivered, invoice.getInvoiceName(), invoice.getPrice(), invoice.getImage());
+                Invoice invoice2 = new Invoice(invoice.getInvoiceId(), invoice.getAccountId(), invoice.getOrderDate(), invoice.getDeliveryDate(), invoice.getDeliveryAddress(), Status.not_delivered, invoice.getInvoiceName(), invoice.getPrice(), invoice.getImage(), invoice.getBlobName());
                 invoices.remove(invoice);
                 invoices.add(index, invoice2);
                 db.editInvoice(invoice.getInvoiceId(), "Not Delivered", invoice.getDeliveryDate());

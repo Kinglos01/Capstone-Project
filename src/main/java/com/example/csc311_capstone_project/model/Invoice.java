@@ -26,6 +26,7 @@ public class Invoice {
     private String price;
     private Item[] items;
     private Image image;
+    private  String blobName;
 
     /*
     /**
@@ -58,7 +59,7 @@ public class Invoice {
      * @since 3/21/2025
      * @author Aidan Rodriguez, Nathaniel Rivera
      */
-    public Invoice(String invoice_id, String account_id, String order_date, String delivery_date, String delivery_address, Status status, String name, String price, Image image) {
+    public Invoice(String invoice_id, String account_id, String order_date, String delivery_date, String delivery_address, Status status, String name, String price, Image image, String blobName) {
         this.invoice_id = invoice_id;
         this.account_id = account_id;
         this.order_date = order_date;
@@ -69,6 +70,7 @@ public class Invoice {
         this.name = name;
         this.price = price;
         this.image = image;
+        this.blobName = blobName;
     }
 
 
@@ -317,5 +319,9 @@ public class Invoice {
         int rounder = (int) (price * 100);
         price = (double) rounder / 100;
         return price;
+    }
+
+    public String getBlobName() {
+        return blobName;
     }
 }
